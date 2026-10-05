@@ -39,393 +39,391 @@
 </head>
 <body class="bg-brand-dark text-slate-100 font-sans antialiased overflow-x-hidden">
 
-  <!-- ПЛАШКА АДМИНИСТРАТОРА -->
-  <div id="admin-bar" class="hidden fixed bottom-6 right-6 z-50 bg-amber-500 text-brand-dark px-5 py-3 rounded-full font-black text-xs uppercase tracking-wider shadow-2xl flex items-center gap-3">
-    <span>⚙️ Панель организатора</span>
-    <button onclick="openAdminModal()" class="bg-brand-dark text-white px-3 py-1 rounded-full text-[11px] hover:bg-black transition">Открыть</button>
-    <button onclick="logoutAdmin()" class="text-brand-dark hover:opacity-75 font-bold text-base leading-none">✕</button>
-  </div>
-
-  <!-- ШАПКА САЙТА -->
-  <header class="fixed top-0 left-0 w-full z-40 bg-brand-dark/90 backdrop-blur-xl border-b border-brand-border">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-      
-      <!-- Логотип + Выбор активного марафона -->
-      <div class="flex items-center gap-4">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-neon to-brand-cyan flex items-center justify-center font-black text-brand-dark text-xl tracking-tighter shadow-lg shadow-brand-neon/20">
-          AM
+  <!-- ================================================================= -->
+  <!-- 1. ПУБЛИЧНЫЙ САЙТ (ВИДЕН ВСЕМ ПОСЕТИТЕЛЯМ, БЕЗ СЛЕДОВ АДМИНКИ)     -->
+  <!-- ================================================================= -->
+  <div id="public-view">
+    <!-- ШАПКА -->
+    <header class="fixed top-0 left-0 w-full z-40 bg-brand-dark/90 backdrop-blur-xl border-b border-brand-border">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+        
+        <!-- Логотип + Выбор забега -->
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-neon to-brand-cyan flex items-center justify-center font-black text-brand-dark text-xl tracking-tighter shadow-lg shadow-brand-neon/20">
+            AM
+          </div>
+          <div>
+            <span class="font-extrabold text-lg sm:text-xl tracking-wider uppercase bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-brand-neon">
+              AQTOBE RUN
+            </span>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Событие:</span>
+              <select id="event-selector-header" onchange="changeActiveEvent(this.value)" class="bg-brand-card text-brand-neon text-xs font-bold rounded-lg border border-brand-border px-2 py-0.5 outline-none cursor-pointer">
+                <!-- Заполняется JS -->
+              </select>
+            </div>
+          </div>
         </div>
-        <div>
-          <span class="font-extrabold text-lg sm:text-xl tracking-wider uppercase bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-brand-neon">
-            AQTOBE RUN
-          </span>
-          <div class="flex items-center gap-2">
-            <span class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Событие:</span>
-            <select id="event-selector-header" onchange="changeActiveEvent(this.value)" class="bg-brand-card text-brand-neon text-xs font-bold rounded-lg border border-brand-border px-2 py-0.5 outline-none cursor-pointer">
-              <!-- Заполняется JS -->
-            </select>
+
+        <!-- Навигация -->
+        <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold tracking-wide text-slate-300">
+          <a href="#events-list" class="hover:text-brand-neon transition">Все забеги</a>
+          <a href="#distances" class="hover:text-brand-neon transition">Дистанции</a>
+          <a href="#calculator" class="hover:text-brand-neon transition">Темп</a>
+          <a href="#route" class="hover:text-brand-neon transition">Маршрут</a>
+          <a href="#results" class="hover:text-brand-neon transition">Участники</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <button onclick="openRegistrationModal()" class="px-6 py-2.5 text-sm font-bold text-brand-dark bg-brand-neon rounded-full overflow-hidden transition-all duration-300 hover:bg-white hover:scale-105 neon-glow">
+            Регистрация
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ГЛАВНЫЙ ЭКРАН -->
+    <section class="relative min-h-screen pt-32 pb-20 flex items-center bg-grid overflow-hidden">
+      <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-brand-neon/20 to-brand-cyan/20 blur-[130px] rounded-full pointer-events-none"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center">
+        
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-card border border-brand-border text-brand-neon text-xs font-bold uppercase tracking-wider mb-6">
+          <span class="w-2 h-2 rounded-full bg-brand-neon animate-ping"></span>
+          <span id="hero-badge">Сезон 2026 • Город Актобе</span>
+        </div>
+
+        <h1 id="hero-title" class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight leading-none mb-6">
+          AQTOBE MARATHON 2026
+        </h1>
+
+        <p id="hero-desc" class="max-w-2xl mx-auto text-slate-400 text-lg font-normal leading-relaxed mb-10">
+          Главное спортивное событие города с сертифицированной трассой через проспект Абилкайыр хана и Триатлон парк.
+        </p>
+
+        <!-- ТАЙМЕР ОБРАТНОГО ОТСЧЕТА -->
+        <div class="max-w-3xl mx-auto mb-12 p-6 rounded-2xl bg-brand-card/70 border border-brand-border backdrop-blur-md">
+          <div class="text-xs uppercase tracking-widest text-slate-400 font-bold mb-4">До старта забега осталось:</div>
+          <div class="grid grid-cols-4 gap-3 sm:gap-6">
+            <div class="p-3 sm:p-4 rounded-xl bg-brand-dark/80 border border-brand-border">
+              <span id="t-days" class="block text-3xl sm:text-5xl font-black text-brand-neon">00</span>
+              <span class="text-[11px] sm:text-xs text-slate-400 font-semibold uppercase">Дней</span>
+            </div>
+            <div class="p-3 sm:p-4 rounded-xl bg-brand-dark/80 border border-brand-border">
+              <span id="t-hours" class="block text-3xl sm:text-5xl font-black text-white">00</span>
+              <span class="text-[11px] sm:text-xs text-slate-400 font-semibold uppercase">Часов</span>
+            </div>
+            <div class="p-3 sm:p-4 rounded-xl bg-brand-dark/80 border border-brand-border">
+              <span id="t-mins" class="block text-3xl sm:text-5xl font-black text-white">00</span>
+              <span class="text-[11px] sm:text-xs text-slate-400 font-semibold uppercase">Минут</span>
+            </div>
+            <div class="p-3 sm:p-4 rounded-xl bg-brand-dark/80 border border-brand-border">
+              <span id="t-secs" class="block text-3xl sm:text-5xl font-black text-brand-cyan">00</span>
+              <span class="text-[11px] sm:text-xs text-slate-400 font-semibold uppercase">Секунд</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <button onclick="openRegistrationModal()" class="px-8 py-4 rounded-full bg-brand-neon text-brand-dark font-extrabold text-base uppercase tracking-wider transition hover:bg-white hover:scale-105 neon-glow">
+            Зарегистрироваться
+          </button>
+          <a href="#distances" class="px-8 py-4 rounded-full bg-brand-card border border-brand-border text-white font-bold text-base hover:bg-slate-800 transition">
+            Дистанции и цены
+          </a>
+        </div>
+
+        <!-- Метрики -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-12 border-t border-brand-border text-left">
+          <div>
+            <div id="stat-venue" class="text-xl font-black text-white truncate">Триатлон Парк</div>
+            <div class="text-xs text-slate-400">Локация старта</div>
+          </div>
+          <div>
+            <div id="stat-distances-count" class="text-xl font-black text-brand-neon">3 Дистанции</div>
+            <div class="text-xs text-slate-400">Доступные слоты</div>
+          </div>
+          <div>
+            <div id="stat-slots-total" class="text-xl font-black text-brand-cyan">0 / 0</div>
+            <div class="text-xs text-slate-400">Занято мест</div>
+          </div>
+          <div>
+            <div id="stat-prizepool" class="text-xl font-black text-white">2 500 000 ₸</div>
+            <div class="text-xs text-slate-400">Призовой фонд</div>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Навигация -->
-      <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold tracking-wide text-slate-300">
-        <a href="#events-list" class="hover:text-brand-neon transition">Все забеги</a>
-        <a href="#distances" class="hover:text-brand-neon transition">Дистанции</a>
-        <a href="#calculator" class="hover:text-brand-neon transition">Темп</a>
-        <a href="#route" class="hover:text-brand-neon transition">Маршрут</a>
-        <a href="#results" class="hover:text-brand-neon transition">Участники</a>
-      </nav>
-
-      <div class="flex items-center gap-3">
-        <button onclick="promptAdminLogin()" class="px-3.5 py-2 text-xs font-bold rounded-lg border border-brand-border text-slate-400 hover:text-white hover:border-slate-500 transition flex items-center gap-1.5" title="Вход в админ-панель">
-          🔒 <span class="hidden sm:inline">Организатору</span>
-        </button>
-        <button onclick="openRegistrationModal()" class="px-5 py-2.5 text-sm font-bold text-brand-dark bg-brand-neon rounded-full overflow-hidden transition-all duration-300 hover:bg-white hover:scale-105 neon-glow">
-          Регистрация
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- ГЛАВНЫЙ ЭКРАН ТЕКУЩЕГО МАРАФОНА -->
-  <section class="relative min-h-screen pt-32 pb-20 flex items-center bg-grid overflow-hidden">
-    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-brand-neon/20 to-brand-cyan/20 blur-[130px] rounded-full pointer-events-none"></div>
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center">
-      
-      <!-- Статус и город забега -->
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-card border border-brand-border text-brand-neon text-xs font-bold uppercase tracking-wider mb-6">
-        <span class="w-2 h-2 rounded-full bg-brand-neon animate-ping"></span>
-        <span id="hero-badge">Сезон 2026 • Город Актобе</span>
-      </div>
-
-      <!-- Название активного марафона -->
-      <h1 id="hero-title" class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight leading-none mb-6">
-        AQTOBE MARATHON 2026
-      </h1>
-
-      <p id="hero-desc" class="max-w-2xl mx-auto text-slate-400 text-lg font-normal leading-relaxed mb-10">
-        Главное спортивное событие города с сертифицированной трассой через проспект Абилкайыр хана и Триатлон парк.
-      </p>
-
-      <!-- ТАЙМЕР ОБРАТНОГО ОТСЧЕТА ДО ТЕКУЩЕГО ЗАБЕГА -->
-      <div class="max-w-3xl mx-auto mb-12 p-6 rounded-2xl bg-brand-card/70 border border-brand-border backdrop-blur-md">
-        <div class="text-xs uppercase tracking-widest text-slate-400 font-bold mb-4">До старта забега осталось:</div>
-        <div class="grid grid-cols-4 gap-3 sm:gap-6">
-          <div class="p-3 sm:p-4 rounded-xl bg-brand-dark/80 border border-brand-border">
-            <span id="t-days" class="block text-3xl sm:text-5xl font-black text-brand-neon">00</span>
-            <span class="text-[11px] sm:text-xs text-slate-400 font-semibold uppercase">Дней</span>
-          </div>
-          <div class="p-3 sm:p-4 rounded-xl bg-brand-dark/80 border border-brand-border">
-            <span id="t-hours" class="block text-3xl sm:text-5xl font-black text-white">00</span>
-            <span class="text-[11px] sm:text-xs text-slate-400 font-semibold uppercase">Часов</span>
-          </div>
-          <div class="p-3 sm:p-4 rounded-xl bg-brand-dark/80 border border-brand-border">
-            <span id="t-mins" class="block text-3xl sm:text-5xl font-black text-white">00</span>
-            <span class="text-[11px] sm:text-xs text-slate-400 font-semibold uppercase">Минут</span>
-          </div>
-          <div class="p-3 sm:p-4 rounded-xl bg-brand-dark/80 border border-brand-border">
-            <span id="t-secs" class="block text-3xl sm:text-5xl font-black text-brand-cyan">00</span>
-            <span class="text-[11px] sm:text-xs text-slate-400 font-semibold uppercase">Секунд</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="flex flex-wrap items-center justify-center gap-4">
-        <button onclick="openRegistrationModal()" class="px-8 py-4 rounded-full bg-brand-neon text-brand-dark font-extrabold text-base uppercase tracking-wider transition hover:bg-white hover:scale-105 neon-glow">
-          Зарегистрироваться
-        </button>
-        <a href="#distances" class="px-8 py-4 rounded-full bg-brand-card border border-brand-border text-white font-bold text-base hover:bg-slate-800 transition">
-          Дистанции и цены
-        </a>
-      </div>
-
-      <!-- Метрики активного марафона -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-12 border-t border-brand-border text-left">
-        <div>
-          <div id="stat-venue" class="text-xl font-black text-white truncate">Триатлон Парк</div>
-          <div class="text-xs text-slate-400">Локация старта</div>
-        </div>
-        <div>
-          <div id="stat-distances-count" class="text-xl font-black text-brand-neon">3 Дистанции</div>
-          <div class="text-xs text-slate-400">Доступные слоты</div>
-        </div>
-        <div>
-          <div id="stat-slots-total" class="text-xl font-black text-brand-cyan">0 / 0</div>
-          <div class="text-xs text-slate-400">Занято мест</div>
-        </div>
-        <div>
-          <div id="stat-prizepool" class="text-xl font-black text-white">2 500 000 ₸</div>
-          <div class="text-xs text-slate-400">Призовой фонд</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- СЕКЦИЯ: КАЛЕНДАРЬ ВСЕХ СОБЫТИЙ / МАРАФОНОВ -->
-  <section id="events-list" class="py-20 bg-brand-dark border-t border-brand-border">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-        <div>
+    <!-- ВСЕ ЗАБЕГИ СЕРИИ -->
+    <section id="events-list" class="py-20 bg-brand-dark border-t border-brand-border">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-12">
           <span class="text-xs uppercase font-extrabold tracking-widest text-brand-cyan">Календарь серии</span>
           <h2 class="text-3xl sm:text-4xl font-black uppercase text-white mt-1">Все марафоны и забеги</h2>
         </div>
-        <button onclick="promptAdminLogin()" class="text-xs text-slate-400 hover:text-brand-neon underline self-start md:self-end">
-          + Добавить новый марафон через админку
-        </button>
+        <div id="events-cards-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
       </div>
+    </section>
 
-      <div id="events-cards-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Генерируется из списка мероприятий -->
-      </div>
-    </div>
-  </section>
-
-  <!-- СЕКЦИЯ ДИСТАНЦИЙ ТЕКУЩЕГО МАРАФОНА -->
-  <section id="distances" class="py-24 bg-brand-surface relative border-t border-brand-border">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <h2 id="distances-event-tag" class="text-xs uppercase font-extrabold tracking-widest text-brand-neon mb-3">AQTOBE MARATHON</h2>
-        <p class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white">Дистанции и стоимость слотов</p>
-        <p class="text-slate-400 mt-4">Номера участникам присваиваются автоматически в пределах установленного диапазона слотов.</p>
-      </div>
-
-      <div id="distances-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Карточки дистанций -->
-      </div>
-    </div>
-  </section>
-
-  <!-- КАЛЬКУЛЯТОР ТЕМПА -->
-  <section id="calculator" class="py-20 bg-brand-dark border-t border-brand-border">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="p-8 sm:p-12 rounded-3xl bg-brand-card border border-brand-border">
-        <div class="text-center max-w-xl mx-auto mb-10">
-          <span class="text-xs uppercase font-extrabold tracking-widest text-brand-cyan">Подготовка</span>
-          <h2 class="text-3xl font-black uppercase text-white mt-1">Калькулятор темпа</h2>
-          <p class="text-slate-400 text-sm mt-2">Рассчитайте необходимый темп для успешного преодоления дистанции.</p>
+    <!-- ДИСТАНЦИИ -->
+    <section id="distances" class="py-24 bg-brand-surface relative border-t border-brand-border">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 id="distances-event-tag" class="text-xs uppercase font-extrabold tracking-widest text-brand-neon mb-3">AQTOBE MARATHON</h2>
+          <p class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white">Дистанции и стоимость слотов</p>
+          <p class="text-slate-400 mt-4">Номера участникам присваиваются автоматически в пределах установленного диапазона слотов.</p>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div>
-            <label class="block text-xs uppercase font-bold text-slate-400 mb-2">Дистанция</label>
-            <select id="calc-dist" onchange="calculatePace()" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3.5 font-bold focus:border-brand-neon outline-none">
-            </select>
-          </div>
-          <div>
-            <label class="block text-xs uppercase font-bold text-slate-400 mb-2">Часы</label>
-            <input type="number" id="calc-hours" value="1" min="0" max="6" oninput="calculatePace()" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3.5 font-bold focus:border-brand-neon outline-none">
-          </div>
-          <div>
-            <label class="block text-xs uppercase font-bold text-slate-400 mb-2">Минуты</label>
-            <input type="number" id="calc-mins" value="45" min="0" max="59" oninput="calculatePace()" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3.5 font-bold focus:border-brand-neon outline-none">
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 p-6 rounded-2xl bg-brand-dark border border-brand-border text-center">
-          <div>
-            <div class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Необходимый темп</div>
-            <div id="res-pace" class="text-3xl font-black text-brand-neon">4:59 мин/км</div>
-          </div>
-          <div>
-            <div class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Средняя скорость</div>
-            <div id="res-speed" class="text-3xl font-black text-brand-cyan">12.0 км/ч</div>
-          </div>
-          <div>
-            <div class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Отсечка 5 км</div>
-            <div id="res-split5" class="text-3xl font-black text-white">24:55</div>
-          </div>
-        </div>
+        <div id="distances-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- СЕКЦИЯ МАРШРУТА -->
-  <section id="route" class="py-24 bg-brand-surface border-t border-brand-border">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        <div class="lg:col-span-5">
-          <span class="text-xs uppercase font-extrabold tracking-widest text-brand-neon">Безопасность и трасса</span>
-          <h2 id="route-title" class="text-3xl sm:text-4xl font-black uppercase text-white mt-2 mb-6">Городской скоростной круг</h2>
-          <p class="text-slate-400 leading-relaxed mb-6">
-            Трасса полностью освобождается от автотранспорта. Обеспечивается медицинское сопровождение, станции освежения и гидратации каждые 3-4 километра.
-          </p>
-          <div class="space-y-4 text-sm">
-            <div class="p-4 rounded-xl bg-brand-card border border-brand-border flex items-center gap-3">
-              <span class="text-2xl">💧</span>
-              <div>
-                <strong class="text-white block">Пункты питания и воды</strong>
-                <span class="text-xs text-slate-400">Изотоник, бананы, чистая вода и губки</span>
-              </div>
+    <!-- КАЛЬКУЛЯТОР ТЕМПА -->
+    <section id="calculator" class="py-20 bg-brand-dark border-t border-brand-border">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="p-8 sm:p-12 rounded-3xl bg-brand-card border border-brand-border">
+          <div class="text-center max-w-xl mx-auto mb-10">
+            <span class="text-xs uppercase font-extrabold tracking-widest text-brand-cyan">Подготовка</span>
+            <h2 class="text-3xl font-black uppercase text-white mt-1">Калькулятор темпа</h2>
+            <p class="text-slate-400 text-sm mt-2">Рассчитайте необходимый темп для успешного преодоления дистанции.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div>
+              <label class="block text-xs uppercase font-bold text-slate-400 mb-2">Дистанция</label>
+              <select id="calc-dist" onchange="calculatePace()" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3.5 font-bold focus:border-brand-neon outline-none"></select>
             </div>
-            <div class="p-4 rounded-xl bg-brand-card border border-brand-border flex items-center gap-3">
-              <span class="text-2xl">⏱</span>
-              <div>
-                <strong class="text-white block">Электронный тайминг</strong>
-                <span class="text-xs text-slate-400">Контрольные ковры фиксации сплитов на дистанции</span>
+            <div>
+              <label class="block text-xs uppercase font-bold text-slate-400 mb-2">Часы</label>
+              <input type="number" id="calc-hours" value="1" min="0" max="6" oninput="calculatePace()" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3.5 font-bold focus:border-brand-neon outline-none">
+            </div>
+            <div>
+              <label class="block text-xs uppercase font-bold text-slate-400 mb-2">Минуты</label>
+              <input type="number" id="calc-mins" value="45" min="0" max="59" oninput="calculatePace()" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3.5 font-bold focus:border-brand-neon outline-none">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 p-6 rounded-2xl bg-brand-dark border border-brand-border text-center">
+            <div>
+              <div class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Необходимый темп</div>
+              <div id="res-pace" class="text-3xl font-black text-brand-neon">4:59 мин/км</div>
+            </div>
+            <div>
+              <div class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Средняя скорость</div>
+              <div id="res-speed" class="text-3xl font-black text-brand-cyan">12.0 км/ч</div>
+            </div>
+            <div>
+              <div class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Отсечка 5 км</div>
+              <div id="res-split5" class="text-3xl font-black text-white">24:55</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- МАРШРУТ -->
+    <section id="route" class="py-24 bg-brand-surface border-t border-brand-border">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div class="lg:col-span-5">
+            <span class="text-xs uppercase font-extrabold tracking-widest text-brand-neon">Безопасность и трасса</span>
+            <h2 id="route-title" class="text-3xl sm:text-4xl font-black uppercase text-white mt-2 mb-6">Городской скоростной круг</h2>
+            <p class="text-slate-400 leading-relaxed mb-6">
+              Трасса полностью освобождается от автотранспорта. Обеспечивается медицинское сопровождение, станции освежения и гидратации каждые 3-4 километра.
+            </p>
+            <div class="space-y-4 text-sm">
+              <div class="p-4 rounded-xl bg-brand-card border border-brand-border flex items-center gap-3">
+                <span class="text-2xl">💧</span>
+                <div>
+                  <strong class="text-white block">Пункты питания и воды</strong>
+                  <span class="text-xs text-slate-400">Изотоник, бананы, чистая вода и губки</span>
+                </div>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-card border border-brand-border flex items-center gap-3">
+                <span class="text-2xl">⏱</span>
+                <div>
+                  <strong class="text-white block">Электронный тайминг</strong>
+                  <span class="text-xs text-slate-400">Контрольные ковры фиксации сплитов на дистанции</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="lg:col-span-7">
-          <div class="rounded-3xl bg-brand-card border border-brand-border p-6 shadow-2xl relative overflow-hidden">
-            <div class="flex justify-between items-center mb-4">
-              <div class="font-bold text-sm text-white">Интерактивная схема трассы</div>
-              <span class="text-xs px-2.5 py-1 rounded bg-brand-dark text-brand-neon font-bold">Сертифицировано</span>
+          <div class="lg:col-span-7">
+            <div class="rounded-3xl bg-brand-card border border-brand-border p-6 shadow-2xl relative overflow-hidden">
+              <div class="flex justify-between items-center mb-4">
+                <div class="font-bold text-sm text-white">Интерактивная схема трассы</div>
+                <span class="text-xs px-2.5 py-1 rounded bg-brand-dark text-brand-neon font-bold">Сертифицировано</span>
+              </div>
+              <div class="w-full h-80 bg-brand-dark rounded-2xl border border-brand-border relative flex items-center justify-center overflow-hidden">
+                <svg viewBox="0 0 700 350" class="w-full h-full p-4">
+                  <line x1="50" y1="50" x2="650" y2="50" stroke="#1E293B" stroke-dasharray="4" />
+                  <line x1="50" y1="150" x2="650" y2="150" stroke="#1E293B" stroke-dasharray="4" />
+                  <line x1="50" y1="250" x2="650" y2="250" stroke="#1E293B" stroke-dasharray="4" />
+                  <path d="M 80,240 C 180,80 250,80 320,180 S 480,260 550,110 L 620,110" fill="none" stroke="#00F59B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+                  <circle cx="80" cy="240" r="10" fill="#00F59B" class="animate-pulse" />
+                  <text x="70" y="275" fill="#FFFFFF" font-size="12" font-weight="bold">СТАРТ</text>
+                  <circle cx="280" cy="130" r="6" fill="#00D2FF" />
+                  <text x="260" y="115" fill="#00D2FF" font-size="10" font-weight="bold">💧 7 км</text>
+                  <circle cx="440" cy="225" r="6" fill="#00D2FF" />
+                  <text x="420" y="250" fill="#00D2FF" font-size="10" font-weight="bold">💧 14 км</text>
+                  <circle cx="620" cy="110" r="10" fill="#FFFFFF" />
+                  <text x="600" y="90" fill="#00F59B" font-size="12" font-weight="bold">ФИНИШ</text>
+                </svg>
+              </div>
             </div>
-            <div class="w-full h-80 bg-brand-dark rounded-2xl border border-brand-border relative flex items-center justify-center overflow-hidden">
-              <svg viewBox="0 0 700 350" class="w-full h-full p-4">
-                <line x1="50" y1="50" x2="650" y2="50" stroke="#1E293B" stroke-dasharray="4" />
-                <line x1="50" y1="150" x2="650" y2="150" stroke="#1E293B" stroke-dasharray="4" />
-                <line x1="50" y1="250" x2="650" y2="250" stroke="#1E293B" stroke-dasharray="4" />
-                <path d="M 80,240 C 180,80 250,80 320,180 S 480,260 550,110 L 620,110" fill="none" stroke="#00F59B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
-                <circle cx="80" cy="240" r="10" fill="#00F59B" class="animate-pulse" />
-                <text x="70" y="275" fill="#FFFFFF" font-size="12" font-weight="bold">СТАРТ</text>
-                <circle cx="280" cy="130" r="6" fill="#00D2FF" />
-                <text x="260" y="115" fill="#00D2FF" font-size="10" font-weight="bold">💧 7 км</text>
-                <circle cx="440" cy="225" r="6" fill="#00D2FF" />
-                <text x="420" y="250" fill="#00D2FF" font-size="10" font-weight="bold">💧 14 км</text>
-                <circle cx="620" cy="110" r="10" fill="#FFFFFF" />
-                <text x="600" y="90" fill="#00F59B" font-size="12" font-weight="bold">ФИНИШ</text>
-              </svg>
-            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- СПИСОК УЧАСТНИКОВ ТЕКУЩЕГО МАРАФОНА -->
-  <section id="results" class="py-24 bg-brand-dark border-t border-brand-border">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
-        <div>
-          <span class="text-xs uppercase font-extrabold tracking-widest text-brand-cyan">Список бегунов</span>
-          <h2 class="text-3xl font-black uppercase text-white mt-1">Зарегистрированные атлеты</h2>
-          <p class="text-slate-400 text-xs mt-1">Отображаются участники выбранного мероприятия с присвоенными BIB-номерами.</p>
-        </div>
-        <div class="w-full md:w-80">
-          <input type="text" id="runner-search" oninput="filterRunners()" placeholder="Поиск по имени или номеру BIB..." class="w-full bg-brand-surface border border-brand-border text-white text-sm rounded-xl px-4 py-3 outline-none focus:border-brand-neon transition">
-        </div>
-      </div>
-
-      <div class="rounded-2xl bg-brand-card border border-brand-border overflow-hidden">
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-sm">
-            <thead class="bg-brand-surface text-xs uppercase tracking-wider text-slate-400 border-b border-brand-border font-bold">
-              <tr>
-                <th class="py-4 px-6">BIB Номер</th>
-                <th class="py-4 px-6">Участник</th>
-                <th class="py-4 px-6">Дистанция</th>
-                <th class="py-4 px-6">Город</th>
-                <th class="py-4 px-6">Статус</th>
-              </tr>
-            </thead>
-            <tbody id="runners-table-body" class="divide-y divide-brand-border text-slate-300">
-              <!-- Заполняется JS -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- МОДАЛЬНОЕ ОКНО РЕГИСТРАЦИИ АТЛЕТА -->
-  <div id="reg-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4">
-    <div class="bg-brand-card border border-brand-border rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl">
-      <button onclick="closeRegistrationModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-2xl font-bold">✕</button>
-      
-      <div class="mb-6">
-        <span id="reg-event-badge" class="text-xs font-bold text-brand-neon uppercase tracking-wider">AQTOBE MARATHON</span>
-        <h3 class="text-2xl font-black text-white uppercase mt-1">Регистрация на забег</h3>
-      </div>
-
-      <form onsubmit="handleUserRegistration(event)" class="space-y-4">
-        <div>
-          <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Выберите дистанцию</label>
-          <select id="modal-distance-select" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm font-bold focus:border-brand-neon outline-none">
-            <!-- Заполняется JS -->
-          </select>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
+    <!-- СПИСОК УЧАСТНИКОВ -->
+    <section id="results" class="py-24 bg-brand-dark border-t border-brand-border">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
           <div>
-            <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Имя</label>
-            <input required id="reg-name" type="text" placeholder="Алихан" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-neon outline-none">
+            <span class="text-xs uppercase font-extrabold tracking-widest text-brand-cyan">Список бегунов</span>
+            <h2 class="text-3xl font-black uppercase text-white mt-1">Зарегистрированные атлеты</h2>
+            <p class="text-slate-400 text-xs mt-1">Участники с присвоенными стартовыми BIB-номерами.</p>
           </div>
-          <div>
-            <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Фамилия</label>
-            <input required id="reg-surname" type="text" placeholder="Омаров" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-neon outline-none">
+          <div class="w-full md:w-80">
+            <input type="text" id="runner-search" oninput="filterRunners()" placeholder="Поиск по имени или номеру BIB..." class="w-full bg-brand-surface border border-brand-border text-white text-sm rounded-xl px-4 py-3 outline-none focus:border-brand-neon transition">
           </div>
         </div>
 
-        <div>
-          <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Город</label>
-          <input required id="reg-city" type="text" value="Актобе" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-neon outline-none">
+        <div class="rounded-2xl bg-brand-card border border-brand-border overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+              <thead class="bg-brand-surface text-xs uppercase tracking-wider text-slate-400 border-b border-brand-border font-bold">
+                <tr>
+                  <th class="py-4 px-6">BIB Номер</th>
+                  <th class="py-4 px-6">Участник</th>
+                  <th class="py-4 px-6">Дистанция</th>
+                  <th class="py-4 px-6">Город</th>
+                  <th class="py-4 px-6">Статус</th>
+                </tr>
+              </thead>
+              <tbody id="runners-table-body" class="divide-y divide-brand-border text-slate-300"></tbody>
+            </table>
+          </div>
         </div>
+      </div>
+    </section>
 
+    <!-- ЧИСТЫЙ ПУБЛИЧНЫЙ ФУТЕР БЕЗ СЛЕДОВ АДМИНКИ -->
+    <footer class="bg-brand-surface border-t border-brand-border py-12 text-slate-400 text-xs">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-brand-neon text-brand-dark flex items-center justify-center font-black">AM</div>
+          <span class="text-white font-extrabold text-sm uppercase">AQTOBE RUN SERIES</span>
+        </div>
         <div>
-          <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Email для подтверждения и номера</label>
-          <input required id="reg-email" type="email" placeholder="runner@example.kz" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-neon outline-none">
+          © 2026 AQTOBE RUNNING PLATFORM. Официальный портал соревнований.
         </div>
-
-        <div class="pt-2">
-          <button id="reg-submit-btn" type="submit" class="w-full py-4 rounded-xl bg-brand-neon text-brand-dark font-extrabold uppercase tracking-wider hover:bg-white transition neon-glow">
-            Получить номер и зарегистрироваться
-          </button>
+        <div class="flex gap-6 text-slate-400">
+          <a href="#events-list" class="hover:text-white transition">Забеги</a>
+          <a href="#distances" class="hover:text-white transition">Дистанции</a>
+          <a href="#route" class="hover:text-white transition">Безопасность</a>
         </div>
-      </form>
-    </div>
+      </div>
+    </footer>
   </div>
 
-  <!-- ======================================================== -->
-  <!--             ПОЛНОЦЕННАЯ АДМИН ПАНЕЛЬ                     -->
-  <!-- ======================================================== -->
-  <div id="admin-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden items-center justify-center p-4">
-    <div class="bg-brand-card border border-brand-border rounded-3xl max-w-6xl w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden">
-      
-      <!-- Шапка панели -->
-      <div class="px-6 py-4 bg-brand-dark border-b border-brand-border flex items-center justify-between">
+  <!-- ================================================================= -->
+  <!-- 2. ЗАКРЫТАЯ АДМИН-ПАНЕЛЬ (ОТКРЫВАЕТСЯ ТОЛЬКО ПО ССЫЛКЕ #admin)    -->
+  <!-- ================================================================= -->
+  <div id="admin-view" class="hidden min-h-screen bg-brand-dark text-slate-100 flex flex-col">
+    
+    <!-- 2.1 ЭКРАН АВТОРИЗАЦИИ С ЛОГИНОМ И ПАРОЛЕМ -->
+    <div id="admin-login-screen" class="min-h-screen flex items-center justify-center p-4 bg-grid">
+      <div class="bg-brand-card border border-brand-border rounded-3xl max-w-md w-full p-8 shadow-2xl relative">
+        <div class="text-center mb-8">
+          <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-brand-neon to-brand-cyan flex items-center justify-center text-brand-dark text-2xl font-black shadow-lg">
+            🔒
+          </div>
+          <h2 class="text-2xl font-black text-white uppercase tracking-wider">Панель организатора</h2>
+          <p class="text-xs text-slate-400 mt-1">Доступ только для уполномоченных администраторов</p>
+        </div>
+
+        <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+          <div id="login-error-msg" class="hidden p-3 rounded-xl bg-red-500/20 border border-red-500/30 text-red-400 text-xs text-center font-bold">
+            Неверный логин или пароль!
+          </div>
+
+          <div>
+            <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Имя пользователя (Логин)</label>
+            <input required id="admin-input-login" type="text" placeholder="admin" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-neon outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Пароль доступа</label>
+            <input required id="admin-input-pass" type="password" placeholder="••••••••" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-neon outline-none">
+          </div>
+
+          <div class="pt-2">
+            <button type="submit" class="w-full py-3.5 rounded-xl bg-brand-neon text-brand-dark font-extrabold uppercase tracking-wider hover:bg-white transition neon-glow">
+              Войти в систему
+            </button>
+          </div>
+
+          <div class="text-center pt-2">
+            <button type="button" onclick="exitAdminToPublic()" class="text-xs text-slate-400 hover:text-white transition">
+              ← Вернуться на публичный сайт
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- 2.2 ПОЛНОЦЕННЫЙ КАБИНЕТ УПРАВЛЕНИЯ (ДОСТУПЕН ПОСЛЕ АВТОРИЗАЦИИ) -->
+    <div id="admin-dashboard-screen" class="hidden flex-1 flex flex-col">
+      <!-- Шапка админки -->
+      <header class="bg-brand-surface border-b border-brand-border px-6 py-4 flex flex-wrap items-center justify-between gap-4">
         <div class="flex items-center gap-3">
           <span class="text-2xl">⚙️</span>
           <div>
-            <h2 class="text-lg font-black text-white uppercase tracking-wider">Панель управления серией забегов</h2>
-            <span class="text-xs text-brand-neon font-semibold">Управление событиями, дистанциями, слотами и номерами</span>
+            <h1 class="text-lg font-black text-white uppercase tracking-wider">Панель управления серией забегов</h1>
+            <span class="text-xs text-brand-neon font-semibold">AQTOBE MARATHON • Система организатора</span>
           </div>
         </div>
-        <div class="flex items-center gap-3">
-          <button onclick="exportCSV()" class="px-3.5 py-2 rounded-xl bg-slate-800 text-xs font-bold text-white hover:bg-slate-700 transition flex items-center gap-1.5">
-            📥 Экспорт в Excel (.CSV)
-          </button>
-          <button onclick="closeAdminModal()" class="text-slate-400 hover:text-white text-2xl font-bold px-2">✕</button>
-        </div>
-      </div>
 
-      <!-- Вкладки управления -->
-      <div class="flex border-b border-brand-border bg-brand-surface px-6 gap-6 text-sm font-bold overflow-x-auto">
+        <div class="flex items-center gap-4">
+          <button onclick="exportCSV()" class="px-3.5 py-2 rounded-xl bg-slate-800 text-xs font-bold text-white hover:bg-slate-700 transition flex items-center gap-1.5">
+            📥 Экспорт в CSV (Excel)
+          </button>
+          <button onclick="exitAdminToPublic()" class="px-3.5 py-2 rounded-xl bg-slate-800 text-xs font-bold text-slate-300 hover:text-white transition">
+            На сайт
+          </button>
+          <button onclick="handleAdminLogout()" class="px-3.5 py-2 rounded-xl bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-bold hover:bg-red-500 hover:text-white transition">
+            Выйти из системы
+          </button>
+        </div>
+      </header>
+
+      <!-- Навигация по разделам -->
+      <div class="flex border-b border-brand-border bg-brand-dark px-6 gap-6 text-sm font-bold overflow-x-auto">
         <button onclick="switchAdminTab('tab-marathons')" id="btn-tab-marathons" class="py-3.5 text-brand-neon border-b-2 border-brand-neon">1. Все марафоны</button>
         <button onclick="switchAdminTab('tab-distances')" id="btn-tab-distances" class="py-3.5 text-slate-400 hover:text-white">2. Дистанции, цены и нумерация (BIB)</button>
         <button onclick="switchAdminTab('tab-runners')" id="btn-tab-runners" class="py-3.5 text-slate-400 hover:text-white">3. База участников</button>
+        <button onclick="switchAdminTab('tab-settings')" id="btn-tab-settings" class="py-3.5 text-slate-400 hover:text-white">4. Настройки и пароли</button>
       </div>
 
-      <!-- Содержимое панели -->
-      <div class="p-6 overflow-y-auto flex-1 space-y-6">
+      <!-- Контейнер вкладок -->
+      <main class="flex-1 p-6 max-w-7xl w-full mx-auto space-y-6">
         
-        <!-- ВКЛАДКА 1: УПРАВЛЕНИЕ МАРАФОНАМИ -->
+        <!-- ВКЛАДКА 1: МАРАФОНЫ -->
         <div id="tab-marathons" class="space-y-6">
           <div class="flex justify-between items-center">
             <div>
               <h3 class="text-base font-bold text-white uppercase">Список марафонов и забегов</h3>
-              <p class="text-xs text-slate-400">Создавайте новые соревнования или переключайте активное мероприятие сайта.</p>
+              <p class="text-xs text-slate-400">Создавайте новые соревнования или переключайте активное мероприятие.</p>
             </div>
             <button onclick="openMarathonForm()" class="px-4 py-2.5 rounded-xl bg-brand-neon text-brand-dark text-xs font-black uppercase hover:bg-white transition">
               + Добавить новый марафон
             </button>
           </div>
 
-          <div class="rounded-xl border border-brand-border overflow-hidden">
+          <div class="rounded-xl border border-brand-border overflow-hidden bg-brand-card">
             <table class="w-full text-left text-xs">
               <thead class="bg-brand-dark text-slate-400 uppercase font-bold border-b border-brand-border">
                 <tr>
@@ -437,46 +435,44 @@
                   <th class="p-3 text-right">Действия</th>
                 </tr>
               </thead>
-              <tbody id="admin-marathons-table" class="divide-y divide-brand-border text-slate-300">
-                <!-- Заполняется JS -->
-              </tbody>
+              <tbody id="admin-marathons-table" class="divide-y divide-brand-border text-slate-300"></tbody>
             </table>
           </div>
 
           <!-- Форма создания/редактирования марафона -->
-          <div id="marathon-edit-form" class="hidden p-6 rounded-2xl bg-brand-dark border border-brand-neon/40 space-y-4">
+          <div id="marathon-edit-form" class="hidden p-6 rounded-2xl bg-brand-card border border-brand-neon/40 space-y-4">
             <h4 id="marathon-form-title" class="font-bold text-sm text-white uppercase">Новое мероприятие</h4>
             <input type="hidden" id="edit-marathon-id">
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Название марафона</label>
-                <input id="edit-m-title" type="text" placeholder="AQTOBE AUTUMN MARATHON 2026" class="w-full bg-brand-surface border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
+                <input id="edit-m-title" type="text" placeholder="AQTOBE AUTUMN MARATHON 2026" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
               </div>
               <div>
                 <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Подзаголовок</label>
-                <input id="edit-m-subtitle" type="text" placeholder="Осенний городской забег" class="w-full bg-brand-surface border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
+                <input id="edit-m-subtitle" type="text" placeholder="Осенний городской забег" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
               </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Дата и время старта</label>
-                <input id="edit-m-date" type="datetime-local" class="w-full bg-brand-surface border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
+                <input id="edit-m-date" type="datetime-local" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
               </div>
               <div>
                 <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Город</label>
-                <input id="edit-m-city" type="text" value="Актобе" class="w-full bg-brand-surface border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
+                <input id="edit-m-city" type="text" value="Актобе" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
               </div>
               <div>
                 <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Призовой фонд</label>
-                <input id="edit-m-prizepool" type="text" placeholder="3 000 000 ₸" class="w-full bg-brand-surface border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
+                <input id="edit-m-prizepool" type="text" placeholder="3 000 000 ₸" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
               </div>
             </div>
 
             <div>
               <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Локация / Маршрут</label>
-              <input id="edit-m-venue" type="text" placeholder="Триатлон Парк — пр. Абилкайыр хана" class="w-full bg-brand-surface border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
+              <input id="edit-m-venue" type="text" placeholder="Триатлон Парк — пр. Абилкайыр хана" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
             </div>
 
             <div class="flex gap-3 pt-2">
@@ -490,11 +486,11 @@
           </div>
         </div>
 
-        <!-- ВКЛАДКА 2: ДИСТАНЦИИ, ЦЕНЫ И НАСТРОЙКА НОМЕРОВ (BIB) -->
+        <!-- ВКЛАДКА 2: ДИСТАНЦИИ, ЦЕНЫ И BIB -->
         <div id="tab-distances" class="hidden space-y-6">
-          <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3 bg-brand-surface p-4 rounded-xl border border-brand-border">
+          <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3 bg-brand-card p-4 rounded-xl border border-brand-border">
             <div>
-              <span class="text-xs text-slate-400">Редактирование дистанций для события:</span>
+              <span class="text-xs text-slate-400">Настройка дистанций для активного события:</span>
               <div id="admin-current-event-name" class="font-black text-white text-base">AQTOBE MARATHON</div>
             </div>
             <button onclick="openDistanceForm()" class="px-4 py-2 rounded-xl bg-brand-neon text-brand-dark text-xs font-black uppercase hover:bg-white transition self-start sm:self-auto">
@@ -502,7 +498,7 @@
             </button>
           </div>
 
-          <div class="rounded-xl border border-brand-border overflow-hidden">
+          <div class="rounded-xl border border-brand-border overflow-hidden bg-brand-card">
             <table class="w-full text-left text-xs">
               <thead class="bg-brand-dark text-slate-400 uppercase font-bold border-b border-brand-border">
                 <tr>
@@ -510,54 +506,49 @@
                   <th class="p-3">Цена (₸)</th>
                   <th class="p-3">Лимит слотов</th>
                   <th class="p-3">Диапазон номеров (BIB)</th>
-                  <th class="p-3">Занято номеров</th>
+                  <th class="p-3">Занято</th>
                   <th class="p-3 text-right">Действия</th>
                 </tr>
               </thead>
-              <tbody id="admin-distances-table" class="divide-y divide-brand-border text-slate-300">
-                <!-- Заполняется JS -->
-              </tbody>
+              <tbody id="admin-distances-table" class="divide-y divide-brand-border text-slate-300"></tbody>
             </table>
           </div>
 
-          <!-- ФОРМА СОЗДАНИЯ / ИЗМЕНЕНИЯ ДИСТАНЦИИ -->
-          <div id="distance-edit-form" class="hidden p-6 rounded-2xl bg-brand-dark border-2 border-brand-neon/50 space-y-4">
+          <!-- ФОРМА РЕДАКТИРОВАНИЯ ДИСТАНЦИИ -->
+          <div id="distance-edit-form" class="hidden p-6 rounded-2xl bg-brand-card border-2 border-brand-neon/50 space-y-4">
             <h4 id="dist-form-title" class="font-bold text-sm text-white uppercase">Настройка дистанции и нумерации</h4>
             <input type="hidden" id="edit-dist-idx">
 
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Название дистанции</label>
-                <input id="edit-dist-name" type="text" placeholder="21.1 КМ" class="w-full bg-brand-surface border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
+                <input id="edit-dist-name" type="text" placeholder="21.1 КМ" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
               </div>
               <div>
                 <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Бейдж / Статус</label>
-                <input id="edit-dist-badge" type="text" placeholder="Титульный забег" class="w-full bg-brand-surface border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
+                <input id="edit-dist-badge" type="text" placeholder="Титульный забег" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
               </div>
               <div>
                 <label class="block text-[11px] font-bold text-brand-neon uppercase mb-1">Цена регистрации (₸)</label>
-                <input id="edit-dist-price" type="number" placeholder="9000" class="w-full bg-brand-surface border border-brand-neon text-white font-bold rounded-lg p-2.5 text-xs outline-none">
+                <input id="edit-dist-price" type="number" placeholder="9000" class="w-full bg-brand-dark border border-brand-neon text-white font-bold rounded-lg p-2.5 text-xs outline-none">
               </div>
             </div>
 
-            <!-- БЛОК СЛОТОВ И НУМЕРАЦИИ BIB -->
+            <!-- БЛОК СЛОТОВ И BIB -->
             <div class="p-4 rounded-xl bg-brand-surface border border-brand-border space-y-3">
               <span class="text-xs font-bold text-brand-cyan uppercase">Управление слотами и нумерацией BIB</span>
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Количество слотов (лимит)</label>
+                  <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Количество слотов</label>
                   <input id="edit-dist-slots" type="number" placeholder="500" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2 text-xs outline-none focus:border-brand-neon">
-                  <span class="text-[10px] text-slate-500">Сколько максимум бегунов</span>
                 </div>
                 <div>
-                  <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Стартовый BIB номер</label>
+                  <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Стартовый номер BIB</label>
                   <input id="edit-dist-bib-start" type="number" placeholder="2001" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2 text-xs outline-none focus:border-brand-neon">
-                  <span class="text-[10px] text-slate-500">С какого номера начинать (напр. 2001)</span>
                 </div>
                 <div>
                   <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Конечный номер диапазона</label>
                   <input id="edit-dist-bib-end" type="text" disabled readonly class="w-full bg-brand-dark/50 border border-brand-border text-slate-400 rounded-lg p-2 text-xs outline-none">
-                  <span class="text-[10px] text-slate-500">Рассчитывается автоматически</span>
                 </div>
               </div>
             </div>
@@ -565,17 +556,17 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Лимит времени</label>
-                <input id="edit-dist-timelimit" type="text" placeholder="3 часа 00 мин" class="w-full bg-brand-surface border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
+                <input id="edit-dist-timelimit" type="text" placeholder="3 часа 00 мин" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
               </div>
               <div>
                 <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Возрастной допуск</label>
-                <input id="edit-dist-agelimit" type="text" placeholder="от 18 лет" class="w-full bg-brand-surface border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
+                <input id="edit-dist-agelimit" type="text" placeholder="от 18 лет" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
               </div>
             </div>
 
             <div>
               <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Описание дистанции</label>
-              <input id="edit-dist-desc" type="text" placeholder="Описание для страницы" class="w-full bg-brand-surface border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
+              <input id="edit-dist-desc" type="text" placeholder="Описание для страницы" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
             </div>
 
             <div class="flex gap-3 pt-2">
@@ -601,7 +592,7 @@
             </button>
           </div>
 
-          <div class="rounded-xl border border-brand-border overflow-hidden">
+          <div class="rounded-xl border border-brand-border overflow-hidden bg-brand-card">
             <table class="w-full text-left text-xs">
               <thead class="bg-brand-dark text-slate-400 uppercase font-bold border-b border-brand-border">
                 <tr>
@@ -613,41 +604,100 @@
                   <th class="p-3 text-right">Действие</th>
                 </tr>
               </thead>
-              <tbody id="admin-runners-table" class="divide-y divide-brand-border text-slate-300">
-                <!-- Заполняется JS -->
-              </tbody>
+              <tbody id="admin-runners-table" class="divide-y divide-brand-border text-slate-300"></tbody>
             </table>
           </div>
         </div>
 
-      </div>
+        <!-- ВКЛАДКА 4: НАСТРОЙКИ ДОСТУПА И СБРОС -->
+        <div id="tab-settings" class="hidden space-y-6 max-w-2xl">
+          <div class="p-6 rounded-2xl bg-brand-card border border-brand-border space-y-4">
+            <h3 class="text-base font-bold text-white uppercase">Смена учетных данных администратора</h3>
+            
+            <div>
+              <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Новый логин</label>
+              <input id="set-new-login" type="text" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-xs outline-none focus:border-brand-neon">
+            </div>
+
+            <div>
+              <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Новый пароль</label>
+              <input id="set-new-pass" type="password" placeholder="Введите новый пароль" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-xs outline-none focus:border-brand-neon">
+            </div>
+
+            <button onclick="saveAdminCredentials()" class="px-5 py-2.5 rounded-xl bg-brand-neon text-brand-dark font-black text-xs uppercase hover:bg-white transition">
+              Сохранить новые логин и пароль
+            </button>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-brand-card border border-red-500/30 space-y-3">
+            <h3 class="text-base font-bold text-red-400 uppercase">Опасная зона</h3>
+            <p class="text-xs text-slate-400">Сброс всех добавленных соревнований, участников и возврат к стандартным демонстрационным данным.</p>
+            <button onclick="resetPlatformData()" class="px-5 py-2.5 rounded-xl bg-red-500/20 text-red-400 border border-red-500/30 font-bold text-xs uppercase hover:bg-red-500 hover:text-white transition">
+              Сбросить всю базу данных
+            </button>
+          </div>
+        </div>
+
+      </main>
     </div>
   </div>
 
-  <!-- ФУТЕР -->
-  <footer class="bg-brand-surface border-t border-brand-border py-12 text-slate-400 text-xs">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-      <div class="flex items-center gap-3">
-        <div class="w-8 h-8 rounded-lg bg-brand-neon text-brand-dark flex items-center justify-center font-black">AM</div>
-        <span class="text-white font-extrabold text-sm uppercase">AQTOBE RUN SERIES</span>
+  <!-- МОДАЛЬНОЕ ОКНО РЕГИСТРАЦИИ ПОЛЬЗОВАТЕЛЯ -->
+  <div id="reg-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="bg-brand-card border border-brand-border rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl">
+      <button onclick="closeRegistrationModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-2xl font-bold">✕</button>
+      
+      <div class="mb-6">
+        <span id="reg-event-badge" class="text-xs font-bold text-brand-neon uppercase tracking-wider">AQTOBE MARATHON</span>
+        <h3 class="text-2xl font-black text-white uppercase mt-1">Регистрация на забег</h3>
       </div>
-      <div>
-        © 2026 Мульти-марафонная платформа города Актобе.
-      </div>
-      <div class="flex gap-4">
-        <button onclick="promptAdminLogin()" class="text-slate-500 hover:text-brand-neon transition">Вход для организаторов</button>
-        <button onclick="resetPlatformData()" class="text-slate-600 hover:text-red-400 transition">Сброс данных</button>
-      </div>
+
+      <form onsubmit="handleUserRegistration(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Выберите дистанцию</label>
+          <select id="modal-distance-select" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm font-bold focus:border-brand-neon outline-none">
+          </select>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Имя</label>
+            <input required id="reg-name" type="text" placeholder="Алихан" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-neon outline-none">
+          </div>
+          <div>
+            <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Фамилия</label>
+            <input required id="reg-surname" type="text" placeholder="Омаров" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-neon outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Город</label>
+          <input required id="reg-city" type="text" value="Актобе" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-neon outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Email</label>
+          <input required id="reg-email" type="email" placeholder="runner@example.kz" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-neon outline-none">
+        </div>
+
+        <div class="pt-2">
+          <button id="reg-submit-btn" type="submit" class="w-full py-4 rounded-xl bg-brand-neon text-brand-dark font-extrabold uppercase tracking-wider hover:bg-white transition neon-glow">
+            Получить номер и зарегистрироваться
+          </button>
+        </div>
+      </form>
     </div>
-  </footer>
+  </div>
 
   <!-- ======================================================== -->
-  <!--             ЯДРО: МУЛЬТИ-МАРАФОННОСТЬ И BIB ЛОГИКА       -->
+  <!--             ЯДРО ПЛАТФОРМЫ, РОУТИНГ И АВТОРИЗАЦИЯ        -->
   <!-- ======================================================== -->
   <script>
-    const ADMIN_PASSWORD = "admin";
+    // Учетные данные админа (сохраняются в localStorage)
+    const DEFAULT_ADMIN = { login: "admin", pass: "aqtobe2026" };
+    let adminAuth = JSON.parse(localStorage.getItem('AM_ADMIN_CREDENTIALS')) || DEFAULT_ADMIN;
 
-    // Базовые демо-данные (два разных марафона в серии)
+    // Базовые события
     const INITIAL_EVENTS = [
       {
         id: "evt_aqtobe_spring_2026",
@@ -744,13 +794,13 @@
       }
     ];
 
-    // Загрузка состояния из LocalStorage
     let events = JSON.parse(localStorage.getItem('AM_MULTI_EVENTS')) || INITIAL_EVENTS;
     let activeEventId = localStorage.getItem('AM_ACTIVE_EVENT_ID') || events[0].id;
 
     function saveState() {
       localStorage.setItem('AM_MULTI_EVENTS', JSON.stringify(events));
       localStorage.setItem('AM_ACTIVE_EVENT_ID', activeEventId);
+      localStorage.setItem('AM_ADMIN_CREDENTIALS', JSON.stringify(adminAuth));
     }
 
     function getActiveEvent() {
@@ -762,11 +812,84 @@
       return ev;
     }
 
-    // Переключение активного марафона
     function changeActiveEvent(eventId) {
       activeEventId = eventId;
       saveState();
       renderAll();
+    }
+
+    // ========================================================
+    //               РОУТИНГ: ПУБЛИЧНЫЙ САЙТ / АДМИНКА
+    // ========================================================
+    function handleRouting() {
+      const hash = window.location.hash;
+      const isAdminRoute = hash === '#admin' || window.location.search.includes('admin');
+
+      const publicView = document.getElementById('public-view');
+      const adminView = document.getElementById('admin-view');
+      const loginScreen = document.getElementById('admin-login-screen');
+      const dashboardScreen = document.getElementById('admin-dashboard-screen');
+
+      if (isAdminRoute) {
+        publicView.classList.add('hidden');
+        adminView.classList.remove('hidden');
+
+        // Проверяем сессию авторизации
+        if (sessionStorage.getItem('AM_ADMIN_SESSION') === 'active') {
+          loginScreen.classList.add('hidden');
+          dashboardScreen.classList.remove('hidden');
+          renderAdminAll();
+        } else {
+          dashboardScreen.classList.add('hidden');
+          loginScreen.classList.remove('hidden');
+          document.getElementById('login-error-msg').classList.add('hidden');
+        }
+      } else {
+        adminView.classList.add('hidden');
+        publicView.classList.remove('hidden');
+        renderAll();
+      }
+    }
+
+    window.addEventListener('hashchange', handleRouting);
+    window.addEventListener('DOMContentLoaded', handleRouting);
+
+    // Авторизация в админке
+    function handleAdminLogin(e) {
+      e.preventDefault();
+      const login = document.getElementById('admin-input-login').value.trim();
+      const pass = document.getElementById('admin-input-pass').value.trim();
+
+      if (login === adminAuth.login && pass === adminAuth.pass) {
+        sessionStorage.setItem('AM_ADMIN_SESSION', 'active');
+        document.getElementById('login-error-msg').classList.add('hidden');
+        handleRouting();
+      } else {
+        document.getElementById('login-error-msg').classList.remove('hidden');
+      }
+    }
+
+    function handleAdminLogout() {
+      sessionStorage.removeItem('AM_ADMIN_SESSION');
+      window.location.hash = '';
+    }
+
+    function exitAdminToPublic() {
+      window.location.hash = '';
+    }
+
+    function saveAdminCredentials() {
+      const newLogin = document.getElementById('set-new-login').value.trim();
+      const newPass = document.getElementById('set-new-pass').value.trim();
+
+      if (!newLogin || !newPass) {
+        alert("Логин и пароль не могут быть пустыми!");
+        return;
+      }
+      adminAuth.login = newLogin;
+      adminAuth.pass = newPass;
+      saveState();
+      alert("Учетные данные администратора успешно обновлены!");
     }
 
     // ========================================================
@@ -782,21 +905,17 @@
 
     function renderHeaderAndHero() {
       const ev = getActiveEvent();
-
-      // Селектор в шапке
       const sel = document.getElementById('event-selector-header');
       sel.innerHTML = '';
       events.forEach(e => {
         sel.innerHTML += `<option value="${e.id}" ${e.id === ev.id ? 'selected' : ''}>${e.title}</option>`;
       });
 
-      // Главный экран
       document.getElementById('hero-title').innerText = ev.title;
       document.getElementById('hero-desc').innerText = ev.subtitle + '. ' + ev.venue + '.';
       document.getElementById('hero-badge').innerText = `${ev.city} • ${new Date(ev.date).toLocaleDateString('ru-RU')} • ${ev.status}`;
       document.getElementById('distances-event-tag').innerText = ev.title;
 
-      // Метрики
       document.getElementById('stat-venue').innerText = ev.venue.split('—')[0].trim();
       document.getElementById('stat-distances-count').innerText = `${ev.distances.length} Дистанции`;
       
@@ -807,7 +926,6 @@
       document.getElementById('route-title').innerText = `${ev.title} — ${ev.venue}`;
     }
 
-    // Карточки календаря забегов
     function renderEventsCardsGrid() {
       const container = document.getElementById('events-cards-grid');
       container.innerHTML = '';
@@ -842,7 +960,6 @@
       });
     }
 
-    // Отрисовка дистанций активного марафона
     function renderDistancesView() {
       const ev = getActiveEvent();
       const container = document.getElementById('distances-grid');
@@ -859,8 +976,6 @@
         const percent = Math.min(100, Math.round((distRunnersCount / d.totalSlots) * 100));
         const isSoldOut = leftSlots <= 0;
         const isNeon = idx === 0;
-
-        // Расчет диапазона номеров для отображения
         const bibEnd = parseInt(d.bibStart) + parseInt(d.totalSlots) - 1;
 
         container.innerHTML += `
@@ -911,7 +1026,6 @@
       calculatePace();
     }
 
-    // Отрисовка бегунов активного марафона
     function renderRunnersView(list = null) {
       const ev = getActiveEvent();
       const runnersList = list || ev.runners;
@@ -947,9 +1061,6 @@
       renderRunnersView(filtered);
     }
 
-    // ========================================================
-    //    ЛОГИКА РАСПРЕДЕЛЕНИЯ НОМЕРОВ (BIB) ПРИ РЕГИСТРАЦИИ
-    // ========================================================
     function handleUserRegistration(e) {
       e.preventDefault();
       const ev = getActiveEvent();
@@ -962,14 +1073,12 @@
       const dist = ev.distances.find(d => d.name === distName);
       if (!dist) { alert("Выберите дистанцию!"); return; }
 
-      // 1. Проверяем слоты для дистанции
       const existingRunnersOnDist = ev.runners.filter(r => r.distance === dist.name);
       if (existingRunnersOnDist.length >= parseInt(dist.totalSlots)) {
-        alert("К сожалению, все слоты на эту дистанцию уже заняты!");
+        alert("Все слоты на эту дистанцию уже заняты!");
         return;
       }
 
-      // 2. Вычисляем следующий свободный BIB номер в заданном админом диапазоне
       const startBib = parseInt(dist.bibStart) || 1001;
       const totalSlots = parseInt(dist.totalSlots) || 100;
       const assignedBibs = new Set(existingRunnersOnDist.map(r => parseInt(r.bib)));
@@ -987,7 +1096,6 @@
         return;
       }
 
-      // 3. Создаем запись участника
       const newRunner = {
         bib: allocatedBib.toString(),
         name: `${surname} ${name}`,
@@ -1002,12 +1110,11 @@
       saveState();
       renderAll();
 
-      alert(`Поздравляем, ${name}!\nВы успешно зарегистрированы на «${ev.title}»!\nДистанция: ${dist.name}\nВаш официальный стартовый номер BIB: #${allocatedBib}`);
+      alert(`Поздравляем, ${name}!\nВы успешно зарегистрированы на «${ev.title}»!\nДистанция: ${dist.name}\nВаш стартовый номер BIB: #${allocatedBib}`);
       closeRegistrationModal();
       e.target.reset();
     }
 
-    // Калькулятор темпа
     function calculatePace() {
       const dist = parseFloat(document.getElementById('calc-dist').value) || 10;
       const h = parseInt(document.getElementById('calc-hours').value) || 0;
@@ -1030,7 +1137,6 @@
       document.getElementById('res-split5').innerText = `${s5Min}:${s5Sec < 10 ? '0' : ''}${s5Sec}`;
     }
 
-    // Таймер обратного отсчета
     function updateCountdown() {
       const ev = getActiveEvent();
       const target = new Date(ev.date).getTime();
@@ -1057,7 +1163,6 @@
     }
     setInterval(updateCountdown, 1000);
 
-    // Модальное окно регистрации
     function openRegistrationModal() {
       const ev = getActiveEvent();
       document.getElementById('reg-event-badge').innerText = ev.title;
@@ -1075,49 +1180,23 @@
     }
 
     // ========================================================
-    //             ФУНКЦИИ АДМИНИСТРАТОРА (CRUD)
+    //             ФУНКЦИИ ВНУТРИ АДМИН-ПАНЕЛИ
     // ========================================================
-    function promptAdminLogin() {
-      if (sessionStorage.getItem('AM_ADMIN_LOGGED') === 'true') {
-        openAdminModal();
-        return;
-      }
-      const pass = prompt("Введите пароль организатора (по умолчанию: admin):");
-      if (pass === ADMIN_PASSWORD) {
-        sessionStorage.setItem('AM_ADMIN_LOGGED', 'true');
-        document.getElementById('admin-bar').classList.remove('hidden');
-        openAdminModal();
-      } else if (pass !== null) {
-        alert("Неверный пароль!");
-      }
-    }
-
-    function logoutAdmin() {
-      sessionStorage.removeItem('AM_ADMIN_LOGGED');
-      document.getElementById('admin-bar').classList.add('hidden');
-      closeAdminModal();
-    }
-
-    function openAdminModal() {
+    function renderAdminAll() {
       renderAdminMarathons();
       renderAdminDistances();
       renderAdminRunners();
-      document.getElementById('admin-modal').classList.remove('hidden');
-      document.getElementById('admin-modal').classList.add('flex');
-    }
-
-    function closeAdminModal() {
-      document.getElementById('admin-modal').classList.remove('flex');
-      document.getElementById('admin-modal').classList.add('hidden');
+      document.getElementById('set-new-login').value = adminAuth.login;
+      document.getElementById('set-new-pass').value = adminAuth.pass;
     }
 
     function switchAdminTab(tabId) {
-      ['tab-marathons', 'tab-distances', 'tab-runners'].forEach(id => {
+      ['tab-marathons', 'tab-distances', 'tab-runners', 'tab-settings'].forEach(id => {
         document.getElementById(id).classList.add('hidden');
       });
       document.getElementById(tabId).classList.remove('hidden');
 
-      ['btn-tab-marathons', 'btn-tab-distances', 'btn-tab-runners'].forEach(btnId => {
+      ['btn-tab-marathons', 'btn-tab-distances', 'btn-tab-runners', 'btn-tab-settings'].forEach(btnId => {
         document.getElementById(btnId).className = "py-3.5 text-slate-400 hover:text-white";
       });
       document.getElementById('btn-' + tabId).className = "py-3.5 text-brand-neon border-b-2 border-brand-neon";
@@ -1127,7 +1206,7 @@
       if (tabId === 'tab-marathons') renderAdminMarathons();
     }
 
-    // 1. Управление марафонами в админке
+    // 1. Управление марафонами
     function renderAdminMarathons() {
       const tbody = document.getElementById('admin-marathons-table');
       tbody.innerHTML = '';
@@ -1271,7 +1350,7 @@
       }
     }
 
-    // 2. Управление дистанциями (ИСПРАВЛЕНА КНОПКА «ИЗМЕНИТЬ»)
+    // 2. Управление дистанциями (кнопка «Изменить» работает на 100%)
     function renderAdminDistances() {
       const ev = getActiveEvent();
       document.getElementById('admin-current-event-name').innerText = ev.title;
@@ -1301,7 +1380,6 @@
       });
     }
 
-    // Главное исправление: функция editDistance теперь определена и работает идеально!
     function editDistance(idx) {
       openDistanceForm(idx);
     }
@@ -1383,7 +1461,6 @@
 
       if (idx >= 0) {
         const oldName = ev.distances[idx].name;
-        // Обновляем название дистанции у уже зарегистрированных бегунов
         if (oldName !== name) {
           ev.runners.forEach(r => { if (r.distance === oldName) r.distance = name; });
         }
@@ -1410,7 +1487,7 @@
       }
     }
 
-    // 3. Управление участниками в админке
+    // 3. Управление участниками
     function renderAdminRunners() {
       const ev = getActiveEvent();
       document.getElementById('admin-runners-count').innerText = `Марафон: ${ev.title} (Всего бегунов: ${ev.runners.length})`;
@@ -1444,7 +1521,6 @@
       }
     }
 
-    // Экспорт в CSV для Excel
     function exportCSV() {
       const ev = getActiveEvent();
       let csv = "\uFEFFBIB;ФИО;Дистанция;Город;Email;Статус\n";
@@ -1458,23 +1534,19 @@
       link.click();
     }
 
-    // Сброс к базовым данным
     function resetPlatformData() {
       if (confirm("ВНИМАНИЕ: Сбросить все марафоны, дистанции и базу участников к заводским настройкам?")) {
         localStorage.removeItem('AM_MULTI_EVENTS');
         localStorage.removeItem('AM_ACTIVE_EVENT_ID');
+        localStorage.removeItem('AM_ADMIN_CREDENTIALS');
         events = INITIAL_EVENTS;
         activeEventId = events[0].id;
+        adminAuth = DEFAULT_ADMIN;
         saveState();
         renderAll();
+        renderAdminAll();
         alert("Данные успешно сброшены к начальным!");
       }
-    }
-
-    // Старт
-    renderAll();
-    if (sessionStorage.getItem('AM_ADMIN_LOGGED') === 'true') {
-      document.getElementById('admin-bar').classList.remove('hidden');
     }
   </script>
 </body>
