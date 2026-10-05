@@ -382,7 +382,7 @@
             <p class="text-slate-400 text-xs mt-1">Участники с присвоенными стартовыми BIB-номерами.</p>
           </div>
           <div class="w-full md:w-80">
-            <input type="text" id="runner-search" oninput="filterRunners()" placeholder="Поиск по имени или номеру BIB..." class="w-full bg-brand-surface border border-brand-border text-white text-sm rounded-xl px-4 py-3 outline-none focus:border-brand-orange transition">
+            <input type="text" id="runner-search" oninput="filterRunners()" placeholder="Поиск по имени, номеру BIB или ИИН..." class="w-full bg-brand-surface border border-brand-border text-white text-sm rounded-xl px-4 py-3 outline-none focus:border-brand-orange transition">
           </div>
         </div>
 
@@ -428,7 +428,7 @@
 
   <!-- МОДАЛЬНОЕ ОКНО РЕГИСТРАЦИИ ПОЛЬЗОВАТЕЛЯ -->
   <div id="reg-modal" style="display: none;" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md items-center justify-center p-4">
-    <div class="bg-brand-card border border-brand-border rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl">
+    <div class="bg-brand-card border border-brand-border rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl max-h-[95vh] overflow-y-auto">
       <button type="button" onclick="closeRegistrationModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-2xl font-bold">✕</button>
       
       <div class="mb-6">
@@ -454,14 +454,36 @@
           </div>
         </div>
 
+        <!-- ИИН (12 цифр, уникальный на забег) -->
         <div>
-          <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Город</label>
-          <input required id="reg-city" type="text" value="Актобе" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-orange outline-none">
+          <div class="flex justify-between items-center mb-1">
+            <label class="block text-xs uppercase font-bold text-brand-orange">ИИН участника (12 цифр)</label>
+            <span class="text-[10px] text-slate-400">1 участие на человека</span>
+          </div>
+          <input required id="reg-iin" type="text" maxlength="12" pattern="\d{12}" placeholder="Например: 950815350123" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-orange outline-none font-mono tracking-wider">
         </div>
 
-        <div>
-          <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Email</label>
-          <input required id="reg-email" type="email" placeholder="runner@example.kz" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-orange outline-none">
+        <!-- Дата рождения и Телефон -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Дата рождения</label>
+            <input required id="reg-birthdate" type="date" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-orange outline-none">
+          </div>
+          <div>
+            <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Номер телефона</label>
+            <input required id="reg-phone" type="tel" placeholder="+7 (777) 000-00-00" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-orange outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Город</label>
+            <input required id="reg-city" type="text" value="Актобе" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-orange outline-none">
+          </div>
+          <div>
+            <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Email</label>
+            <input required id="reg-email" type="email" placeholder="runner@example.kz" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-orange outline-none">
+          </div>
         </div>
 
         <div class="pt-2">
@@ -717,7 +739,7 @@
           </div>
         </div>
 
-        <!-- ВКЛАДКА 3: БАЗА УЧАСТНИКОВ -->
+        <!-- ВКЛАДКА 3: БАЗА УЧАСТНИКОВ (С ИИН, ТЕЛЕФОНОМ И ДАТОЙ РОЖДЕНИЯ) -->
         <div id="tab-runners" style="display: none;" class="space-y-4">
           <div class="flex justify-between items-center">
             <div>
@@ -725,7 +747,7 @@
               <span id="admin-runners-count" class="text-xs text-brand-orange font-semibold">Всего участников: 0</span>
             </div>
             <button type="button" onclick="exportCSV()" class="px-3.5 py-1.5 rounded-lg bg-slate-800 text-xs font-bold text-slate-300 hover:text-white transition">
-              📥 Скачать CSV
+              📥 Скачать CSV (с ИИН и телефонами)
             </button>
           </div>
 
@@ -735,9 +757,11 @@
                 <tr>
                   <th class="p-3">Номер (BIB)</th>
                   <th class="p-3">Атлет</th>
+                  <th class="p-3">ИИН</th>
+                  <th class="p-3">Дата рожд.</th>
                   <th class="p-3">Дистанция</th>
+                  <th class="p-3">Телефон</th>
                   <th class="p-3">Город</th>
-                  <th class="p-3">Email</th>
                   <th class="p-3 text-right">Действие</th>
                 </tr>
               </thead>
@@ -803,10 +827,10 @@
           }
         ],
         runners: [
-          { bib: "2001", name: "Бауыржан Касымов", distance: "21.1 КМ", city: "Актобе", email: "kasymov@test.kz", status: "Подтвержден" },
-          { bib: "2002", name: "Дмитрий Иванов", distance: "21.1 КМ", city: "Алматы", email: "ivanov@test.kz", status: "Подтвержден" },
-          { bib: "1001", name: "Алия Смагулова", distance: "10.0 КМ", city: "Актобе", email: "smagulova@test.kz", status: "Подтвержден" },
-          { bib: "3001", name: "Нурбек Маратов", distance: "3.0 КМ", city: "Актобе", email: "maratov@test.kz", status: "Подтвержден" }
+          { bib: "2001", name: "Бауыржан Касымов", iin: "900512300123", birthdate: "1990-05-12", phone: "+7 (701) 111-22-33", distance: "21.1 КМ", city: "Актобе", email: "kasymov@test.kz", status: "Подтвержден" },
+          { bib: "2002", name: "Дмитрий Иванов", iin: "880924300456", birthdate: "1988-09-24", phone: "+7 (702) 222-33-44", distance: "21.1 КМ", city: "Алматы", email: "ivanov@test.kz", status: "Подтвержден" },
+          { bib: "1001", name: "Алия Смагулова", iin: "951103400789", birthdate: "1995-11-03", phone: "+7 (705) 333-44-55", distance: "10.0 КМ", city: "Актобе", email: "smagulova@test.kz", status: "Подтвержден" },
+          { bib: "3001", name: "Нурбек Маратов", iin: "020315500987", birthdate: "2002-03-15", phone: "+7 (777) 444-55-66", distance: "3.0 КМ", city: "Актобе", email: "maratov@test.kz", status: "Подтвержден" }
         ]
       },
       {
@@ -833,14 +857,14 @@
           }
         ],
         runners: [
-          { bib: "4001", name: "Аслан Сергазин", distance: "10 КМ Кросс", city: "Актобе", email: "aslan@test.kz", status: "Подтвержден" }
+          { bib: "4001", name: "Аслан Сергазин", iin: "930419350214", birthdate: "1993-04-19", phone: "+7 (708) 555-66-77", distance: "10 КМ Кросс", city: "Актобе", email: "aslan@test.kz", status: "Подтвержден" }
         ]
       }
     ];
 
     let events = INITIAL_EVENTS;
     try {
-      const stored = localStorage.getItem('AM_EVENTS_DATA_V2');
+      const stored = localStorage.getItem('AM_EVENTS_DATA_V3');
       if (stored) {
         const parsed = JSON.parse(stored);
         if (Array.isArray(parsed) && parsed.length > 0) {
@@ -848,15 +872,15 @@
         }
       }
     } catch (err) {
-      console.warn("Storage reset to initial");
+      console.warn("Storage fallback");
     }
 
     let activeEventId = events[0].id;
 
     function saveState() {
       try {
-        localStorage.setItem('AM_EVENTS_DATA_V2', JSON.stringify(events));
-        localStorage.setItem('AM_ACTIVE_EVENT_ID_V2', activeEventId);
+        localStorage.setItem('AM_EVENTS_DATA_V3', JSON.stringify(events));
+        localStorage.setItem('AM_ACTIVE_EVENT_ID_V3', activeEventId);
       } catch (err) {
         console.error(err);
       }
@@ -1051,7 +1075,9 @@
       const ev = getActiveEvent();
       const q = (document.getElementById('runner-search')?.value || '').toLowerCase();
       const filtered = (ev.runners || []).filter(function(r) {
-        return (r.name || '').toLowerCase().includes(q) || String(r.bib).includes(q);
+        return (r.name || '').toLowerCase().includes(q) || 
+               String(r.bib).includes(q) || 
+               String(r.iin || '').includes(q);
       });
       renderRunners(filtered);
     }
@@ -1089,15 +1115,47 @@
       if (modal) modal.style.display = 'none';
     }
 
+    // РЕГИСТРАЦИЯ С ПРОВЕРКОЙ ИИН (12 ЦИФР И УНИКАЛЬНОСТЬ НА ЗАБЕГ)
     function handleUserRegistration(e) {
       e.preventDefault();
       const ev = getActiveEvent();
       const distName = document.getElementById('modal-distance-select').value;
       const name = document.getElementById('reg-name').value.trim();
       const surname = document.getElementById('reg-surname').value.trim();
+      const iin = document.getElementById('reg-iin').value.trim();
+      const birthdate = document.getElementById('reg-birthdate').value;
+      const phone = document.getElementById('reg-phone').value.trim();
       const city = document.getElementById('reg-city').value.trim();
       const email = document.getElementById('reg-email').value.trim();
 
+      // 1. Валидация ИИН: строго 12 цифр
+      if (!/^\d{12}$/.test(iin)) {
+        alert("Ошибка в поле ИИН!\nИИН должен состоять ровно из 12 цифр без букв и пробелов.");
+        document.getElementById('reg-iin').focus();
+        return;
+      }
+
+      // 2. Проверка уникальности ИИН для этого марафона
+      const existingIinRunner = (ev.runners || []).find(function(r) {
+        return r.iin === iin;
+      });
+      if (existingIinRunner) {
+        alert("Внимание! Участник с ИИН " + iin + " уже зарегистрирован на забег «" + ev.title + "»!\nЕго стартовый номер: BIB #" + existingIinRunner.bib + " (" + existingIinRunner.name + ").\nОдин участник по своему ИИН может получить только один слот на данное мероприятие!");
+        document.getElementById('reg-iin').focus();
+        return;
+      }
+
+      // 3. Проверка даты рождения и телефона
+      if (!birthdate) {
+        alert("Пожалуйста, укажите дату рождения!");
+        return;
+      }
+      if (!phone) {
+        alert("Пожалуйста, укажите контактный номер телефона!");
+        return;
+      }
+
+      // 4. Проверка свободных слотов на дистанции
       const dist = (ev.distances || []).find(function(d) { return d.name === distName; });
       if (!dist) { alert("Выберите дистанцию!"); return; }
 
@@ -1107,6 +1165,7 @@
         return;
       }
 
+      // 5. Выделение номера BIB
       const startBib = parseInt(dist.bibStart) || 1001;
       const totalSlots = parseInt(dist.totalSlots) || 100;
       const assignedBibs = new Set(existingRunners.map(function(r) { return parseInt(r.bib); }));
@@ -1127,6 +1186,9 @@
       const newRunner = {
         bib: allocatedBib.toString(),
         name: surname + ' ' + name,
+        iin: iin,
+        birthdate: birthdate,
+        phone: phone,
         distance: dist.name,
         city: city || 'Актобе',
         email: email,
@@ -1139,7 +1201,7 @@
       saveState();
       renderAll();
 
-      alert("Поздравляем, " + name + "!\nВы успешно зарегистрированы на «" + ev.title + "»!\nДистанция: " + dist.name + "\nВаш официальный стартовый номер BIB: #" + allocatedBib);
+      alert("Поздравляем, " + name + "!\nВы успешно зарегистрированы на «" + ev.title + "»!\nДистанция: " + dist.name + "\nИИН: " + iin + "\nВаш официальный стартовый номер BIB: #" + allocatedBib);
       closeRegistrationModal();
       e.target.reset();
     }
@@ -1214,7 +1276,7 @@
         publicView.style.display = 'none';
         adminView.style.display = 'flex';
         
-        if (sessionStorage.getItem('AM_ADMIN_LOGGED_V2') === 'true') {
+        if (sessionStorage.getItem('AM_ADMIN_LOGGED_V3') === 'true') {
           document.getElementById('admin-login-screen').style.display = 'none';
           document.getElementById('admin-dashboard-screen').style.display = 'flex';
           renderAdminAll();
@@ -1245,7 +1307,7 @@
       const pass = document.getElementById('admin-input-pass').value.trim();
 
       if (login === 'admin' && pass === 'aqtobe2026') {
-        sessionStorage.setItem('AM_ADMIN_LOGGED_V2', 'true');
+        sessionStorage.setItem('AM_ADMIN_LOGGED_V3', 'true');
         document.getElementById('login-error-msg').style.display = 'none';
         checkRoute();
       } else {
@@ -1254,7 +1316,7 @@
     }
 
     function handleAdminLogout() {
-      sessionStorage.removeItem('AM_ADMIN_LOGGED_V2');
+      sessionStorage.removeItem('AM_ADMIN_LOGGED_V3');
       exitAdminToPublic();
     }
 
@@ -1562,6 +1624,7 @@
       }
     }
 
+    // 3. База участников в админке с отображением ИИН, даты рождения и телефона
     function renderAdminRunners() {
       const ev = getActiveEvent();
       document.getElementById('admin-runners-count').innerText = "Марафон: " + ev.title + " (Всего бегунов: " + (ev.runners || []).length + ")";
@@ -1574,9 +1637,11 @@
           <tr class="hover:bg-brand-surface/60">
             <td class="p-3 font-mono font-bold text-brand-orange text-sm">#${r.bib}</td>
             <td class="p-3 font-bold text-white">${r.name}</td>
+            <td class="p-3 font-mono text-slate-300">${r.iin || '—'}</td>
+            <td class="p-3 text-slate-300">${r.birthdate || '—'}</td>
             <td class="p-3">${r.distance}</td>
+            <td class="p-3 font-mono text-slate-300">${r.phone || '—'}</td>
             <td class="p-3">${r.city}</td>
-            <td class="p-3 text-slate-400">${r.email || '—'}</td>
             <td class="p-3 text-right">
               <button type="button" onclick="deleteRunner(${idx})" class="text-red-400 hover:underline">Удалить (освободить номер)</button>
             </td>
@@ -1592,14 +1657,25 @@
         ev.runners.splice(idx, 1);
         saveState();
         renderAdminRunners();
+        renderRunners();
       }
     }
 
     function exportCSV() {
       const ev = getActiveEvent();
-      const rows = [["BIB", "ФИО", "Дистанция", "Город", "Email", "Статус"].join(";")];
+      const rows = [["BIB", "ФИО", "ИИН", "Дата рождения", "Телефон", "Дистанция", "Город", "Email", "Статус"].join(";")];
       (ev.runners || []).forEach(function(r) {
-        rows.push([r.bib, r.name, r.distance, r.city, r.email || '', r.status || 'Подтвержден'].join(";"));
+        rows.push([
+          r.bib,
+          r.name,
+          r.iin || '',
+          r.birthdate || '',
+          r.phone || '',
+          r.distance,
+          r.city,
+          r.email || '',
+          r.status || 'Подтвержден'
+        ].join(";"));
       });
       const csvContent = "\uFEFF" + rows.join("\r\n");
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
