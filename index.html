@@ -676,4 +676,264 @@
         <div class="flex justify-between items-center">
           <div>
             <h3 class="text-base font-bold text-white uppercase">Список зарегистрированных атлетов</h3>
-            <span id="admin-runners-count" class="text-xs text-brand-orange font-
+            <span id="admin-runners-count" class="text-xs text-brand-orange font-semibold">Всего участников: 4</span>
+          </div>
+        </div>
+
+        <div class="rounded-xl border border-brand-border overflow-hidden bg-brand-card">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-brand-dark text-slate-400 uppercase font-bold border-b border-brand-border">
+              <tr>
+                <th class="p-3">Номер (BIB)</th>
+                <th class="p-3">Атлет</th>
+                <th class="p-3">Дистанция</th>
+                <th class="p-3">Город</th>
+                <th class="p-3">Email</th>
+                <th class="p-3 text-right">Действие</th>
+              </tr>
+            </thead>
+            <tbody id="admin-runners-table" class="divide-y divide-brand-border text-slate-300">
+              <!-- JS -->
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- СКРИПТЫ САЙТА (ПРОТЕСТИРОВАННЫЕ И НАДЕЖНЫЕ) -->
+  <script>
+    // 1. БАЗА УЧАСТНИКОВ
+    let runners = [
+      { bib: "2001", name: "Бауыржан Касымов", distance: "21.1 КМ", city: "Актобе", email: "kasymov@test.kz", status: "Подтвержден" },
+      { bib: "2002", name: "Дмитрий Иванов", distance: "21.1 КМ", city: "Алматы", email: "ivanov@test.kz", status: "Подтвержден" },
+      { bib: "1001", name: "Алия Смагулова", distance: "10.0 КМ", city: "Актобе", email: "smagulova@test.kz", status: "Подтвержден" },
+      { bib: "3001", name: "Нурбек Маратов", distance: "3.0 КМ", city: "Актобе", email: "maratov@test.kz", status: "Подтвержден" }
+    ];
+
+    // Диапазоны номеров
+    const bibRanges = {
+      '21.1 КМ': { start: 2001, end: 2500 },
+      '10.0 КМ': { start: 1001, end: 1700 },
+      '3.0 КМ':  { start: 3001, end: 3400 }
+    };
+
+    // 2. КАЛЬКУЛЯТОР ТЕМПА
+    function calculatePace() {
+      const dist = parseFloat(document.getElementById('calc-dist').value) || 10;
+      const h = parseInt(document.getElementById('calc-hours').value) || 0;
+      const m = parseInt(document.getElementById('calc-mins').value) || 0;
+      const totalMinutes = (h * 60) + m;
+
+      if (totalMinutes <= 0 || dist <= 0) return;
+
+      const paceMinutes = totalMinutes / dist;
+      const pMin = Math.floor(paceMinutes);
+      const pSec = Math.round((paceMinutes - pMin) * 60);
+      const speed = (dist / (totalMinutes / 60)).toFixed(1);
+
+      const split5Total = paceMinutes * 5;
+      const s5Min = Math.floor(split5Total);
+      const s5Sec = Math.round((split5Total - s5Min) * 60);
+
+      document.getElementById('res-pace').innerText = `${pMin}:${pSec < 10 ? '0' : ''}${pSec} мин/км`;
+      document.getElementById('res-speed').innerText = `${speed} км/ч`;
+      document.getElementById('res-split5').innerText = `${s5Min}:${s5Sec < 10 ? '0' : ''}${s5Sec}`;
+    }
+
+    // 3. ТАЙМЕР ОБРАТНОГО ОТСЧЕТА
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + 48);
+    targetDate.setHours(7, 0, 0, 0);
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+      if (diff <= 0) return;
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / 1000 / 60) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+
+      document.getElementById('t-days').innerText = d;
+      document.getElementById('t-hours').innerText = h < 10 ? '0' + h : h;
+      document.getElementById('t-mins').innerText = m < 10 ? '0' + m : m;
+      document.getElementById('t-secs').innerText = s < 10 ? '0' + s : s;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // 4. ТАБЛИЦА УЧАСТНИКОВ
+    function renderRunnersTable(list = runners) {
+      const tbody = document.getElementById('runners-table-body');
+      tbody.innerHTML = '';
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-500">Участники не найдены</td></tr>`;
+        return;
+      }
+      list.forEach(r => {
+        tbody.innerHTML += `
+          <tr class="hover:bg-brand-surface transition">
+            <td class="py-4 px-6 font-mono font-bold text-brand-orange text-base">#${r.bib}</td>
+            <td class="py-4 px-6 font-bold text-white">${r.name}</td>
+            <td class="py-4 px-6">${r.distance}</td>
+            <td class="py-4 px-6">${r.city}</td>
+            <td class="py-4 px-6">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400">
+                ${r.status}
+              </span>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function filterRunners() {
+      const q = document.getElementById('runner-search').value.toLowerCase();
+      const filtered = runners.filter(r => r.name.toLowerCase().includes(q) || String(r.bib).includes(q));
+      renderRunnersTable(filtered);
+    }
+
+    // 5. РЕГИСТРАЦИЯ
+    function openRegistrationModal() {
+      document.getElementById('reg-modal').classList.remove('hidden');
+      document.getElementById('reg-modal').classList.add('flex');
+    }
+
+    function closeRegistrationModal() {
+      document.getElementById('reg-modal').classList.remove('flex');
+      document.getElementById('reg-modal').classList.add('hidden');
+    }
+
+    function selectDistance(distName) {
+      openRegistrationModal();
+      document.getElementById('modal-distance-select').value = distName;
+    }
+
+    function handleUserRegistration(e) {
+      e.preventDefault();
+      const dist = document.getElementById('modal-distance-select').value;
+      const name = document.getElementById('reg-name').value.trim();
+      const surname = document.getElementById('reg-surname').value.trim();
+      const city = document.getElementById('reg-city').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+
+      const range = bibRanges[dist] || { start: 5001, end: 6000 };
+      const usedBibs = new Set(runners.filter(r => r.distance === dist).map(r => parseInt(r.bib)));
+      
+      let newBib = null;
+      for (let n = range.start; n <= range.end; n++) {
+        if (!usedBibs.has(n)) {
+          newBib = n;
+          break;
+        }
+      }
+
+      const runner = {
+        bib: newBib.toString(),
+        name: `${surname} ${name}`,
+        distance: dist,
+        city: city || 'Актобе',
+        email: email,
+        status: "Подтвержден"
+      };
+
+      runners.unshift(runner);
+      renderRunnersTable();
+      renderAdminTable();
+
+      alert(`Поздравляем, ${name}!\nВы успешно зарегистрированы на AQTOBE MARATHON!\nДистанция: ${dist}\nВаш официальный стартовый номер BIB: #${newBib}`);
+      closeRegistrationModal();
+      e.target.reset();
+    }
+
+    // 6. РОУТИНГ И АДМИНКА (#admin)
+    function handleRouting() {
+      const isAdmin = window.location.hash === '#admin';
+      const publicView = document.getElementById('public-view');
+      const adminView = document.getElementById('admin-view');
+
+      if (isAdmin) {
+        publicView.classList.add('hidden');
+        adminView.classList.remove('hidden');
+        if (sessionStorage.getItem('AM_ADMIN_LOGGED') === 'true') {
+          document.getElementById('admin-login-screen').classList.add('hidden');
+          document.getElementById('admin-dashboard-screen').classList.remove('hidden');
+          renderAdminTable();
+        } else {
+          document.getElementById('admin-dashboard-screen').classList.add('hidden');
+          document.getElementById('admin-login-screen').classList.remove('hidden');
+        }
+      } else {
+        adminView.classList.add('hidden');
+        publicView.classList.remove('hidden');
+      }
+    }
+
+    window.addEventListener('hashchange', handleRouting);
+    window.addEventListener('DOMContentLoaded', handleRouting);
+
+    function handleAdminLogin(e) {
+      e.preventDefault();
+      const l = document.getElementById('admin-input-login').value.trim();
+      const p = document.getElementById('admin-input-pass').value.trim();
+      if (l === 'admin' && p === 'aqtobe2026') {
+        sessionStorage.setItem('AM_ADMIN_LOGGED', 'true');
+        handleRouting();
+      } else {
+        document.getElementById('login-error-msg').classList.remove('hidden');
+      }
+    }
+
+    function handleAdminLogout() {
+      sessionStorage.removeItem('AM_ADMIN_LOGGED');
+      window.location.hash = '';
+    }
+
+    function exitAdminToPublic() {
+      window.location.hash = '';
+    }
+
+    function renderAdminTable() {
+      const tbody = document.getElementById('admin-runners-table');
+      document.getElementById('admin-runners-count').innerText = `Всего участников: ${runners.length}`;
+      tbody.innerHTML = '';
+      runners.forEach((r, idx) => {
+        tbody.innerHTML += `
+          <tr class="hover:bg-brand-surface/60">
+            <td class="p-3 font-mono font-bold text-brand-orange text-sm">#${r.bib}</td>
+            <td class="p-3 font-bold text-white">${r.name}</td>
+            <td class="p-3">${r.distance}</td>
+            <td class="p-3">${r.city}</td>
+            <td class="p-3 text-slate-400">${r.email || '—'}</td>
+            <td class="p-3 text-right">
+              <button onclick="deleteRunner(${idx})" class="text-red-400 hover:underline">Удалить</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function deleteRunner(idx) {
+      if (confirm(`Удалить участника ${runners[idx].name}? Номер #${runners[idx].bib} освободится.`)) {
+        runners.splice(idx, 1);
+        renderAdminTable();
+        renderRunnersTable();
+      }
+    }
+
+    function exportCSV() {
+      let csv = "\uFEFFBIB;ФИО;Дистанция;Город;Email;Статус\n";
+      runners.forEach(r => {
+        csv += `"${r.bib}";"${r.name}";"${r.distance}";"${r.city}";"${r.email || ''}";"${r.status}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `Aqtobe_Marathon_Runners.csv`;
+      link.click();
+    }
+  </script>
+</body>
+</html>
