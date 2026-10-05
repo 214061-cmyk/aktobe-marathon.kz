@@ -1451,4 +1451,149 @@
 
       if (idx >= 0) {
         const d = ev.distances[idx];
-        document.getElementById('dist-form-title').innerText = "Редактировать забег: " + d.n
+        document.getElementById('dist-form-title').innerText = "Редактировать забег: " + d.name;
+        document.getElementById('edit-dist-idx').value = idx;
+        document.getElementById('edit-dist-name').value = d.name;
+        document.getElementById('edit-dist-badge').value = d.badge;
+        document.getElementById('edit-dist-price').value = d.price;
+        document.getElementById('edit-dist-slots').value = d.totalSlots;
+        document.getElementById('edit-dist-bib-start').value = d.bibStart || 1001;
+        document.getElementById('edit-dist-timelimit').value = d.timeLimit;
+        document.getElementById('edit-dist-agelimit').value = d.ageLimit;
+        document.getElementById('edit-dist-desc').value = d.desc;
+        updateBibEndPreview();
+      } else {
+        document.getElementById('dist-form-title').innerText = "Добавить новую дистанцию";
+        document.getElementById('edit-dist-idx').value = "-1";
+        document.getElementById('edit-dist-name').value = "";
+        document.getElementById('edit-dist-badge').value = "Забег";
+        document.getElementById('edit-dist-price').value = "5000";
+        document.getElementById('edit-dist-slots').value = "300";
+        document.getElementById('edit-dist-bib-start').value = "4001";
+        document.getElementById('edit-dist-timelimit').value = "1 час";
+        document.getElementById('edit-dist-agelimit').value = "от 12 лет";
+        document.getElementById('edit-dist-desc').value = "Городской забег";
+        updateBibEndPreview();
+      }
+    }
+
+    function updateBibEndPreview() {
+      const start = parseInt(document.getElementById('edit-dist-bib-start')?.value) || 1001;
+      const slots = parseInt(document.getElementById('edit-dist-slots')?.value) || 100;
+      document.getElementById('edit-dist-bib-end').value = `#${start + slots - 1}`;
+    }
+    document.getElementById('edit-dist-slots')?.addEventListener('input', updateBibEndPreview);
+    document.getElementById('edit-dist-bib-start')?.addEventListener('input', updateBibEndPreview);
+
+    function closeDistanceForm() {
+      document.getElementById('distance-edit-form').style.display = 'none';
+    }
+
+    function saveDistance() {
+      const ev = getActiveEvent();
+      const idx = parseInt(document.getElementById('edit-dist-idx').value);
+      const name = document.getElementById('edit-dist-name').value.trim();
+      const badge = document.getElementById('edit-dist-badge').value.trim();
+      const price = parseInt(document.getElementById('edit-dist-price').value) || 0;
+      const slots = parseInt(document.getElementById('edit-dist-slots').value) || 100;
+      const bibStart = parseInt(document.getElementById('edit-dist-bib-start').value) || 1001;
+      const timeLimit = document.getElementById('edit-dist-timelimit').value.trim();
+      const ageLimit = document.getElementById('edit-dist-agelimit').value.trim();
+      const desc = document.getElementById('edit-dist-desc').value.trim();
+
+      if (!name) { alert("Укажите название дистанции!"); return; }
+
+      const distPayload = {
+        id: idx >= 0 ? ev.distances[idx].id : 'dist_' + Date.now(),
+        name,
+        kmValue: parseFloat(name.replace(',', '.')) || 10,
+        badge,
+        desc,
+        price,
+        totalSlots: slots,
+        bibStart: bibStart,
+        timeLimit,
+        ageLimit
+      };
+
+      if (!ev.distances) ev.distances = [];
+
+      if (idx >= 0) {
+        const oldName = ev.distances[idx].name;
+        if (oldName !== name && ev.runners) {
+          ev.runners.forEach(r => { if (r.distance === oldName) r.distance = name; });
+        }
+        ev.distances[idx] = distPayload;
+      } else {
+        ev.distances.push(distPayload);
+      }
+
+      saveState();
+      renderAdminDistances();
+      closeDistanceForm();
+      alert("Дистанция успешно сохранена!");
+    }
+
+    function deleteDistance(idx) {
+      const ev = getActiveEvent();
+      const dist = ev.distances[idx];
+      if (confirm(`Удалить дистанцию "${dist.name}"?`)) {
+        ev.distances.splice(idx, 1);
+        saveState();
+        renderAdminDistances();
+      }
+    }
+
+    // 3. Управление участниками в админке
+    function renderAdminRunners() {
+      const ev = getActiveEvent();
+      document.getElementById('admin-runners-count').innerText = `Марафон: ${ev.title} (Всего бегунов: ${(ev.runners || []).length})`;
+      const tbody = document.getElementById('admin-runners-table');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      (ev.runners || []).forEach((r, idx) => {
+        tbody.innerHTML += `
+          <tr class="hover:bg-brand-surface/60">
+            <td class="p-3 font-mono font-bold text-brand-orange text-sm">#${r.bib}</td>
+            <td class="p-3 font-bold text-white">${r.name}</td>
+            <td class="p-3">${r.distance}</td>
+            <td class="p-3">${r.city}</td>
+            <td class="p-3 text-slate-400">${r.email || '—'}</td>
+            <td class="p-3 text-right">
+              <button type="button" onclick="deleteRunner(${idx})" class="text-red-400 hover:underline">Удалить (освободить номер)</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function deleteRunner(idx) {
+      const ev = getActiveEvent();
+      const r = ev.runners[idx];
+      if (confirm(`Удалить участника ${r.name} (BIB #${r.bib})?`)) {
+        ev.runners.splice(idx, 1);
+        saveState();
+        renderAdminRunners();
+      }
+    }
+
+    function exportCSV() {
+      const ev = getActiveEvent();
+      let csv = "\uFEFFBIB;ФИО;Дистанция;Город;Email;Статус\n";
+      (ev.runners || []).forEach(r => {
+        csv += `"${r.bib}";"${r.name}";"${r.distance}";"${r.city}";"${r.email || ''}";"${r.status || 'Подтвержден'}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `${(ev.title || 'Marathon').replace(/\s+/g, '_')}_Runners.csv`;
+      link.click();
+    }
+
+    // Запуск роутера и инициализации
+    window.addEventListener('hashchange', checkRoute);
+    checkRoute();
+  </script>
+</body>
+</html>
