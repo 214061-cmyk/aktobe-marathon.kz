@@ -16,12 +16,13 @@
           fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
           colors: {
             brand: {
-              neon: '#00F59B',
-              cyan: '#00D2FF',
-              dark: '#080C14',
-              surface: '#0F172A',
-              card: '#131D31',
-              border: '#1E293B'
+              orange: '#FF5E14',
+              amber: '#FFB703',
+              blue: '#00B4D8',
+              dark: '#060913',
+              surface: '#0B1224',
+              card: '#111B35',
+              border: '#1E2C4F'
             }
           }
         }
@@ -29,7 +30,9 @@
     }
   </script>
   <style>
-    .neon-glow { box-shadow: 0 0 35px -5px rgba(0, 245, 155, 0.35); }
+    .flame-glow {
+      box-shadow: 0 0 40px -5px rgba(255, 94, 20, 0.45);
+    }
     .bg-grid {
       background-size: 40px 40px;
       background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
@@ -40,7 +43,7 @@
 <body class="bg-brand-dark text-slate-100 font-sans antialiased overflow-x-hidden">
 
   <!-- ================================================================= -->
-  <!-- 1. ПУБЛИЧНЫЙ САЙТ (ВИДЕН ВСЕМ ПОСЕТИТЕЛЯМ, БЕЗ СЛЕДОВ АДМИНКИ)     -->
+  <!-- 1. ПУБЛИЧНЫЙ САЙТ (БЕЗ СЛЕДОВ АДМИНКИ)                            -->
   <!-- ================================================================= -->
   <div id="public-view">
     <!-- ШАПКА -->
@@ -49,17 +52,16 @@
         
         <!-- Логотип + Выбор забега -->
         <div class="flex items-center gap-4">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-neon to-brand-cyan flex items-center justify-center font-black text-brand-dark text-xl tracking-tighter shadow-lg shadow-brand-neon/20">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-orange to-brand-amber flex items-center justify-center font-black text-brand-dark text-xl tracking-tighter shadow-lg shadow-brand-orange/30">
             AM
           </div>
           <div>
-            <span class="font-extrabold text-lg sm:text-xl tracking-wider uppercase bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-brand-neon">
+            <span class="font-extrabold text-lg sm:text-xl tracking-wider uppercase bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-brand-orange">
               AQTOBE RUN
             </span>
             <div class="flex items-center gap-2">
               <span class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Событие:</span>
-              <select id="event-selector-header" onchange="changeActiveEvent(this.value)" class="bg-brand-card text-brand-neon text-xs font-bold rounded-lg border border-brand-border px-2 py-0.5 outline-none cursor-pointer">
-                <!-- Заполняется JS -->
+              <select id="event-selector-header" onchange="changeActiveEvent(this.value)" class="bg-brand-card text-brand-orange text-xs font-bold rounded-lg border border-brand-border px-2 py-0.5 outline-none cursor-pointer">
               </select>
             </div>
           </div>
@@ -67,99 +69,159 @@
 
         <!-- Навигация -->
         <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold tracking-wide text-slate-300">
-          <a href="#events-list" class="hover:text-brand-neon transition">Все забеги</a>
-          <a href="#distances" class="hover:text-brand-neon transition">Дистанции</a>
-          <a href="#calculator" class="hover:text-brand-neon transition">Темп</a>
-          <a href="#route" class="hover:text-brand-neon transition">Маршрут</a>
-          <a href="#results" class="hover:text-brand-neon transition">Участники</a>
+          <a href="#events-list" class="hover:text-brand-orange transition">Все забеги</a>
+          <a href="#distances" class="hover:text-brand-orange transition">Дистанции</a>
+          <a href="#calculator" class="hover:text-brand-orange transition">Темп</a>
+          <a href="#route" class="hover:text-brand-orange transition">Маршрут</a>
+          <a href="#results" class="hover:text-brand-orange transition">Участники</a>
         </nav>
 
         <div class="flex items-center gap-3">
-          <button onclick="openRegistrationModal()" class="px-6 py-2.5 text-sm font-bold text-brand-dark bg-brand-neon rounded-full overflow-hidden transition-all duration-300 hover:bg-white hover:scale-105 neon-glow">
+          <button onclick="openRegistrationModal()" class="px-6 py-2.5 text-sm font-black text-brand-dark bg-gradient-to-r from-brand-orange to-brand-amber rounded-full overflow-hidden transition-all duration-300 hover:scale-105 flame-glow">
             Регистрация
           </button>
         </div>
       </div>
     </header>
 
-    <!-- ГЛАВНЫЙ ЭКРАН -->
-    <section class="relative min-h-screen pt-32 pb-20 flex items-center bg-grid overflow-hidden">
-      <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-brand-neon/20 to-brand-cyan/20 blur-[130px] rounded-full pointer-events-none"></div>
+    <!-- ГЛАВНЫЙ ЭКРАН С ФОТОГРАФИЯМИ БЕГУНОВ -->
+    <section class="relative min-h-screen pt-28 pb-16 flex items-center overflow-hidden">
+      <!-- Фото бегунов на заднем плане с кинематографичным затемнением -->
+      <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?auto=format&fit=crop&w=2000&q=80" alt="Бегуны на марафоне" class="w-full h-full object-cover object-center scale-105 opacity-25 filter contrast-125">
+        <div class="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/95 to-brand-dark/70"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-brand-dark/80"></div>
+        <div class="absolute top-1/4 left-1/3 -translate-x-1/2 w-[600px] h-[350px] bg-brand-orange/20 blur-[150px] rounded-full pointer-events-none"></div>
+      </div>
 
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center">
-        
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-card border border-brand-border text-brand-neon text-xs font-bold uppercase tracking-wider mb-6">
-          <span class="w-2 h-2 rounded-full bg-brand-neon animate-ping"></span>
-          <span id="hero-badge">Сезон 2026 • Город Актобе</span>
-        </div>
-
-        <h1 id="hero-title" class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight leading-none mb-6">
-          AQTOBE MARATHON 2026
-        </h1>
-
-        <p id="hero-desc" class="max-w-2xl mx-auto text-slate-400 text-lg font-normal leading-relaxed mb-10">
-          Главное спортивное событие города с сертифицированной трассой через проспект Абилкайыр хана и Триатлон парк.
-        </p>
-
-        <!-- ТАЙМЕР ОБРАТНОГО ОТСЧЕТА -->
-        <div class="max-w-3xl mx-auto mb-12 p-6 rounded-2xl bg-brand-card/70 border border-brand-border backdrop-blur-md">
-          <div class="text-xs uppercase tracking-widest text-slate-400 font-bold mb-4">До старта забега осталось:</div>
-          <div class="grid grid-cols-4 gap-3 sm:gap-6">
-            <div class="p-3 sm:p-4 rounded-xl bg-brand-dark/80 border border-brand-border">
-              <span id="t-days" class="block text-3xl sm:text-5xl font-black text-brand-neon">00</span>
-              <span class="text-[11px] sm:text-xs text-slate-400 font-semibold uppercase">Дней</span>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- ЛЕВАЯ КОЛОНКА: ИНФОРМАЦИЯ И ТАЙМЕР -->
+          <div class="lg:col-span-7 text-left">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-card/90 border border-brand-border text-brand-orange text-xs font-bold uppercase tracking-wider mb-6 backdrop-blur-md">
+              <span class="w-2.5 h-2.5 rounded-full bg-brand-orange animate-ping"></span>
+              <span id="hero-badge">Сезон 2026 • Город Актобе</span>
             </div>
-            <div class="p-3 sm:p-4 rounded-xl bg-brand-dark/80 border border-brand-border">
-              <span id="t-hours" class="block text-3xl sm:text-5xl font-black text-white">00</span>
-              <span class="text-[11px] sm:text-xs text-slate-400 font-semibold uppercase">Часов</span>
+
+            <h1 id="hero-title" class="text-4xl sm:text-6xl font-black uppercase tracking-tight leading-none mb-6">
+              AQTOBE MARATHON 2026
+            </h1>
+
+            <p id="hero-desc" class="max-w-xl text-slate-300 text-lg font-normal leading-relaxed mb-8">
+              Главное спортивное событие города с сертифицированной трассой через проспект Абилкайыр хана и Триатлон парк.
+            </p>
+
+            <!-- ТАЙМЕР ОБРАТНОГО ОТСЧЕТА -->
+            <div class="max-w-lg mb-8 p-5 rounded-2xl bg-brand-card/85 border border-brand-border backdrop-blur-md shadow-2xl">
+              <div class="text-[11px] uppercase tracking-widest text-slate-400 font-bold mb-3 flex items-center gap-2">
+                <span class="text-brand-orange">⏱</span> До стартового выстрела осталось:
+              </div>
+              <div class="grid grid-cols-4 gap-3 text-center">
+                <div class="p-2.5 rounded-xl bg-brand-dark/90 border border-brand-border">
+                  <span id="t-days" class="block text-2xl sm:text-4xl font-black text-brand-orange">00</span>
+                  <span class="text-[10px] text-slate-400 font-semibold uppercase">Дней</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-brand-dark/90 border border-brand-border">
+                  <span id="t-hours" class="block text-2xl sm:text-4xl font-black text-white">00</span>
+                  <span class="text-[10px] text-slate-400 font-semibold uppercase">Часов</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-brand-dark/90 border border-brand-border">
+                  <span id="t-mins" class="block text-2xl sm:text-4xl font-black text-white">00</span>
+                  <span class="text-[10px] text-slate-400 font-semibold uppercase">Минут</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-brand-dark/90 border border-brand-border">
+                  <span id="t-secs" class="block text-2xl sm:text-4xl font-black text-brand-amber">00</span>
+                  <span class="text-[10px] text-slate-400 font-semibold uppercase">Секунд</span>
+                </div>
+              </div>
             </div>
-            <div class="p-3 sm:p-4 rounded-xl bg-brand-dark/80 border border-brand-border">
-              <span id="t-mins" class="block text-3xl sm:text-5xl font-black text-white">00</span>
-              <span class="text-[11px] sm:text-xs text-slate-400 font-semibold uppercase">Минут</span>
-            </div>
-            <div class="p-3 sm:p-4 rounded-xl bg-brand-dark/80 border border-brand-border">
-              <span id="t-secs" class="block text-3xl sm:text-5xl font-black text-brand-cyan">00</span>
-              <span class="text-[11px] sm:text-xs text-slate-400 font-semibold uppercase">Секунд</span>
+
+            <div class="flex flex-wrap items-center gap-4">
+              <button onclick="openRegistrationModal()" class="px-8 py-4 rounded-full bg-gradient-to-r from-brand-orange to-brand-amber text-brand-dark font-black text-base uppercase tracking-wider transition hover:scale-105 flame-glow">
+                Зарегистрироваться
+              </button>
+              <a href="#distances" class="px-8 py-4 rounded-full bg-brand-card/90 border border-brand-border text-white font-bold text-base hover:bg-slate-800 transition">
+                Дистанции и цены
+              </a>
             </div>
           </div>
+
+          <!-- ПРАВАЯ КОЛОНКА: ИНТЕРАКТИВНЫЙ ФОТО-КОЛЛАЖ БЕГУНОВ -->
+          <div class="lg:col-span-5 relative">
+            <div class="relative mx-auto max-w-md lg:max-w-none">
+              
+              <!-- Главное фото атлета -->
+              <div class="relative rounded-3xl overflow-hidden border-2 border-brand-border shadow-2xl group">
+                <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=900&q=80" alt="Бегун на трассе" class="w-full h-96 object-cover object-top group-hover:scale-105 transition duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/20 to-transparent"></div>
+                
+                <div class="absolute bottom-5 left-5 right-5 text-left">
+                  <div class="inline-block px-3 py-1 rounded-full bg-brand-orange text-brand-dark text-xs font-black uppercase mb-2">
+                    Энергия и скорость
+                  </div>
+                  <h3 class="text-xl font-black text-white">Твой главный личный рекорд</h3>
+                  <p class="text-xs text-slate-300">Сертифицированная трасса и поддержка сотен болельщиков</p>
+                </div>
+              </div>
+
+              <!-- Парящая плашка 1: Аватары участников -->
+              <div class="absolute -top-6 -left-6 bg-brand-card/95 border border-brand-border p-3.5 rounded-2xl shadow-2xl backdrop-blur-md hidden sm:flex items-center gap-3">
+                <div class="flex -space-x-2">
+                  <img class="inline-block h-8 w-8 rounded-full ring-2 ring-brand-orange object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Бегун">
+                  <img class="inline-block h-8 w-8 rounded-full ring-2 ring-brand-orange object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="Бегун">
+                  <img class="inline-block h-8 w-8 rounded-full ring-2 ring-brand-orange object-cover" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" alt="Бегун">
+                </div>
+                <div class="text-left text-xs">
+                  <strong class="text-white block font-black">2 800+ атлетов</strong>
+                  <span class="text-brand-orange text-[10px] font-bold uppercase">Уже на старте</span>
+                </div>
+              </div>
+
+              <!-- Парящая плашка 2: Хронометраж ChronoTrack -->
+              <div class="absolute -bottom-6 -right-4 bg-brand-card/95 border border-brand-border p-3.5 rounded-2xl shadow-2xl backdrop-blur-md hidden sm:flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-brand-orange/20 text-brand-orange flex items-center justify-center font-black text-lg">
+                  ⚡
+                </div>
+                <div class="text-left text-xs">
+                  <span class="text-[10px] text-slate-400 font-bold uppercase block">Электронный чип</span>
+                  <strong class="text-white font-black">Точность до 0.01 сек</strong>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
 
-        <div class="flex flex-wrap items-center justify-center gap-4">
-          <button onclick="openRegistrationModal()" class="px-8 py-4 rounded-full bg-brand-neon text-brand-dark font-extrabold text-base uppercase tracking-wider transition hover:bg-white hover:scale-105 neon-glow">
-            Зарегистрироваться
-          </button>
-          <a href="#distances" class="px-8 py-4 rounded-full bg-brand-card border border-brand-border text-white font-bold text-base hover:bg-slate-800 transition">
-            Дистанции и цены
-          </a>
-        </div>
-
-        <!-- Метрики -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-12 border-t border-brand-border text-left">
+        <!-- Краткие метрики -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-10 border-t border-brand-border text-left">
           <div>
             <div id="stat-venue" class="text-xl font-black text-white truncate">Триатлон Парк</div>
             <div class="text-xs text-slate-400">Локация старта</div>
           </div>
           <div>
-            <div id="stat-distances-count" class="text-xl font-black text-brand-neon">3 Дистанции</div>
-            <div class="text-xs text-slate-400">Доступные слоты</div>
+            <div id="stat-distances-count" class="text-xl font-black text-brand-orange">3 Дистанции</div>
+            <div class="text-xs text-slate-400">Доступные забеги</div>
           </div>
           <div>
-            <div id="stat-slots-total" class="text-xl font-black text-brand-cyan">0 / 0</div>
-            <div class="text-xs text-slate-400">Занято мест</div>
+            <div id="stat-slots-total" class="text-xl font-black text-brand-amber">0 / 0</div>
+            <div class="text-xs text-slate-400">Занято слотов</div>
           </div>
           <div>
             <div id="stat-prizepool" class="text-xl font-black text-white">2 500 000 ₸</div>
             <div class="text-xs text-slate-400">Призовой фонд</div>
           </div>
         </div>
+
       </div>
     </section>
 
     <!-- ВСЕ ЗАБЕГИ СЕРИИ -->
-    <section id="events-list" class="py-20 bg-brand-dark border-t border-brand-border">
+    <section id="events-list" class="py-20 bg-brand-surface border-t border-brand-border">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="mb-12">
-          <span class="text-xs uppercase font-extrabold tracking-widest text-brand-cyan">Календарь серии</span>
+          <span class="text-xs uppercase font-extrabold tracking-widest text-brand-orange">Календарь серии</span>
           <h2 class="text-3xl sm:text-4xl font-black uppercase text-white mt-1">Все марафоны и забеги</h2>
         </div>
         <div id="events-cards-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
@@ -167,10 +229,10 @@
     </section>
 
     <!-- ДИСТАНЦИИ -->
-    <section id="distances" class="py-24 bg-brand-surface relative border-t border-brand-border">
+    <section id="distances" class="py-24 bg-brand-dark relative border-t border-brand-border">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto mb-16">
-          <h2 id="distances-event-tag" class="text-xs uppercase font-extrabold tracking-widest text-brand-neon mb-3">AQTOBE MARATHON</h2>
+          <h2 id="distances-event-tag" class="text-xs uppercase font-extrabold tracking-widest text-brand-orange mb-3">AQTOBE MARATHON</h2>
           <p class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white">Дистанции и стоимость слотов</p>
           <p class="text-slate-400 mt-4">Номера участникам присваиваются автоматически в пределах установленного диапазона слотов.</p>
         </div>
@@ -179,11 +241,11 @@
     </section>
 
     <!-- КАЛЬКУЛЯТОР ТЕМПА -->
-    <section id="calculator" class="py-20 bg-brand-dark border-t border-brand-border">
+    <section id="calculator" class="py-20 bg-brand-surface border-t border-brand-border">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="p-8 sm:p-12 rounded-3xl bg-brand-card border border-brand-border">
           <div class="text-center max-w-xl mx-auto mb-10">
-            <span class="text-xs uppercase font-extrabold tracking-widest text-brand-cyan">Подготовка</span>
+            <span class="text-xs uppercase font-extrabold tracking-widest text-brand-orange">Подготовка</span>
             <h2 class="text-3xl font-black uppercase text-white mt-1">Калькулятор темпа</h2>
             <p class="text-slate-400 text-sm mt-2">Рассчитайте необходимый темп для успешного преодоления дистанции.</p>
           </div>
@@ -191,26 +253,26 @@
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div>
               <label class="block text-xs uppercase font-bold text-slate-400 mb-2">Дистанция</label>
-              <select id="calc-dist" onchange="calculatePace()" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3.5 font-bold focus:border-brand-neon outline-none"></select>
+              <select id="calc-dist" onchange="calculatePace()" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3.5 font-bold focus:border-brand-orange outline-none"></select>
             </div>
             <div>
               <label class="block text-xs uppercase font-bold text-slate-400 mb-2">Часы</label>
-              <input type="number" id="calc-hours" value="1" min="0" max="6" oninput="calculatePace()" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3.5 font-bold focus:border-brand-neon outline-none">
+              <input type="number" id="calc-hours" value="1" min="0" max="6" oninput="calculatePace()" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3.5 font-bold focus:border-brand-orange outline-none">
             </div>
             <div>
               <label class="block text-xs uppercase font-bold text-slate-400 mb-2">Минуты</label>
-              <input type="number" id="calc-mins" value="45" min="0" max="59" oninput="calculatePace()" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3.5 font-bold focus:border-brand-neon outline-none">
+              <input type="number" id="calc-mins" value="45" min="0" max="59" oninput="calculatePace()" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3.5 font-bold focus:border-brand-orange outline-none">
             </div>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 p-6 rounded-2xl bg-brand-dark border border-brand-border text-center">
             <div>
               <div class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Необходимый темп</div>
-              <div id="res-pace" class="text-3xl font-black text-brand-neon">4:59 мин/км</div>
+              <div id="res-pace" class="text-3xl font-black text-brand-orange">4:59 мин/км</div>
             </div>
             <div>
               <div class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Средняя скорость</div>
-              <div id="res-speed" class="text-3xl font-black text-brand-cyan">12.0 км/ч</div>
+              <div id="res-speed" class="text-3xl font-black text-brand-blue">12.0 км/ч</div>
             </div>
             <div>
               <div class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Отсечка 5 км</div>
@@ -222,11 +284,11 @@
     </section>
 
     <!-- МАРШРУТ -->
-    <section id="route" class="py-24 bg-brand-surface border-t border-brand-border">
+    <section id="route" class="py-24 bg-brand-dark border-t border-brand-border">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div class="lg:col-span-5">
-            <span class="text-xs uppercase font-extrabold tracking-widest text-brand-neon">Безопасность и трасса</span>
+            <span class="text-xs uppercase font-extrabold tracking-widest text-brand-orange">Безопасность и трасса</span>
             <h2 id="route-title" class="text-3xl sm:text-4xl font-black uppercase text-white mt-2 mb-6">Городской скоростной круг</h2>
             <p class="text-slate-400 leading-relaxed mb-6">
               Трасса полностью освобождается от автотранспорта. Обеспечивается медицинское сопровождение, станции освежения и гидратации каждые 3-4 километра.
@@ -253,22 +315,22 @@
             <div class="rounded-3xl bg-brand-card border border-brand-border p-6 shadow-2xl relative overflow-hidden">
               <div class="flex justify-between items-center mb-4">
                 <div class="font-bold text-sm text-white">Интерактивная схема трассы</div>
-                <span class="text-xs px-2.5 py-1 rounded bg-brand-dark text-brand-neon font-bold">Сертифицировано</span>
+                <span class="text-xs px-2.5 py-1 rounded bg-brand-dark text-brand-orange font-bold">Сертифицировано</span>
               </div>
               <div class="w-full h-80 bg-brand-dark rounded-2xl border border-brand-border relative flex items-center justify-center overflow-hidden">
                 <svg viewBox="0 0 700 350" class="w-full h-full p-4">
-                  <line x1="50" y1="50" x2="650" y2="50" stroke="#1E293B" stroke-dasharray="4" />
-                  <line x1="50" y1="150" x2="650" y2="150" stroke="#1E293B" stroke-dasharray="4" />
-                  <line x1="50" y1="250" x2="650" y2="250" stroke="#1E293B" stroke-dasharray="4" />
-                  <path d="M 80,240 C 180,80 250,80 320,180 S 480,260 550,110 L 620,110" fill="none" stroke="#00F59B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
-                  <circle cx="80" cy="240" r="10" fill="#00F59B" class="animate-pulse" />
+                  <line x1="50" y1="50" x2="650" y2="50" stroke="#1E2C4F" stroke-dasharray="4" />
+                  <line x1="50" y1="150" x2="650" y2="150" stroke="#1E2C4F" stroke-dasharray="4" />
+                  <line x1="50" y1="250" x2="650" y2="250" stroke="#1E2C4F" stroke-dasharray="4" />
+                  <path d="M 80,240 C 180,80 250,80 320,180 S 480,260 550,110 L 620,110" fill="none" stroke="#FF5E14" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+                  <circle cx="80" cy="240" r="10" fill="#FF5E14" class="animate-pulse" />
                   <text x="70" y="275" fill="#FFFFFF" font-size="12" font-weight="bold">СТАРТ</text>
-                  <circle cx="280" cy="130" r="6" fill="#00D2FF" />
-                  <text x="260" y="115" fill="#00D2FF" font-size="10" font-weight="bold">💧 7 км</text>
-                  <circle cx="440" cy="225" r="6" fill="#00D2FF" />
-                  <text x="420" y="250" fill="#00D2FF" font-size="10" font-weight="bold">💧 14 км</text>
+                  <circle cx="280" cy="130" r="6" fill="#00B4D8" />
+                  <text x="260" y="115" fill="#00B4D8" font-size="10" font-weight="bold">💧 7 км</text>
+                  <circle cx="440" cy="225" r="6" fill="#00B4D8" />
+                  <text x="420" y="250" fill="#00B4D8" font-size="10" font-weight="bold">💧 14 км</text>
                   <circle cx="620" cy="110" r="10" fill="#FFFFFF" />
-                  <text x="600" y="90" fill="#00F59B" font-size="12" font-weight="bold">ФИНИШ</text>
+                  <text x="600" y="90" fill="#FFB703" font-size="12" font-weight="bold">ФИНИШ</text>
                 </svg>
               </div>
             </div>
@@ -278,23 +340,23 @@
     </section>
 
     <!-- СПИСОК УЧАСТНИКОВ -->
-    <section id="results" class="py-24 bg-brand-dark border-t border-brand-border">
+    <section id="results" class="py-24 bg-brand-surface border-t border-brand-border">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
           <div>
-            <span class="text-xs uppercase font-extrabold tracking-widest text-brand-cyan">Список бегунов</span>
+            <span class="text-xs uppercase font-extrabold tracking-widest text-brand-orange">Список бегунов</span>
             <h2 class="text-3xl font-black uppercase text-white mt-1">Зарегистрированные атлеты</h2>
             <p class="text-slate-400 text-xs mt-1">Участники с присвоенными стартовыми BIB-номерами.</p>
           </div>
           <div class="w-full md:w-80">
-            <input type="text" id="runner-search" oninput="filterRunners()" placeholder="Поиск по имени или номеру BIB..." class="w-full bg-brand-surface border border-brand-border text-white text-sm rounded-xl px-4 py-3 outline-none focus:border-brand-neon transition">
+            <input type="text" id="runner-search" oninput="filterRunners()" placeholder="Поиск по имени или номеру BIB..." class="w-full bg-brand-dark border border-brand-border text-white text-sm rounded-xl px-4 py-3 outline-none focus:border-brand-orange transition">
           </div>
         </div>
 
         <div class="rounded-2xl bg-brand-card border border-brand-border overflow-hidden">
           <div class="overflow-x-auto">
             <table class="w-full text-left text-sm">
-              <thead class="bg-brand-surface text-xs uppercase tracking-wider text-slate-400 border-b border-brand-border font-bold">
+              <thead class="bg-brand-dark text-xs uppercase tracking-wider text-slate-400 border-b border-brand-border font-bold">
                 <tr>
                   <th class="py-4 px-6">BIB Номер</th>
                   <th class="py-4 px-6">Участник</th>
@@ -310,11 +372,11 @@
       </div>
     </section>
 
-    <!-- ЧИСТЫЙ ПУБЛИЧНЫЙ ФУТЕР БЕЗ СЛЕДОВ АДМИНКИ -->
-    <footer class="bg-brand-surface border-t border-brand-border py-12 text-slate-400 text-xs">
+    <!-- ФУТЕР БЕЗ СЛЕДОВ АДМИНКИ -->
+    <footer class="bg-brand-dark border-t border-brand-border py-12 text-slate-400 text-xs">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
         <div class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-lg bg-brand-neon text-brand-dark flex items-center justify-center font-black">AM</div>
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-orange to-brand-amber text-brand-dark flex items-center justify-center font-black">AM</div>
           <span class="text-white font-extrabold text-sm uppercase">AQTOBE RUN SERIES</span>
         </div>
         <div>
@@ -330,15 +392,15 @@
   </div>
 
   <!-- ================================================================= -->
-  <!-- 2. ЗАКРЫТАЯ АДМИН-ПАНЕЛЬ (ОТКРЫВАЕТСЯ ТОЛЬКО ПО ССЫЛКЕ #admin)    -->
+  <!-- 2. ЗАКРЫТАЯ АДМИН-ПАНЕЛЬ (ТОЛЬКО ПО ССЫЛКЕ #admin)                -->
   <!-- ================================================================= -->
   <div id="admin-view" class="hidden min-h-screen bg-brand-dark text-slate-100 flex flex-col">
     
-    <!-- 2.1 ЭКРАН АВТОРИЗАЦИИ С ЛОГИНОМ И ПАРОЛЕМ -->
+    <!-- ЭКРАН АВТОРИЗАЦИИ С ЛОГИНОМ И ПАРОЛЕМ -->
     <div id="admin-login-screen" class="min-h-screen flex items-center justify-center p-4 bg-grid">
       <div class="bg-brand-card border border-brand-border rounded-3xl max-w-md w-full p-8 shadow-2xl relative">
         <div class="text-center mb-8">
-          <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-brand-neon to-brand-cyan flex items-center justify-center text-brand-dark text-2xl font-black shadow-lg">
+          <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-brand-orange to-brand-amber flex items-center justify-center text-brand-dark text-2xl font-black shadow-lg">
             🔒
           </div>
           <h2 class="text-2xl font-black text-white uppercase tracking-wider">Панель организатора</h2>
@@ -351,17 +413,17 @@
           </div>
 
           <div>
-            <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Имя пользователя (Логин)</label>
-            <input required id="admin-input-login" type="text" placeholder="admin" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-neon outline-none">
+            <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Логин</label>
+            <input required id="admin-input-login" type="text" placeholder="admin" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-orange outline-none">
           </div>
 
           <div>
-            <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Пароль доступа</label>
-            <input required id="admin-input-pass" type="password" placeholder="••••••••" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-neon outline-none">
+            <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Пароль</label>
+            <input required id="admin-input-pass" type="password" placeholder="••••••••" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-orange outline-none">
           </div>
 
           <div class="pt-2">
-            <button type="submit" class="w-full py-3.5 rounded-xl bg-brand-neon text-brand-dark font-extrabold uppercase tracking-wider hover:bg-white transition neon-glow">
+            <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-orange to-brand-amber text-brand-dark font-black uppercase tracking-wider hover:opacity-90 transition flame-glow">
               Войти в систему
             </button>
           </div>
@@ -375,15 +437,14 @@
       </div>
     </div>
 
-    <!-- 2.2 ПОЛНОЦЕННЫЙ КАБИНЕТ УПРАВЛЕНИЯ (ДОСТУПЕН ПОСЛЕ АВТОРИЗАЦИИ) -->
+    <!-- ПОЛНОЦЕННЫЙ КАБИНЕТ ОРГАНИЗАТОРА -->
     <div id="admin-dashboard-screen" class="hidden flex-1 flex flex-col">
-      <!-- Шапка админки -->
       <header class="bg-brand-surface border-b border-brand-border px-6 py-4 flex flex-wrap items-center justify-between gap-4">
         <div class="flex items-center gap-3">
           <span class="text-2xl">⚙️</span>
           <div>
             <h1 class="text-lg font-black text-white uppercase tracking-wider">Панель управления серией забегов</h1>
-            <span class="text-xs text-brand-neon font-semibold">AQTOBE MARATHON • Система организатора</span>
+            <span class="text-xs text-brand-orange font-semibold">AQTOBE MARATHON • Система организатора</span>
           </div>
         </div>
 
@@ -395,20 +456,19 @@
             На сайт
           </button>
           <button onclick="handleAdminLogout()" class="px-3.5 py-2 rounded-xl bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-bold hover:bg-red-500 hover:text-white transition">
-            Выйти из системы
+            Выйти
           </button>
         </div>
       </header>
 
-      <!-- Навигация по разделам -->
+      <!-- Вкладки управления -->
       <div class="flex border-b border-brand-border bg-brand-dark px-6 gap-6 text-sm font-bold overflow-x-auto">
-        <button onclick="switchAdminTab('tab-marathons')" id="btn-tab-marathons" class="py-3.5 text-brand-neon border-b-2 border-brand-neon">1. Все марафоны</button>
+        <button onclick="switchAdminTab('tab-marathons')" id="btn-tab-marathons" class="py-3.5 text-brand-orange border-b-2 border-brand-orange">1. Все марафоны</button>
         <button onclick="switchAdminTab('tab-distances')" id="btn-tab-distances" class="py-3.5 text-slate-400 hover:text-white">2. Дистанции, цены и нумерация (BIB)</button>
         <button onclick="switchAdminTab('tab-runners')" id="btn-tab-runners" class="py-3.5 text-slate-400 hover:text-white">3. База участников</button>
         <button onclick="switchAdminTab('tab-settings')" id="btn-tab-settings" class="py-3.5 text-slate-400 hover:text-white">4. Настройки и пароли</button>
       </div>
 
-      <!-- Контейнер вкладок -->
       <main class="flex-1 p-6 max-w-7xl w-full mx-auto space-y-6">
         
         <!-- ВКЛАДКА 1: МАРАФОНЫ -->
@@ -418,7 +478,7 @@
               <h3 class="text-base font-bold text-white uppercase">Список марафонов и забегов</h3>
               <p class="text-xs text-slate-400">Создавайте новые соревнования или переключайте активное мероприятие.</p>
             </div>
-            <button onclick="openMarathonForm()" class="px-4 py-2.5 rounded-xl bg-brand-neon text-brand-dark text-xs font-black uppercase hover:bg-white transition">
+            <button onclick="openMarathonForm()" class="px-4 py-2.5 rounded-xl bg-brand-orange text-brand-dark text-xs font-black uppercase hover:bg-white transition">
               + Добавить новый марафон
             </button>
           </div>
@@ -439,44 +499,44 @@
             </table>
           </div>
 
-          <!-- Форма создания/редактирования марафона -->
-          <div id="marathon-edit-form" class="hidden p-6 rounded-2xl bg-brand-card border border-brand-neon/40 space-y-4">
+          <!-- Форма марафона -->
+          <div id="marathon-edit-form" class="hidden p-6 rounded-2xl bg-brand-card border border-brand-orange/40 space-y-4">
             <h4 id="marathon-form-title" class="font-bold text-sm text-white uppercase">Новое мероприятие</h4>
             <input type="hidden" id="edit-marathon-id">
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Название марафона</label>
-                <input id="edit-m-title" type="text" placeholder="AQTOBE AUTUMN MARATHON 2026" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
+                <input id="edit-m-title" type="text" placeholder="AQTOBE AUTUMN MARATHON 2026" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-orange">
               </div>
               <div>
                 <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Подзаголовок</label>
-                <input id="edit-m-subtitle" type="text" placeholder="Осенний городской забег" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
+                <input id="edit-m-subtitle" type="text" placeholder="Осенний городской забег" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-orange">
               </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Дата и время старта</label>
-                <input id="edit-m-date" type="datetime-local" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
+                <input id="edit-m-date" type="datetime-local" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-orange">
               </div>
               <div>
                 <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Город</label>
-                <input id="edit-m-city" type="text" value="Актобе" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
+                <input id="edit-m-city" type="text" value="Актобе" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-orange">
               </div>
               <div>
                 <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Призовой фонд</label>
-                <input id="edit-m-prizepool" type="text" placeholder="3 000 000 ₸" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
+                <input id="edit-m-prizepool" type="text" placeholder="3 000 000 ₸" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-orange">
               </div>
             </div>
 
             <div>
               <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Локация / Маршрут</label>
-              <input id="edit-m-venue" type="text" placeholder="Триатлон Парк — пр. Абилкайыр хана" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
+              <input id="edit-m-venue" type="text" placeholder="Триатлон Парк — пр. Абилкайыр хана" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-orange">
             </div>
 
             <div class="flex gap-3 pt-2">
-              <button onclick="saveMarathon()" class="px-5 py-2.5 rounded-lg bg-brand-neon text-brand-dark font-black text-xs uppercase hover:bg-white transition">
+              <button onclick="saveMarathon()" class="px-5 py-2.5 rounded-lg bg-brand-orange text-brand-dark font-black text-xs uppercase hover:bg-white transition">
                 Сохранить марафон
               </button>
               <button onclick="closeMarathonForm()" class="px-5 py-2.5 rounded-lg bg-slate-800 text-slate-300 font-bold text-xs uppercase hover:bg-slate-700 transition">
@@ -490,10 +550,10 @@
         <div id="tab-distances" class="hidden space-y-6">
           <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3 bg-brand-card p-4 rounded-xl border border-brand-border">
             <div>
-              <span class="text-xs text-slate-400">Настройка дистанций для активного события:</span>
+              <span class="text-xs text-slate-400">Дистанции активного марафона:</span>
               <div id="admin-current-event-name" class="font-black text-white text-base">AQTOBE MARATHON</div>
             </div>
-            <button onclick="openDistanceForm()" class="px-4 py-2 rounded-xl bg-brand-neon text-brand-dark text-xs font-black uppercase hover:bg-white transition self-start sm:self-auto">
+            <button onclick="openDistanceForm()" class="px-4 py-2 rounded-xl bg-brand-orange text-brand-dark text-xs font-black uppercase hover:bg-white transition self-start sm:self-auto">
               + Добавить дистанцию
             </button>
           </div>
@@ -515,36 +575,36 @@
           </div>
 
           <!-- ФОРМА РЕДАКТИРОВАНИЯ ДИСТАНЦИИ -->
-          <div id="distance-edit-form" class="hidden p-6 rounded-2xl bg-brand-card border-2 border-brand-neon/50 space-y-4">
-            <h4 id="dist-form-title" class="font-bold text-sm text-white uppercase">Настройка дистанции и нумерации</h4>
+          <div id="distance-edit-form" class="hidden p-6 rounded-2xl bg-brand-card border-2 border-brand-orange/50 space-y-4">
+            <h4 id="dist-form-title" class="font-bold text-sm text-white uppercase">Настройка дистанции и номеров</h4>
             <input type="hidden" id="edit-dist-idx">
 
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Название дистанции</label>
-                <input id="edit-dist-name" type="text" placeholder="21.1 КМ" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
+                <input id="edit-dist-name" type="text" placeholder="21.1 КМ" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-orange">
               </div>
               <div>
                 <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Бейдж / Статус</label>
-                <input id="edit-dist-badge" type="text" placeholder="Титульный забег" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
+                <input id="edit-dist-badge" type="text" placeholder="Титульный забег" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-orange">
               </div>
               <div>
-                <label class="block text-[11px] font-bold text-brand-neon uppercase mb-1">Цена регистрации (₸)</label>
-                <input id="edit-dist-price" type="number" placeholder="9000" class="w-full bg-brand-dark border border-brand-neon text-white font-bold rounded-lg p-2.5 text-xs outline-none">
+                <label class="block text-[11px] font-bold text-brand-orange uppercase mb-1">Цена регистрации (₸)</label>
+                <input id="edit-dist-price" type="number" placeholder="9000" class="w-full bg-brand-dark border border-brand-orange text-white font-bold rounded-lg p-2.5 text-xs outline-none">
               </div>
             </div>
 
             <!-- БЛОК СЛОТОВ И BIB -->
             <div class="p-4 rounded-xl bg-brand-surface border border-brand-border space-y-3">
-              <span class="text-xs font-bold text-brand-cyan uppercase">Управление слотами и нумерацией BIB</span>
+              <span class="text-xs font-bold text-brand-orange uppercase">Управление слотами и нумерацией BIB</span>
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
                   <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Количество слотов</label>
-                  <input id="edit-dist-slots" type="number" placeholder="500" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2 text-xs outline-none focus:border-brand-neon">
+                  <input id="edit-dist-slots" type="number" placeholder="500" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2 text-xs outline-none focus:border-brand-orange">
                 </div>
                 <div>
                   <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Стартовый номер BIB</label>
-                  <input id="edit-dist-bib-start" type="number" placeholder="2001" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2 text-xs outline-none focus:border-brand-neon">
+                  <input id="edit-dist-bib-start" type="number" placeholder="2001" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2 text-xs outline-none focus:border-brand-orange">
                 </div>
                 <div>
                   <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Конечный номер диапазона</label>
@@ -556,21 +616,21 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Лимит времени</label>
-                <input id="edit-dist-timelimit" type="text" placeholder="3 часа 00 мин" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
+                <input id="edit-dist-timelimit" type="text" placeholder="3 часа 00 мин" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-orange">
               </div>
               <div>
                 <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Возрастной допуск</label>
-                <input id="edit-dist-agelimit" type="text" placeholder="от 18 лет" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
+                <input id="edit-dist-agelimit" type="text" placeholder="от 18 лет" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-orange">
               </div>
             </div>
 
             <div>
               <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Описание дистанции</label>
-              <input id="edit-dist-desc" type="text" placeholder="Описание для страницы" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-neon">
+              <input id="edit-dist-desc" type="text" placeholder="Описание для страницы" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-orange">
             </div>
 
             <div class="flex gap-3 pt-2">
-              <button onclick="saveDistance()" class="px-5 py-2.5 rounded-lg bg-brand-neon text-brand-dark font-black text-xs uppercase hover:bg-white transition">
+              <button onclick="saveDistance()" class="px-5 py-2.5 rounded-lg bg-brand-orange text-brand-dark font-black text-xs uppercase hover:bg-white transition">
                 Сохранить параметры
               </button>
               <button onclick="closeDistanceForm()" class="px-5 py-2.5 rounded-lg bg-slate-800 text-slate-300 font-bold text-xs uppercase hover:bg-slate-700 transition">
@@ -585,7 +645,7 @@
           <div class="flex justify-between items-center">
             <div>
               <h3 class="text-base font-bold text-white uppercase">Список зарегистрированных атлетов</h3>
-              <span id="admin-runners-count" class="text-xs text-brand-neon font-semibold">Всего участников: 0</span>
+              <span id="admin-runners-count" class="text-xs text-brand-orange font-semibold">Всего участников: 0</span>
             </div>
             <button onclick="exportCSV()" class="px-3.5 py-1.5 rounded-lg bg-slate-800 text-xs font-bold text-slate-300 hover:text-white transition">
               📥 Скачать CSV
@@ -609,29 +669,29 @@
           </div>
         </div>
 
-        <!-- ВКЛАДКА 4: НАСТРОЙКИ ДОСТУПА И СБРОС -->
+        <!-- ВКЛАДКА 4: НАСТРОЙКИ ДОСТУПА -->
         <div id="tab-settings" class="hidden space-y-6 max-w-2xl">
           <div class="p-6 rounded-2xl bg-brand-card border border-brand-border space-y-4">
-            <h3 class="text-base font-bold text-white uppercase">Смена учетных данных администратора</h3>
+            <h3 class="text-base font-bold text-white uppercase">Смена учетных данных организатора</h3>
             
             <div>
               <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Новый логин</label>
-              <input id="set-new-login" type="text" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-xs outline-none focus:border-brand-neon">
+              <input id="set-new-login" type="text" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-xs outline-none focus:border-brand-orange">
             </div>
 
             <div>
               <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Новый пароль</label>
-              <input id="set-new-pass" type="password" placeholder="Введите новый пароль" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-xs outline-none focus:border-brand-neon">
+              <input id="set-new-pass" type="password" placeholder="Введите новый пароль" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-xs outline-none focus:border-brand-orange">
             </div>
 
-            <button onclick="saveAdminCredentials()" class="px-5 py-2.5 rounded-xl bg-brand-neon text-brand-dark font-black text-xs uppercase hover:bg-white transition">
+            <button onclick="saveAdminCredentials()" class="px-5 py-2.5 rounded-xl bg-brand-orange text-brand-dark font-black text-xs uppercase hover:bg-white transition">
               Сохранить новые логин и пароль
             </button>
           </div>
 
           <div class="p-6 rounded-2xl bg-brand-card border border-red-500/30 space-y-3">
             <h3 class="text-base font-bold text-red-400 uppercase">Опасная зона</h3>
-            <p class="text-xs text-slate-400">Сброс всех добавленных соревнований, участников и возврат к стандартным демонстрационным данным.</p>
+            <p class="text-xs text-slate-400">Сброс всех соревнований и возврат к начальным демо-данным.</p>
             <button onclick="resetPlatformData()" class="px-5 py-2.5 rounded-xl bg-red-500/20 text-red-400 border border-red-500/30 font-bold text-xs uppercase hover:bg-red-500 hover:text-white transition">
               Сбросить всю базу данных
             </button>
@@ -648,40 +708,40 @@
       <button onclick="closeRegistrationModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-2xl font-bold">✕</button>
       
       <div class="mb-6">
-        <span id="reg-event-badge" class="text-xs font-bold text-brand-neon uppercase tracking-wider">AQTOBE MARATHON</span>
+        <span id="reg-event-badge" class="text-xs font-bold text-brand-orange uppercase tracking-wider">AQTOBE MARATHON</span>
         <h3 class="text-2xl font-black text-white uppercase mt-1">Регистрация на забег</h3>
       </div>
 
       <form onsubmit="handleUserRegistration(event)" class="space-y-4">
         <div>
           <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Выберите дистанцию</label>
-          <select id="modal-distance-select" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm font-bold focus:border-brand-neon outline-none">
+          <select id="modal-distance-select" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm font-bold focus:border-brand-orange outline-none">
           </select>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Имя</label>
-            <input required id="reg-name" type="text" placeholder="Алихан" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-neon outline-none">
+            <input required id="reg-name" type="text" placeholder="Алихан" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-orange outline-none">
           </div>
           <div>
             <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Фамилия</label>
-            <input required id="reg-surname" type="text" placeholder="Омаров" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-neon outline-none">
+            <input required id="reg-surname" type="text" placeholder="Омаров" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-orange outline-none">
           </div>
         </div>
 
         <div>
           <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Город</label>
-          <input required id="reg-city" type="text" value="Актобе" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-neon outline-none">
+          <input required id="reg-city" type="text" value="Актобе" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-orange outline-none">
         </div>
 
         <div>
           <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Email</label>
-          <input required id="reg-email" type="email" placeholder="runner@example.kz" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-neon outline-none">
+          <input required id="reg-email" type="email" placeholder="runner@example.kz" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm focus:border-brand-orange outline-none">
         </div>
 
         <div class="pt-2">
-          <button id="reg-submit-btn" type="submit" class="w-full py-4 rounded-xl bg-brand-neon text-brand-dark font-extrabold uppercase tracking-wider hover:bg-white transition neon-glow">
+          <button id="reg-submit-btn" type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-orange to-brand-amber text-brand-dark font-black uppercase tracking-wider hover:opacity-90 transition flame-glow">
             Получить номер и зарегистрироваться
           </button>
         </div>
@@ -693,11 +753,9 @@
   <!--             ЯДРО ПЛАТФОРМЫ, РОУТИНГ И АВТОРИЗАЦИЯ        -->
   <!-- ======================================================== -->
   <script>
-    // Учетные данные админа (сохраняются в localStorage)
     const DEFAULT_ADMIN = { login: "admin", pass: "aqtobe2026" };
     let adminAuth = JSON.parse(localStorage.getItem('AM_ADMIN_CREDENTIALS')) || DEFAULT_ADMIN;
 
-    // Базовые события
     const INITIAL_EVENTS = [
       {
         id: "evt_aqtobe_spring_2026",
@@ -818,9 +876,7 @@
       renderAll();
     }
 
-    // ========================================================
-    //               РОУТИНГ: ПУБЛИЧНЫЙ САЙТ / АДМИНКА
-    // ========================================================
+    // Роутинг: публичная витрина / админка по ссылке #admin
     function handleRouting() {
       const hash = window.location.hash;
       const isAdminRoute = hash === '#admin' || window.location.search.includes('admin');
@@ -834,7 +890,6 @@
         publicView.classList.add('hidden');
         adminView.classList.remove('hidden');
 
-        // Проверяем сессию авторизации
         if (sessionStorage.getItem('AM_ADMIN_SESSION') === 'active') {
           loginScreen.classList.add('hidden');
           dashboardScreen.classList.remove('hidden');
@@ -854,7 +909,6 @@
     window.addEventListener('hashchange', handleRouting);
     window.addEventListener('DOMContentLoaded', handleRouting);
 
-    // Авторизация в админке
     function handleAdminLogin(e) {
       e.preventDefault();
       const login = document.getElementById('admin-input-login').value.trim();
@@ -892,9 +946,7 @@
       alert("Учетные данные администратора успешно обновлены!");
     }
 
-    // ========================================================
-    //               ОТРИСОВКА ВИТРИНЫ САЙТА
-    // ========================================================
+    // Отрисовка витрины
     function renderAll() {
       renderHeaderAndHero();
       renderEventsCardsGrid();
@@ -936,10 +988,10 @@
         const dStr = new Date(e.date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
 
         container.innerHTML += `
-          <div class="rounded-3xl bg-brand-card border ${isActive ? 'border-2 border-brand-neon' : 'border-brand-border'} p-6 flex flex-col justify-between hover:border-slate-500 transition">
+          <div class="rounded-3xl bg-brand-card border ${isActive ? 'border-2 border-brand-orange' : 'border-brand-border'} p-6 flex flex-col justify-between hover:border-slate-500 transition">
             <div>
               <div class="flex justify-between items-center mb-4">
-                <span class="text-xs px-2.5 py-1 rounded-full font-bold ${isActive ? 'bg-brand-neon/20 text-brand-neon' : 'bg-slate-800 text-slate-400'}">
+                <span class="text-xs px-2.5 py-1 rounded-full font-bold ${isActive ? 'bg-brand-orange/20 text-brand-orange' : 'bg-slate-800 text-slate-400'}">
                   ${isActive ? '● Выбрано на сайте' : e.status}
                 </span>
                 <span class="text-xs text-slate-400 font-mono">${dStr}</span>
@@ -952,7 +1004,7 @@
                 <div>👥 <strong>Слоты:</strong> ${taken} из ${total} занято</div>
               </div>
             </div>
-            <button onclick="changeActiveEvent('${e.id}')" class="w-full py-3 rounded-xl font-extrabold text-xs uppercase tracking-wider transition ${isActive ? 'bg-brand-neon text-brand-dark' : 'bg-slate-800 text-white hover:bg-brand-neon hover:text-brand-dark'}">
+            <button onclick="changeActiveEvent('${e.id}')" class="w-full py-3 rounded-xl font-extrabold text-xs uppercase tracking-wider transition ${isActive ? 'bg-brand-orange text-brand-dark' : 'bg-slate-800 text-white hover:bg-brand-orange hover:text-brand-dark'}">
               ${isActive ? 'Просматривается' : 'Выбрать этот марафон'}
             </button>
           </div>
@@ -975,14 +1027,14 @@
         const leftSlots = Math.max(0, d.totalSlots - distRunnersCount);
         const percent = Math.min(100, Math.round((distRunnersCount / d.totalSlots) * 100));
         const isSoldOut = leftSlots <= 0;
-        const isNeon = idx === 0;
+        const isFeatured = idx === 0;
         const bibEnd = parseInt(d.bibStart) + parseInt(d.totalSlots) - 1;
 
         container.innerHTML += `
-          <div class="relative rounded-3xl bg-brand-card p-8 flex flex-col justify-between overflow-hidden shadow-2xl transition hover:scale-[1.01] ${isSoldOut ? 'opacity-80 border border-slate-700' : isNeon ? 'border-2 border-brand-neon' : 'border border-brand-border'}">
+          <div class="relative rounded-3xl bg-brand-card p-8 flex flex-col justify-between overflow-hidden shadow-2xl transition hover:scale-[1.01] ${isSoldOut ? 'opacity-80 border border-slate-700' : isFeatured ? 'border-2 border-brand-orange' : 'border border-brand-border'}">
             <div>
               <div class="flex justify-between items-center mb-6">
-                <span class="inline-block px-3 py-1 rounded-full text-xs font-extrabold uppercase ${isSoldOut ? 'bg-red-500/20 text-red-400' : isNeon ? 'bg-brand-neon/20 text-brand-neon' : 'bg-slate-800 text-brand-cyan'}">
+                <span class="inline-block px-3 py-1 rounded-full text-xs font-extrabold uppercase ${isSoldOut ? 'bg-red-500/20 text-red-400' : isFeatured ? 'bg-brand-orange/20 text-brand-orange' : 'bg-slate-800 text-brand-blue'}">
                   ${isSoldOut ? 'Слоты исчерпаны' : d.badge}
                 </span>
                 <span class="text-xs text-slate-400 font-mono">BIB: #${d.bibStart}–${bibEnd}</span>
@@ -999,14 +1051,14 @@
 
               <div class="mt-6 mb-8">
                 <div class="w-full bg-brand-dark h-2 rounded-full overflow-hidden">
-                  <div class="${isSoldOut ? 'bg-red-500' : isNeon ? 'bg-brand-neon' : 'bg-brand-cyan'} h-full rounded-full" style="width: ${percent}%"></div>
+                  <div class="${isSoldOut ? 'bg-red-500' : 'bg-gradient-to-r from-brand-orange to-brand-amber'} h-full rounded-full" style="width: ${percent}%"></div>
                 </div>
               </div>
             </div>
 
             <div>
               <div class="text-2xl font-black text-white mb-4">${parseInt(d.price).toLocaleString('ru-RU')} ₸</div>
-              <button onclick="chooseDistanceForRegistration('${d.name}', ${isSoldOut})" ${isSoldOut ? 'disabled' : ''} class="w-full py-3.5 rounded-xl font-extrabold tracking-wide uppercase transition ${isSoldOut ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : isNeon ? 'bg-brand-neon text-brand-dark hover:bg-white' : 'bg-slate-800 text-white hover:bg-brand-neon hover:text-brand-dark'}">
+              <button onclick="chooseDistanceForRegistration('${d.name}', ${isSoldOut})" ${isSoldOut ? 'disabled' : ''} class="w-full py-3.5 rounded-xl font-extrabold tracking-wide uppercase transition ${isSoldOut ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : isFeatured ? 'bg-gradient-to-r from-brand-orange to-brand-amber text-brand-dark hover:scale-105' : 'bg-slate-800 text-white hover:bg-brand-orange hover:text-brand-dark'}">
                 ${isSoldOut ? 'Мест нет (Sold Out)' : 'Выбрать ' + d.name}
               </button>
             </div>
@@ -1040,7 +1092,7 @@
       runnersList.forEach(r => {
         tbody.innerHTML += `
           <tr class="hover:bg-brand-surface transition">
-            <td class="py-4 px-6 font-mono font-bold text-brand-neon text-base">#${r.bib}</td>
+            <td class="py-4 px-6 font-mono font-bold text-brand-orange text-base">#${r.bib}</td>
             <td class="py-4 px-6 font-bold text-white">${r.name}</td>
             <td class="py-4 px-6">${r.distance}</td>
             <td class="py-4 px-6">${r.city || 'Актобе'}</td>
@@ -1199,14 +1251,13 @@
       ['btn-tab-marathons', 'btn-tab-distances', 'btn-tab-runners', 'btn-tab-settings'].forEach(btnId => {
         document.getElementById(btnId).className = "py-3.5 text-slate-400 hover:text-white";
       });
-      document.getElementById('btn-' + tabId).className = "py-3.5 text-brand-neon border-b-2 border-brand-neon";
+      document.getElementById('btn-' + tabId).className = "py-3.5 text-brand-orange border-b-2 border-brand-orange";
 
       if (tabId === 'tab-distances') renderAdminDistances();
       if (tabId === 'tab-runners') renderAdminRunners();
       if (tabId === 'tab-marathons') renderAdminMarathons();
     }
 
-    // 1. Управление марафонами
     function renderAdminMarathons() {
       const tbody = document.getElementById('admin-marathons-table');
       tbody.innerHTML = '';
@@ -1223,13 +1274,13 @@
             <td class="p-3">${e.city}</td>
             <td class="p-3">${e.distances.length} дист.</td>
             <td class="p-3">
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${isActive ? 'bg-brand-neon text-brand-dark' : 'bg-slate-800 text-slate-400'}">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${isActive ? 'bg-brand-orange text-brand-dark' : 'bg-slate-800 text-slate-400'}">
                 ${isActive ? 'АКТИВЕН НА САЙТЕ' : 'В списке'}
               </span>
             </td>
             <td class="p-3 text-right space-x-2">
-              ${!isActive ? `<button onclick="setActiveFromAdmin('${e.id}')" class="text-brand-neon hover:underline font-bold">Выбрать</button>` : ''}
-              <button onclick="editMarathon(${idx})" class="text-brand-cyan hover:underline font-bold">Изменить</button>
+              ${!isActive ? `<button onclick="setActiveFromAdmin('${e.id}')" class="text-brand-orange hover:underline font-bold">Выбрать</button>` : ''}
+              <button onclick="editMarathon(${idx})" class="text-brand-blue hover:underline font-bold">Изменить</button>
               ${events.length > 1 ? `<button onclick="deleteMarathon(${idx})" class="text-red-400 hover:underline font-bold">Удалить</button>` : ''}
             </td>
           </tr>
@@ -1350,7 +1401,6 @@
       }
     }
 
-    // 2. Управление дистанциями (кнопка «Изменить» работает на 100%)
     function renderAdminDistances() {
       const ev = getActiveEvent();
       document.getElementById('admin-current-event-name').innerText = ev.title;
@@ -1367,12 +1417,12 @@
               <strong class="text-white block">${d.name}</strong>
               <span class="text-slate-500 text-[10px]">${d.badge}</span>
             </td>
-            <td class="p-3 font-bold text-brand-neon">${parseInt(d.price).toLocaleString('ru-RU')} ₸</td>
+            <td class="p-3 font-bold text-brand-orange">${parseInt(d.price).toLocaleString('ru-RU')} ₸</td>
             <td class="p-3 font-semibold">${d.totalSlots} мест</td>
-            <td class="p-3 font-mono text-brand-cyan">#${d.bibStart} – #${bibEnd}</td>
+            <td class="p-3 font-mono text-brand-blue">#${d.bibStart} – #${bibEnd}</td>
             <td class="p-3">${assignedCount} / ${d.totalSlots}</td>
             <td class="p-3 text-right space-x-2">
-              <button onclick="editDistance(${idx})" class="text-brand-cyan hover:underline font-bold">Изменить</button>
+              <button onclick="editDistance(${idx})" class="text-brand-blue hover:underline font-bold">Изменить</button>
               <button onclick="deleteDistance(${idx})" class="text-red-400 hover:underline font-bold">Удалить</button>
             </td>
           </tr>
@@ -1487,7 +1537,6 @@
       }
     }
 
-    // 3. Управление участниками
     function renderAdminRunners() {
       const ev = getActiveEvent();
       document.getElementById('admin-runners-count').innerText = `Марафон: ${ev.title} (Всего бегунов: ${ev.runners.length})`;
@@ -1497,7 +1546,7 @@
       ev.runners.forEach((r, idx) => {
         tbody.innerHTML += `
           <tr class="hover:bg-brand-surface/60">
-            <td class="p-3 font-mono font-bold text-brand-neon text-sm">#${r.bib}</td>
+            <td class="p-3 font-mono font-bold text-brand-orange text-sm">#${r.bib}</td>
             <td class="p-3 font-bold text-white">${r.name}</td>
             <td class="p-3">${r.distance}</td>
             <td class="p-3">${r.city}</td>
