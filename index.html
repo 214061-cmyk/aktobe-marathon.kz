@@ -276,7 +276,7 @@
       </div>
     </section>
 
-    <!-- СЕКЦИЯ МАРШРУТА И ЗАГРУЖЕННАЯ СХЕМА ТРАССЫ -->
+    <!-- СЕКЦИЯ МАРШРУТА И КАРТА -->
     <section id="route" class="py-24 bg-brand-dark border-t border-brand-border">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -304,7 +304,7 @@
             </div>
           </div>
 
-          <!-- БЛОК С КАРТОЙ (ДИНАМИЧЕСКИЙ: ИЗОБРАЖЕНИЕ, ИНТЕРАКТИВНАЯ КАРТА ИЛИ SVG) -->
+          <!-- БЛОК С КАРТОЙ (ИЗОБРАЖЕНИЕ, ИНТЕРАКТИВНАЯ КАРТА ИЛИ SVG) -->
           <div class="lg:col-span-7">
             <div class="rounded-3xl bg-brand-card border border-brand-border p-6 shadow-2xl relative overflow-hidden">
               <div class="flex justify-between items-center mb-4">
@@ -312,9 +312,7 @@
                 <span id="dom-map-badge" class="text-xs px-2.5 py-1 rounded bg-brand-dark text-brand-orange font-bold">Сертифицировано</span>
               </div>
               
-              <!-- Контейнер отображения схемы трассы -->
               <div id="route-map-container" class="w-full h-80 sm:h-96 bg-brand-dark rounded-2xl border border-brand-border relative flex items-center justify-center overflow-hidden">
-                <!-- Заполняется JS (картинка / фрейм / svg) -->
               </div>
 
               <div class="mt-4 flex justify-between items-center text-xs text-slate-400">
@@ -338,22 +336,22 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <div class="p-6 rounded-2xl bg-brand-card border border-brand-border text-center">
-            <div id="dom-pack1-icon" class="w-16 h-16 mx-auto mb-4 rounded-xl bg-brand-dark flex items-center justify-center text-3xl">🎽</div>
+            <div class="w-16 h-16 mx-auto mb-4 rounded-xl bg-brand-dark flex items-center justify-center text-3xl">🎽</div>
             <h3 id="dom-pack1-title" class="font-black text-white text-lg mb-1">Футболка AQTOBE</h3>
             <p id="dom-pack1-desc" class="text-xs text-slate-400">Дышащая беговая ткань Dry-Fit с символикой марафона.</p>
           </div>
           <div class="p-6 rounded-2xl bg-brand-card border border-brand-border text-center">
-            <div id="dom-pack2-icon" class="w-16 h-16 mx-auto mb-4 rounded-xl bg-brand-dark flex items-center justify-center text-3xl">🏅</div>
+            <div class="w-16 h-16 mx-auto mb-4 rounded-xl bg-brand-dark flex items-center justify-center text-3xl">🏅</div>
             <h3 id="dom-pack2-title" class="font-black text-white text-lg mb-1">Медаль финишера</h3>
             <p id="dom-pack2-desc" class="text-xs text-slate-400">Эксклюзивная литая медаль из металла для каждого финишера.</p>
           </div>
           <div class="p-6 rounded-2xl bg-brand-card border border-brand-border text-center">
-            <div id="dom-pack3-icon" class="w-16 h-16 mx-auto mb-4 rounded-xl bg-brand-dark flex items-center justify-center text-3xl">🏷️</div>
+            <div class="w-16 h-16 mx-auto mb-4 rounded-xl bg-brand-dark flex items-center justify-center text-3xl">🏷️</div>
             <h3 id="dom-pack3-title" class="font-black text-white text-lg mb-1">Номер с чипом</h3>
             <p id="dom-pack3-desc" class="text-xs text-slate-400">Индивидуальный номер с микрочипом хронометража.</p>
           </div>
           <div class="p-6 rounded-2xl bg-brand-card border border-brand-border text-center">
-            <div id="dom-pack4-icon" class="w-16 h-16 mx-auto mb-4 rounded-xl bg-brand-dark flex items-center justify-center text-3xl">🎒</div>
+            <div class="w-16 h-16 mx-auto mb-4 rounded-xl bg-brand-dark flex items-center justify-center text-3xl">🎒</div>
             <h3 id="dom-pack4-title" class="font-black text-white text-lg mb-1">Рюкзак и питание</h3>
             <p id="dom-pack4-desc" class="text-xs text-slate-400">Спортивный мешок, энергетический батончик и вода.</p>
           </div>
@@ -366,9 +364,9 @@
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
           <div>
-            <span id="dom-res-tag" class="text-xs uppercase font-extrabold tracking-widest text-brand-orange">Список бегунов</span>
-            <h2 id="dom-res-title" class="text-3xl font-black uppercase text-white mt-1">Зарегистрированные атлеты</h2>
-            <p id="dom-res-desc" class="text-slate-400 text-xs mt-1">Участники с присвоенными стартовыми BIB-номерами.</p>
+            <span class="text-xs uppercase font-extrabold tracking-widest text-brand-orange">Список бегунов</span>
+            <h2 class="text-3xl font-black uppercase text-white mt-1">Зарегистрированные атлеты</h2>
+            <p class="text-slate-400 text-xs mt-1">Участники с присвоенными стартовыми BIB-номерами.</p>
           </div>
           <div class="w-full md:w-80">
             <input type="text" id="runner-search" oninput="filterRunners()" placeholder="Поиск по имени или номеру BIB..." class="w-full bg-brand-surface border border-brand-border text-white text-sm rounded-xl px-4 py-3 outline-none focus:border-brand-orange transition">
@@ -491,14 +489,14 @@
         </div>
       </header>
 
-      <!-- Вкладки управления -->
+      <!-- 6 ВКЛАДОК УПРАВЛЕНИЯ -->
       <div class="flex border-b border-brand-border bg-brand-dark px-6 gap-6 text-sm font-bold overflow-x-auto">
-        <button onclick="switchAdminTab('tab-marathons')" id="btn-tab-marathons" class="py-3.5 text-brand-orange border-b-2 border-brand-orange whitespace-nowrap">1. Марафоны</button>
-        <button onclick="switchAdminTab('tab-distances')" id="btn-tab-distances" class="py-3.5 text-slate-400 hover:text-white whitespace-nowrap">2. Дистанции и BIB</button>
+        <button onclick="switchAdminTab('tab-marathons')" id="btn-tab-marathons" class="py-3.5 text-brand-orange border-b-2 border-brand-orange whitespace-nowrap">1. Все марафоны</button>
+        <button onclick="switchAdminTab('tab-distances')" id="btn-tab-distances" class="py-3.5 text-slate-400 hover:text-white whitespace-nowrap">2. Дистанции, цены и нумерация (BIB)</button>
         <button onclick="switchAdminTab('tab-map')" id="btn-tab-map" class="py-3.5 text-slate-400 hover:text-white whitespace-nowrap">3. Схема и карта трассы</button>
         <button onclick="switchAdminTab('tab-texts')" id="btn-tab-texts" class="py-3.5 text-slate-400 hover:text-white whitespace-nowrap">4. Редактор всех текстов</button>
-        <button onclick="switchAdminTab('tab-runners')" id="btn-tab-runners" class="py-3.5 text-slate-400 hover:text-white whitespace-nowrap">5. Участники</button>
-        <button onclick="switchAdminTab('tab-settings')" id="btn-tab-settings" class="py-3.5 text-slate-400 hover:text-white whitespace-nowrap">6. Настройки и пароль</button>
+        <button onclick="switchAdminTab('tab-runners')" id="btn-tab-runners" class="py-3.5 text-slate-400 hover:text-white whitespace-nowrap">5. База участников</button>
+        <button onclick="switchAdminTab('tab-settings')" id="btn-tab-settings" class="py-3.5 text-slate-400 hover:text-white whitespace-nowrap">6. Настройки и пароли</button>
       </div>
 
       <main class="flex-1 p-6 max-w-7xl w-full mx-auto space-y-6">
@@ -680,7 +678,6 @@
               <p class="text-xs text-slate-400 mt-1">Загрузите собственную картинку схемы (PNG/JPG/SVG) или вставьте ссылку на карту.</p>
             </div>
 
-            <!-- Выбор источника карты -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <label class="p-4 rounded-xl border border-brand-border bg-brand-dark cursor-pointer flex items-center gap-3">
                 <input type="radio" name="map_src_type" value="file" onchange="toggleMapInputType()" class="text-brand-orange focus:ring-brand-orange">
@@ -715,7 +712,6 @@
               <textarea id="adm-map-embed" rows="3" placeholder="Вставьте URL конструктора карт или тег <iframe>..." class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-xs outline-none focus:border-brand-orange"></textarea>
             </div>
 
-            <!-- Бейдж на схеме -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Метка на схеме (бейдж):</label>
@@ -723,12 +719,9 @@
               </div>
             </div>
 
-            <!-- Предпросмотр карты -->
             <div>
               <span class="text-xs uppercase font-bold text-slate-400 block mb-2">Предпросмотр схемы трассы:</span>
-              <div id="admin-map-preview" class="w-full h-72 bg-brand-dark rounded-xl border border-brand-border flex items-center justify-center overflow-hidden">
-                <!-- Превью -->
-              </div>
+              <div id="admin-map-preview" class="w-full h-72 bg-brand-dark rounded-xl border border-brand-border flex items-center justify-center overflow-hidden"></div>
             </div>
 
             <div class="flex gap-4 pt-2">
@@ -755,7 +748,7 @@
               </button>
             </div>
 
-            <!-- Раздел 1: Главный экран (Hero) -->
+            <!-- Раздел 1: Главный экран -->
             <div class="p-5 rounded-xl bg-brand-surface border border-brand-border space-y-4">
               <h4 class="text-sm font-black text-brand-orange uppercase">1. Главный экран (Первый экран)</h4>
               
@@ -816,9 +809,9 @@
               </div>
             </div>
 
-            <!-- Раздел 3: Маршрут и Безопасность -->
+            <!-- Раздел 3: Маршрут -->
             <div class="p-5 rounded-xl bg-brand-surface border border-brand-border space-y-4">
-              <h4 class="text-sm font-black text-brand-orange uppercase">3. Описание трассы и пункты сервиса</h4>
+              <h4 class="text-sm font-black text-brand-orange uppercase">3. Описание трассы и сервисы</h4>
               
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
@@ -850,9 +843,9 @@
               </div>
             </div>
 
-            <!-- Раздел 4: Стартовый пакет (Мерч) -->
+            <!-- Раздел 4: Мерч -->
             <div class="p-5 rounded-xl bg-brand-surface border border-brand-border space-y-4">
-              <h4 class="text-sm font-black text-brand-orange uppercase">4. Наполнение стартового пакета участника</h4>
+              <h4 class="text-sm font-black text-brand-orange uppercase">4. Наполнение стартового пакета</h4>
               
               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div class="p-3 bg-brand-dark rounded-xl border border-brand-border">
@@ -878,11 +871,11 @@
               </div>
             </div>
 
-            <!-- Раздел 5: Подвал (Футер) -->
+            <!-- Раздел 5: Футер -->
             <div class="p-5 rounded-xl bg-brand-surface border border-brand-border space-y-3">
               <h4 class="text-sm font-black text-brand-orange uppercase">5. Подвал (Футер)</h4>
               <div>
-                <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Копирайт и юридическая строка</label>
+                <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Копирайт</label>
                 <input id="cms-footer-note" type="text" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-orange">
               </div>
             </div>
@@ -949,7 +942,7 @@
 
           <div class="p-6 rounded-2xl bg-brand-card border border-red-500/30 space-y-3">
             <h3 class="text-base font-bold text-red-400 uppercase">Опасная зона</h3>
-            <p class="text-xs text-slate-400">Сброс всех соревнований, текстов и схемы трассы к исходным заводским данным.</p>
+            <p class="text-xs text-slate-400">Сброс всех соревнований, текстов и схемы к заводским настройкам.</p>
             <button onclick="resetPlatformData()" class="px-5 py-2.5 rounded-xl bg-red-500/20 text-red-400 border border-red-500/30 font-bold text-xs uppercase hover:bg-red-500 hover:text-white transition">
               Сбросить всю базу данных
             </button>
@@ -1006,1166 +999,9 @@
     </div>
   </div>
 
-  <!-- ======================================================== -->
-  <!--             ЯДРО: CMS ТЕКСТОВ, ЗАГРУЗКА КАРТЫ, РОУТИНГ   -->
-  <!-- ======================================================== -->
   <script>
-    const DEFAULT_ADMIN = { login: "admin", pass: "aqtobe2026" };
-    let adminAuth = JSON.parse(localStorage.getItem('AM_ADMIN_CREDENTIALS')) || DEFAULT_ADMIN;
-
-    // 1. ДЕФОЛТНЫЙ КОНТЕНТ ВСЕХ НАДПИСЕЙ И КАРТЫ
-    const DEFAULT_CMS = {
-      heroBadge: "Сезон 2026 • Город Актобе",
-      heroTitle: "AQTOBE MARATHON 2026",
-      heroDesc: "Главное спортивное событие города с сертифицированной трассой через проспект Абилкайыр хана и Триатлон парк.",
-      heroBtn: "Зарегистрироваться",
-      heroCardTag: "Энергия и скорость",
-      heroCardTitle: "Твой главный личный рекорд",
-      heroCardDesc: "Сертифицированная трасса и поддержка сотен болельщиков",
-      
-      distTag: "AQTOBE MARATHON",
-      distTitle: "Дистанции и стоимость слотов",
-      distDesc: "Номера участникам присваиваются автоматически в пределах установленного диапазона слотов.",
-
-      calcTag: "Подготовка",
-      calcTitle: "Калькулятор темпа",
-      calcDesc: "Рассчитайте необходимый темп для успешного преодоления дистанции.",
-
-      routeTag: "Безопасность и трасса",
-      routeTitle: "Городской скоростной круг",
-      routeDesc: "Трасса полностью освобождается от автотранспорта. Обеспечивается медицинское сопровождение, станции освежения и гидратации каждые 3-4 километра.",
-      perk1Title: "Пункты питания и воды",
-      perk1Desc: "Изотоник, бананы, чистая вода и губки",
-      perk2Title: "Электронный тайминг",
-      perk2Desc: "Контрольные ковры фиксации сплитов на дистанции",
-
-      packTag: "Стартовый пакет",
-      packTitle: "Что получает каждый участник",
-      packDesc: "Выдача стартовых пакетов проходит на ЭКСПО за 2 дня до старта.",
-      pack1Title: "Футболка AQTOBE", pack1Desc: "Дышащая беговая ткань Dry-Fit с символикой марафона.",
-      pack2Title: "Медаль финишера", pack2Desc: "Эксклюзивная литая медаль из металла для каждого финишера.",
-      pack3Title: "Номер с чипом", pack3Desc: "Индивидуальный номер с микрочипом хронометража.",
-      pack4Title: "Рюкзак и питание", pack4Desc: "Спортивный мешок, энергетический батончик и вода.",
-
-      footerNote: "© 2026 AQTOBE RUNNING PLATFORM. Официальный портал соревнований.",
-
-      // Настройки карты
-      mapType: "svg", // 'svg', 'image', 'embed'
-      mapImageSrc: "",
-      mapEmbedCode: "",
-      mapBadge: "Сертифицировано AIMS"
-    };
-
-    let siteCMS = JSON.parse(localStorage.getItem('AM_CMS_DATA')) || DEFAULT_CMS;
-
-    // 2. ДЕФОЛТНЫЕ МАРАФОНЫ
-    const INITIAL_EVENTS = [
-      {
-        id: "evt_aqtobe_spring_2026",
-        title: "AQTOBE MARATHON 2026",
-        subtitle: "Главный весенний полумарафон степи",
-        city: "Актобе",
-        venue: "Триатлон Парк — пр. Абилкайыр хана",
-        date: "2026-05-17T07:00",
-        prizepool: "2 500 000 ₸",
-        status: "Открыта регистрация",
-        distances: [
-          {
-            id: "dist_21",
-            name: "21.1 КМ",
-            kmValue: 21.0975,
-            badge: "Титульный забег",
-            desc: "Классический полумарафон для проверки скоростной выносливости.",
-            price: 9000,
-            totalSlots: 500,
-            bibStart: 2001,
-            timeLimit: "3 часа 00 мин",
-            ageLimit: "от 18 лет"
-          },
-          {
-            id: "dist_10",
-            name: "10.0 КМ",
-            kmValue: 10,
-            badge: "Популярный",
-            desc: "Скоростная десятка по центральным проспектам города.",
-            price: 7500,
-            totalSlots: 700,
-            bibStart: 1001,
-            timeLimit: "1 час 45 мин",
-            ageLimit: "от 15 лет"
-          },
-          {
-            id: "dist_3",
-            name: "3.0 КМ",
-            kmValue: 3,
-            badge: "Fun Run",
-            desc: "Массовый забег для любителей, семей и новичков.",
-            price: 6000,
-            totalSlots: 400,
-            bibStart: 3001,
-            timeLimit: "45 минут",
-            ageLimit: "от 10 лет"
-          }
-        ],
-        runners: [
-          { bib: "2001", name: "Бауыржан Касымов", distance: "21.1 КМ", city: "Актобе", email: "kasymov@test.kz", status: "Подтвержден" },
-          { bib: "2002", name: "Дмитрий Иванов", distance: "21.1 КМ", city: "Алматы", email: "ivanov@test.kz", status: "Подтвержден" },
-          { bib: "1001", name: "Алия Смагулова", distance: "10.0 КМ", city: "Актобе", email: "smagulova@test.kz", status: "Подтвержден" },
-          { bib: "3001", name: "Нурбек Маратов", distance: "3.0 КМ", city: "Актобе", email: "maratov@test.kz", status: "Подтвержден" }
-        ]
-      }
-    ];
-
-    let events = JSON.parse(localStorage.getItem('AM_MULTI_EVENTS')) || INITIAL_EVENTS;
-    let activeEventId = localStorage.getItem('AM_ACTIVE_EVENT_ID') || events[0].id;
-
-    function saveState() {
-      localStorage.setItem('AM_MULTI_EVENTS', JSON.stringify(events));
-      localStorage.setItem('AM_ACTIVE_EVENT_ID', activeEventId);
-      localStorage.setItem('AM_ADMIN_CREDENTIALS', JSON.stringify(adminAuth));
-      localStorage.setItem('AM_CMS_DATA', JSON.stringify(siteCMS));
-    }
-
-    function getActiveEvent() {
-      let ev = events.find(e => e.id === activeEventId);
-      if (!ev) {
-        activeEventId = events[0].id;
-        ev = events[0];
-      }
-      return ev;
-    }
-
-    function changeActiveEvent(eventId) {
-      activeEventId = eventId;
-      saveState();
-      renderAll();
-    }
-
-    // ========================================================
-    //               ОБНОВЛЕНИЕ ТЕКСТОВ НА ВИТРИНЕ ИЗ CMS
-    // ========================================================
-    function applyCMSTexts() {
-      document.getElementById('hero-badge').innerText = siteCMS.heroBadge;
-      document.getElementById('hero-title').innerText = siteCMS.heroTitle;
-      document.getElementById('hero-desc').innerText = siteCMS.heroDesc;
-      document.getElementById('dom-hero-btn').innerText = siteCMS.heroBtn;
-      document.getElementById('txt-header-cta').innerText = siteCMS.heroBtn;
-
-      document.getElementById('dom-hero-card-tag').innerText = siteCMS.heroCardTag;
-      document.getElementById('dom-hero-card-title').innerText = siteCMS.heroCardTitle;
-      document.getElementById('dom-hero-card-desc').innerText = siteCMS.heroCardDesc;
-
-      document.getElementById('dom-dist-tag').innerText = siteCMS.distTag;
-      document.getElementById('dom-dist-title').innerText = siteCMS.distTitle;
-      document.getElementById('dom-dist-desc').innerText = siteCMS.distDesc;
-
-      document.getElementById('dom-calc-tag').innerText = siteCMS.calcTag;
-      document.getElementById('dom-calc-title').innerText = siteCMS.calcTitle;
-      document.getElementById('dom-calc-desc').innerText = siteCMS.calcDesc;
-
-      document.getElementById('dom-route-tag').innerText = siteCMS.routeTag;
-      document.getElementById('dom-route-title').innerText = siteCMS.routeTitle;
-      document.getElementById('dom-route-desc').innerText = siteCMS.routeDesc;
-      document.getElementById('dom-perk1-title').innerText = siteCMS.perk1Title;
-      document.getElementById('dom-perk1-desc').innerText = siteCMS.perk1Desc;
-      document.getElementById('dom-perk2-title').innerText = siteCMS.perk2Title;
-      document.getElementById('dom-perk2-desc').innerText = siteCMS.perk2Desc;
-
-      document.getElementById('dom-pack-tag').innerText = siteCMS.packTag;
-      document.getElementById('dom-pack-title').innerText = siteCMS.packTitle;
-      document.getElementById('dom-pack-desc').innerText = siteCMS.packDesc;
-      document.getElementById('dom-pack1-title').innerText = siteCMS.pack1Title;
-      document.getElementById('dom-pack1-desc').innerText = siteCMS.pack1Desc;
-      document.getElementById('dom-pack2-title').innerText = siteCMS.pack2Title;
-      document.getElementById('dom-pack2-desc').innerText = siteCMS.pack2Desc;
-      document.getElementById('dom-pack3-title').innerText = siteCMS.pack3Title;
-      document.getElementById('dom-pack3-desc').innerText = siteCMS.pack3Desc;
-      document.getElementById('dom-pack4-title').innerText = siteCMS.pack4Title;
-      document.getElementById('dom-pack4-desc').innerText = siteCMS.pack4Desc;
-
-      document.getElementById('dom-footer-note').innerText = siteCMS.footerNote;
-      document.getElementById('dom-map-badge').innerText = siteCMS.mapBadge;
-
-      renderRouteMap();
-    }
-
-    // ========================================================
-    //               ОТРИСОВКА КАРТЫ / СХЕМЫ ТРАССЫ
-    // ========================================================
-    function renderRouteMap() {
-      const container = document.getElementById('route-map-container');
-      container.innerHTML = '';
-
-      if (siteCMS.mapType === 'image' && siteCMS.mapImageSrc) {
-        container.innerHTML = `
-          <img src="${siteCMS.mapImageSrc}" alt="Схема трассы забега" onclick="openMapModal()" class="w-full h-full object-contain cursor-pointer hover:scale-105 transition duration-500 p-2">
-        `;
-      } else if (siteCMS.mapType === 'embed' && siteCMS.mapEmbedCode) {
-        if (siteCMS.mapEmbedCode.includes('<iframe')) {
-          container.innerHTML = siteCMS.mapEmbedCode;
-          const ifr = container.querySelector('iframe');
-          if (ifr) {
-            ifr.style.width = '100%';
-            ifr.style.height = '100%';
-            ifr.style.border = 'none';
-          }
-        } else {
-          container.innerHTML = `<iframe src="${siteCMS.mapEmbedCode}" class="w-full h-full border-0"></iframe>`;
-        }
-      } else {
-        // Стандартный интерактивный SVG
-        container.innerHTML = `
-          <svg viewBox="0 0 700 350" class="w-full h-full p-4">
-            <line x1="50" y1="50" x2="650" y2="50" stroke="#1E2C4F" stroke-dasharray="4" />
-            <line x1="50" y1="150" x2="650" y2="150" stroke="#1E2C4F" stroke-dasharray="4" />
-            <line x1="50" y1="250" x2="650" y2="250" stroke="#1E2C4F" stroke-dasharray="4" />
-            <path d="M 80,240 C 180,80 250,80 320,180 S 480,260 550,110 L 620,110" fill="none" stroke="#FF5E14" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
-            <circle cx="80" cy="240" r="10" fill="#FF5E14" class="animate-pulse" />
-            <text x="70" y="275" fill="#FFFFFF" font-size="12" font-weight="bold">СТАРТ</text>
-            <circle cx="280" cy="130" r="6" fill="#00B4D8" />
-            <text x="260" y="115" fill="#00B4D8" font-size="10" font-weight="bold">💧 7 км</text>
-            <circle cx="440" cy="225" r="6" fill="#00B4D8" />
-            <text x="420" y="250" fill="#00B4D8" font-size="10" font-weight="bold">💧 14 км</text>
-            <circle cx="620" cy="110" r="10" fill="#FFFFFF" />
-            <text x="600" y="90" fill="#FFB703" font-size="12" font-weight="bold">ФИНИШ</text>
-          </svg>
-        `;
-      }
-    }
-
-    function openMapModal() {
-      const modal = document.getElementById('map-lightbox-modal');
-      const box = document.getElementById('map-lightbox-content');
-      box.innerHTML = '';
-      if (siteCMS.mapType === 'image' && siteCMS.mapImageSrc) {
-        box.innerHTML = `<img src="${siteCMS.mapImageSrc}" class="max-w-full max-h-full object-contain">`;
-      } else {
-        box.innerHTML = document.getElementById('route-map-container').innerHTML;
-      }
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
-
-    function closeMapModal() {
-      const modal = document.getElementById('map-lightbox-modal');
-      modal.classList.remove('flex');
-      modal.classList.add('hidden');
-    }
-
-    // ========================================================
-    //               УПРАВЛЕНИЕ КАРТОЙ В АДМИНКЕ
-    // ========================================================
-    function toggleMapInputType() {
-      const sel = document.querySelector('input[name="map_src_type"]:checked').value;
-      document.getElementById('map-input-file-block').classList.toggle('hidden', sel !== 'file');
-      document.getElementById('map-input-url-block').classList.toggle('hidden', sel !== 'url');
-      document.getElementById('map-input-embed-block').classList.toggle('hidden', sel !== 'embed');
-      updateAdminMapPreview();
-    }
-
-    let tempUploadedMapImage = "";
-
-    function previewUploadedMapFile(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(evt) {
-        tempUploadedMapImage = evt.target.result;
-        updateAdminMapPreview();
-      };
-      reader.readAsDataURL(file);
-    }
-
-    function updateAdminMapPreview() {
-      const sel = document.querySelector('input[name="map_src_type"]:checked')?.value || 'file';
-      const previewBox = document.getElementById('admin-map-preview');
-      previewBox.innerHTML = '';
-
-      if (sel === 'file') {
-        const src = tempUploadedMapImage || siteCMS.mapImageSrc;
-        if (src) {
-          previewBox.innerHTML = `<img src="${src}" class="max-w-full max-h-full object-contain p-2">`;
-        } else {
-          previewBox.innerHTML = `<span class="text-xs text-slate-500">Файл ещё не выбран. Загрузите файл выше.</span>`;
-        }
-      } else if (sel === 'url') {
-        const url = document.getElementById('adm-map-url').value.trim() || siteCMS.mapImageSrc;
-        if (url) {
-          previewBox.innerHTML = `<img src="${url}" class="max-w-full max-h-full object-contain p-2" onerror="this.src=''; alert('Не удалось загрузить картинку по этому URL')">`;
-        } else {
-          previewBox.innerHTML = `<span class="text-xs text-slate-500">Введите URL изображения схемы.</span>`;
-        }
-      } else if (sel === 'embed') {
-        const code = document.getElementById('adm-map-embed').value.trim();
-        if (code) {
-          previewBox.innerHTML = code.includes('<iframe') ? code : `<iframe src="${code}" class="w-full h-full border-0"></iframe>`;
-        } else {
-          previewBox.innerHTML = `<span class="text-xs text-slate-500">Вставьте код iframe или ссылку на онлайн карту.</span>`;
-        }
-      }
-    }
-
-    function saveMapSettings() {
-      const sel = document.querySelector('input[name="map_src_type"]:checked').value;
-      siteCMS.mapBadge = document.getElementById('adm-map-badge').value.trim() || "Сертифицировано";
-
-      if (sel === 'file') {
-        if (tempUploadedMapImage) {
-          siteCMS.mapImageSrc = tempUploadedMapImage;
-          siteCMS.mapType = 'image';
-        } else if (!siteCMS.mapImageSrc) {
-          alert("Пожалуйста, сначала выберите файл схемы на компьютере!");
-          return;
-        } else {
-          siteCMS.mapType = 'image';
-        }
-      } else if (sel === 'url') {
-        const u = document.getElementById('adm-map-url').value.trim();
-        if (!u) { alert("Укажите ссылку на изображение!"); return; }
-        siteCMS.mapImageSrc = u;
-        siteCMS.mapType = 'image';
-      } else if (sel === 'embed') {
-        const em = document.getElementById('adm-map-embed').value.trim();
-        if (!em) { alert("Укажите код или ссылку на интерактивную карту!"); return; }
-        siteCMS.mapEmbedCode = em;
-        siteCMS.mapType = 'embed';
-      }
-
-      saveState();
-      applyCMSTexts();
-      alert("Схема трассы успешно обновлена и опубликована на сайте!");
-    }
-
-    function resetMapToDefault() {
-      if (confirm("Вернуть стандартную векторную схему?")) {
-        siteCMS.mapType = 'svg';
-        siteCMS.mapImageSrc = '';
-        siteCMS.mapEmbedCode = '';
-        saveState();
-        applyCMSTexts();
-        updateAdminMapPreview();
-        alert("Установлена стандартная схема.");
-      }
-    }
-
-    // ========================================================
-    //               РЕДАКТОР ВСЕХ ТЕКСТОВ В АДМИНКЕ
-    // ========================================================
-    function populateCMSTextInputs() {
-      document.getElementById('cms-hero-badge').value = siteCMS.heroBadge;
-      document.getElementById('cms-hero-title').value = siteCMS.heroTitle;
-      document.getElementById('cms-hero-desc').value = siteCMS.heroDesc;
-      document.getElementById('cms-hero-btn').value = siteCMS.heroBtn;
-      document.getElementById('cms-hero-card-tag').value = siteCMS.heroCardTag;
-      document.getElementById('cms-hero-card-title').value = siteCMS.heroCardTitle;
-
-      document.getElementById('cms-dist-tag').value = siteCMS.distTag;
-      document.getElementById('cms-dist-title').value = siteCMS.distTitle;
-      document.getElementById('cms-dist-desc').value = siteCMS.distDesc;
-
-      document.getElementById('cms-calc-title').value = siteCMS.calcTitle;
-
-      document.getElementById('cms-route-tag').value = siteCMS.routeTag;
-      document.getElementById('cms-route-title').value = siteCMS.routeTitle;
-      document.getElementById('cms-route-desc').value = siteCMS.routeDesc;
-      document.getElementById('cms-perk1-title').value = siteCMS.perk1Title;
-      document.getElementById('cms-perk1-desc').value = siteCMS.perk1Desc;
-      document.getElementById('cms-perk2-title').value = siteCMS.perk2Title;
-      document.getElementById('cms-perk2-desc').value = siteCMS.perk2Desc;
-
-      document.getElementById('cms-pack1-title').value = siteCMS.pack1Title;
-      document.getElementById('cms-pack1-desc').value = siteCMS.pack1Desc;
-      document.getElementById('cms-pack2-title').value = siteCMS.pack2Title;
-      document.getElementById('cms-pack2-desc').value = siteCMS.pack2Desc;
-      document.getElementById('cms-pack3-title').value = siteCMS.pack3Title;
-      document.getElementById('cms-pack3-desc').value = siteCMS.pack3Desc;
-      document.getElementById('cms-pack4-title').value = siteCMS.pack4Title;
-      document.getElementById('cms-pack4-desc').value = siteCMS.pack4Desc;
-
-      document.getElementById('cms-footer-note').value = siteCMS.footerNote;
-
-      // Значения для карты
-      document.getElementById('adm-map-badge').value = siteCMS.mapBadge;
-      document.getElementById('adm-map-url').value = (siteCMS.mapType === 'image' && !siteCMS.mapImageSrc.startsWith('data:')) ? siteCMS.mapImageSrc : '';
-      document.getElementById('adm-map-embed').value = siteCMS.mapEmbedCode || '';
-
-      const r = document.querySelector(`input[name="map_src_type"][value="${siteCMS.mapType === 'svg' ? 'file' : siteCMS.mapType}"]`);
-      if (r) r.checked = true;
-      toggleMapInputType();
-    }
-
-    function saveAllSiteTexts() {
-      siteCMS.heroBadge = document.getElementById('cms-hero-badge').value.trim();
-      siteCMS.heroTitle = document.getElementById('cms-hero-title').value.trim();
-      siteCMS.heroDesc = document.getElementById('cms-hero-desc').value.trim();
-      siteCMS.heroBtn = document.getElementById('cms-hero-btn').value.trim();
-      siteCMS.heroCardTag = document.getElementById('cms-hero-card-tag').value.trim();
-      siteCMS.heroCardTitle = document.getElementById('cms-hero-card-title').value.trim();
-
-      siteCMS.distTag = document.getElementById('cms-dist-tag').value.trim();
-      siteCMS.distTitle = document.getElementById('cms-dist-title').value.trim();
-      siteCMS.distDesc = document.getElementById('cms-dist-desc').value.trim();
-
-      siteCMS.calcTitle = document.getElementById('cms-calc-title').value.trim();
-
-      siteCMS.routeTag = document.getElementById('cms-route-tag').value.trim();
-      siteCMS.routeTitle = document.getElementById('cms-route-title').value.trim();
-      siteCMS.routeDesc = document.getElementById('cms-route-desc').value.trim();
-      siteCMS.perk1Title = document.getElementById('cms-perk1-title').value.trim();
-      siteCMS.perk1Desc = document.getElementById('cms-perk1-desc').value.trim();
-      siteCMS.perk2Title = document.getElementById('cms-perk2-title').value.trim();
-      siteCMS.perk2Desc = document.getElementById('cms-perk2-desc').value.trim();
-
-      siteCMS.pack1Title = document.getElementById('cms-pack1-title').value.trim();
-      siteCMS.pack1Desc = document.getElementById('cms-pack1-desc').value.trim();
-      siteCMS.pack2Title = document.getElementById('cms-pack2-title').value.trim();
-      siteCMS.pack2Desc = document.getElementById('cms-pack2-desc').value.trim();
-      siteCMS.pack3Title = document.getElementById('cms-pack3-title').value.trim();
-      siteCMS.pack3Desc = document.getElementById('cms-pack3-desc').value.trim();
-      siteCMS.pack4Title = document.getElementById('cms-pack4-title').value.trim();
-      siteCMS.pack4Desc = document.getElementById('cms-pack4-desc').value.trim();
-
-      siteCMS.footerNote = document.getElementById('cms-footer-note').value.trim();
-
-      saveState();
-      applyCMSTexts();
-      alert("Все тексты сайта успешно сохранены и обновлены!");
-    }
-
-    function resetTextsToDefault() {
-      if (confirm("Сбросить все тексты сайта к исходным стандартным?")) {
-        siteCMS = Object.assign({}, DEFAULT_CMS, { mapImageSrc: siteCMS.mapImageSrc, mapType: siteCMS.mapType });
-        saveState();
-        populateCMSTextInputs();
-        applyCMSTexts();
-        alert("Тексты сброшены!");
-      }
-    }
-
-    // ========================================================
-    //               РОУТИНГ И ВХОД В АДМИНКУ (#admin)
-    // ========================================================
-    function handleRouting() {
-      const hash = window.location.hash;
-      const isAdminRoute = hash === '#admin' || window.location.search.includes('admin');
-
-      const publicView = document.getElementById('public-view');
-      const adminView = document.getElementById('admin-view');
-      const loginScreen = document.getElementById('admin-login-screen');
-      const dashboardScreen = document.getElementById('admin-dashboard-screen');
-
-      if (isAdminRoute) {
-        publicView.classList.add('hidden');
-        adminView.classList.remove('hidden');
-
-        if (sessionStorage.getItem('AM_ADMIN_SESSION') === 'active') {
-          loginScreen.classList.add('hidden');
-          dashboardScreen.classList.remove('hidden');
-          renderAdminAll();
-        } else {
-          dashboardScreen.classList.add('hidden');
-          loginScreen.classList.remove('hidden');
-          document.getElementById('login-error-msg').classList.add('hidden');
-        }
-      } else {
-        adminView.classList.add('hidden');
-        publicView.classList.remove('hidden');
-        renderAll();
-      }
-    }
-
-    window.addEventListener('hashchange', handleRouting);
-    window.addEventListener('DOMContentLoaded', handleRouting);
-
-    function handleAdminLogin(e) {
-      e.preventDefault();
-      const login = document.getElementById('admin-input-login').value.trim();
-      const pass = document.getElementById('admin-input-pass').value.trim();
-
-      if (login === adminAuth.login && pass === adminAuth.pass) {
-        sessionStorage.setItem('AM_ADMIN_SESSION', 'active');
-        document.getElementById('login-error-msg').classList.add('hidden');
-        handleRouting();
-      } else {
-        document.getElementById('login-error-msg').classList.remove('hidden');
-      }
-    }
-
-    function handleAdminLogout() {
-      sessionStorage.removeItem('AM_ADMIN_SESSION');
-      window.location.hash = '';
-    }
-
-    function exitAdminToPublic() {
-      window.location.hash = '';
-    }
-
-    function saveAdminCredentials() {
-      const newLogin = document.getElementById('set-new-login').value.trim();
-      const newPass = document.getElementById('set-new-pass').value.trim();
-
-      if (!newLogin || !newPass) {
-        alert("Логин и пароль не могут быть пустыми!");
-        return;
-      }
-      adminAuth.login = newLogin;
-      adminAuth.pass = newPass;
-      saveState();
-      alert("Учетные данные администратора успешно обновлены!");
-    }
-
-    // ========================================================
-    //               ОТРИСОВКА ВИТРИНЫ САЙТА
-    // ========================================================
-    function renderAll() {
-      applyCMSTexts();
-      renderHeaderAndHero();
-      renderEventsCardsGrid();
-      renderDistancesView();
-      renderRunnersView();
-      updateCountdown();
-    }
-
-    function renderHeaderAndHero() {
-      const ev = getActiveEvent();
-      const sel = document.getElementById('event-selector-header');
-      sel.innerHTML = '';
-      events.forEach(e => {
-        sel.innerHTML += `<option value="${e.id}" ${e.id === ev.id ? 'selected' : ''}>${e.title}</option>`;
-      });
-
-      document.getElementById('stat-venue').innerText = ev.venue.split('—')[0].trim();
-      document.getElementById('stat-distances-count').innerText = `${ev.distances.length} Дистанции`;
-      
-      const totalSlots = ev.distances.reduce((sum, d) => sum + (parseInt(d.totalSlots) || 0), 0);
-      const takenSlots = ev.runners.length;
-      document.getElementById('stat-slots-total').innerText = `${takenSlots} / ${totalSlots}`;
-      document.getElementById('stat-prizepool').innerText = ev.prizepool || '2 500 000 ₸';
-    }
-
-    function renderEventsCardsGrid() {
-      const container = document.getElementById('events-cards-grid');
-      container.innerHTML = '';
-      events.forEach(e => {
-        const isActive = e.id === activeEventId;
-        const total = e.distances.reduce((sum, d) => sum + (parseInt(d.totalSlots) || 0), 0);
-        const taken = e.runners.length;
-        const dStr = new Date(e.date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
-
-        container.innerHTML += `
-          <div class="rounded-3xl bg-brand-card border ${isActive ? 'border-2 border-brand-orange' : 'border-brand-border'} p-6 flex flex-col justify-between hover:border-slate-500 transition">
-            <div>
-              <div class="flex justify-between items-center mb-4">
-                <span class="text-xs px-2.5 py-1 rounded-full font-bold ${isActive ? 'bg-brand-orange/20 text-brand-orange' : 'bg-slate-800 text-slate-400'}">
-                  ${isActive ? '● Выбрано на сайте' : e.status}
-                </span>
-                <span class="text-xs text-slate-400 font-mono">${dStr}</span>
-              </div>
-              <h3 class="text-xl font-black text-white mb-2">${e.title}</h3>
-              <p class="text-xs text-slate-400 mb-4">${e.subtitle}</p>
-              <div class="text-xs text-slate-300 space-y-1 mb-6">
-                <div>📍 <strong>Локация:</strong> ${e.venue}</div>
-                <div>🏃 <strong>Дистанции:</strong> ${e.distances.map(d => d.name).join(', ')}</div>
-                <div>👥 <strong>Слоты:</strong> ${taken} из ${total} занято</div>
-              </div>
-            </div>
-            <button onclick="changeActiveEvent('${e.id}')" class="w-full py-3 rounded-xl font-extrabold text-xs uppercase tracking-wider transition ${isActive ? 'bg-brand-orange text-brand-dark' : 'bg-slate-800 text-white hover:bg-brand-orange hover:text-brand-dark'}">
-              ${isActive ? 'Просматривается' : 'Выбрать этот марафон'}
-            </button>
-          </div>
-        `;
-      });
-    }
-
-    function renderDistancesView() {
-      const ev = getActiveEvent();
-      const container = document.getElementById('distances-grid');
-      const selectModal = document.getElementById('modal-distance-select');
-      const selectCalc = document.getElementById('calc-dist');
-
-      container.innerHTML = '';
-      selectModal.innerHTML = '';
-      selectCalc.innerHTML = '';
-
-      ev.distances.forEach((d, idx) => {
-        const distRunnersCount = ev.runners.filter(r => r.distance === d.name).length;
-        const leftSlots = Math.max(0, d.totalSlots - distRunnersCount);
-        const percent = Math.min(100, Math.round((distRunnersCount / d.totalSlots) * 100));
-        const isSoldOut = leftSlots <= 0;
-        const isFeatured = idx === 0;
-        const bibEnd = parseInt(d.bibStart) + parseInt(d.totalSlots) - 1;
-
-        container.innerHTML += `
-          <div class="relative rounded-3xl bg-brand-card p-8 flex flex-col justify-between overflow-hidden shadow-2xl transition hover:scale-[1.01] ${isSoldOut ? 'opacity-80 border border-slate-700' : isFeatured ? 'border-2 border-brand-orange' : 'border border-brand-border'}">
-            <div>
-              <div class="flex justify-between items-center mb-6">
-                <span class="inline-block px-3 py-1 rounded-full text-xs font-extrabold uppercase ${isSoldOut ? 'bg-red-500/20 text-red-400' : isFeatured ? 'bg-brand-orange/20 text-brand-orange' : 'bg-slate-800 text-brand-blue'}">
-                  ${isSoldOut ? 'Слоты исчерпаны' : d.badge}
-                </span>
-                <span class="text-xs text-slate-400 font-mono">BIB: #${d.bibStart}–${bibEnd}</span>
-              </div>
-
-              <h3 class="text-4xl font-black text-white mb-1">${d.name}</h3>
-              <p class="text-slate-400 text-sm mb-6">${d.desc}</p>
-              
-              <div class="space-y-3 py-4 border-y border-brand-border text-sm">
-                <div class="flex justify-between"><span class="text-slate-400">Лимит времени:</span><span class="font-bold text-white">${d.timeLimit}</span></div>
-                <div class="flex justify-between"><span class="text-slate-400">Возраст:</span><span class="font-bold text-white">${d.ageLimit}</span></div>
-                <div class="flex justify-between"><span class="text-slate-400">Осталось мест:</span><span class="font-bold ${leftSlots < 20 ? 'text-amber-400' : 'text-white'}">${leftSlots} из ${d.totalSlots}</span></div>
-              </div>
-
-              <div class="mt-6 mb-8">
-                <div class="w-full bg-brand-dark h-2 rounded-full overflow-hidden">
-                  <div class="${isSoldOut ? 'bg-red-500' : 'bg-gradient-to-r from-brand-orange to-brand-amber'} h-full rounded-full" style="width: ${percent}%"></div>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <div class="text-2xl font-black text-white mb-4">${parseInt(d.price).toLocaleString('ru-RU')} ₸</div>
-              <button onclick="chooseDistanceForRegistration('${d.name}', ${isSoldOut})" ${isSoldOut ? 'disabled' : ''} class="w-full py-3.5 rounded-xl font-extrabold tracking-wide uppercase transition ${isSoldOut ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : isFeatured ? 'bg-gradient-to-r from-brand-orange to-brand-amber text-brand-dark hover:scale-105' : 'bg-slate-800 text-white hover:bg-brand-orange hover:text-brand-dark'}">
-                ${isSoldOut ? 'Мест нет (Sold Out)' : 'Выбрать ' + d.name}
-              </button>
-            </div>
-          </div>
-        `;
-
-        if (!isSoldOut) {
-          selectModal.innerHTML += `<option value="${d.name}">${d.name} — ${parseInt(d.price).toLocaleString('ru-RU')} ₸ (Осталось: ${leftSlots})</option>`;
-        } else {
-          selectModal.innerHTML += `<option value="${d.name}" disabled>${d.name} — МЕСТ НЕТ</option>`;
-        }
-
-        const km = d.kmValue || parseFloat(d.name) || 10;
-        selectCalc.innerHTML += `<option value="${km}">${d.name}</option>`;
-      });
-
-      calculatePace();
-    }
-
-    function renderRunnersView(list = null) {
-      const ev = getActiveEvent();
-      const runnersList = list || ev.runners;
-      const tbody = document.getElementById('runners-table-body');
-      tbody.innerHTML = '';
-
-      if (runnersList.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-500">Пока нет зарегистрированных участников</td></tr>`;
-        return;
-      }
-
-      runnersList.forEach(r => {
-        tbody.innerHTML += `
-          <tr class="hover:bg-brand-surface transition">
-            <td class="py-4 px-6 font-mono font-bold text-brand-orange text-base">#${r.bib}</td>
-            <td class="py-4 px-6 font-bold text-white">${r.name}</td>
-            <td class="py-4 px-6">${r.distance}</td>
-            <td class="py-4 px-6">${r.city || 'Актобе'}</td>
-            <td class="py-4 px-6">
-              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400">
-                ${r.status || 'Подтвержден'}
-              </span>
-            </td>
-          </tr>
-        `;
-      });
-    }
-
-    function filterRunners() {
-      const ev = getActiveEvent();
-      const q = document.getElementById('runner-search').value.toLowerCase();
-      const filtered = ev.runners.filter(r => r.name.toLowerCase().includes(q) || String(r.bib).includes(q));
-      renderRunnersView(filtered);
-    }
-
-    function handleUserRegistration(e) {
-      e.preventDefault();
-      const ev = getActiveEvent();
-      const distName = document.getElementById('modal-distance-select').value;
-      const name = document.getElementById('reg-name').value.trim();
-      const surname = document.getElementById('reg-surname').value.trim();
-      const city = document.getElementById('reg-city').value.trim();
-      const email = document.getElementById('reg-email').value.trim();
-
-      const dist = ev.distances.find(d => d.name === distName);
-      if (!dist) { alert("Выберите дистанцию!"); return; }
-
-      const existingRunnersOnDist = ev.runners.filter(r => r.distance === dist.name);
-      if (existingRunnersOnDist.length >= parseInt(dist.totalSlots)) {
-        alert("Все слоты на эту дистанцию уже заняты!");
-        return;
-      }
-
-      const startBib = parseInt(dist.bibStart) || 1001;
-      const totalSlots = parseInt(dist.totalSlots) || 100;
-      const assignedBibs = new Set(existingRunnersOnDist.map(r => parseInt(r.bib)));
-
-      let allocatedBib = null;
-      for (let num = startBib; num < startBib + totalSlots; num++) {
-        if (!assignedBibs.has(num)) {
-          allocatedBib = num;
-          break;
-        }
-      }
-
-      if (!allocatedBib) {
-        alert("Ошибка диапазона номеров! Обратитесь к организаторам.");
-        return;
-      }
-
-      const newRunner = {
-        bib: allocatedBib.toString(),
-        name: `${surname} ${name}`,
-        distance: dist.name,
-        city: city || 'Актобе',
-        email: email,
-        status: "Подтвержден",
-        regDate: new Date().toISOString()
-      };
-
-      ev.runners.unshift(newRunner);
-      saveState();
-      renderAll();
-
-      alert(`Поздравляем, ${name}!\nВы успешно зарегистрированы на «${ev.title}»!\nДистанция: ${dist.name}\nВаш стартовый номер BIB: #${allocatedBib}`);
-      closeRegistrationModal();
-      e.target.reset();
-    }
-
-    function calculatePace() {
-      const dist = parseFloat(document.getElementById('calc-dist').value) || 10;
-      const h = parseInt(document.getElementById('calc-hours').value) || 0;
-      const m = parseInt(document.getElementById('calc-mins').value) || 0;
-      const totalMinutes = (h * 60) + m;
-
-      if (totalMinutes <= 0 || dist <= 0) return;
-
-      const paceMinutes = totalMinutes / dist;
-      const pMin = Math.floor(paceMinutes);
-      const pSec = Math.round((paceMinutes - pMin) * 60);
-      const speed = (dist / (totalMinutes / 60)).toFixed(1);
-
-      const split5Total = paceMinutes * 5;
-      const s5Min = Math.floor(split5Total);
-      const s5Sec = Math.round((split5Total - s5Min) * 60);
-
-      document.getElementById('res-pace').innerText = `${pMin}:${pSec < 10 ? '0' : ''}${pSec} мин/км`;
-      document.getElementById('res-speed').innerText = `${speed} км/ч`;
-      document.getElementById('res-split5').innerText = `${s5Min}:${s5Sec < 10 ? '0' : ''}${s5Sec}`;
-    }
-
-    function updateCountdown() {
-      const ev = getActiveEvent();
-      const target = new Date(ev.date).getTime();
-      const now = new Date().getTime();
-      const diff = target - now;
-
-      if (diff <= 0) {
-        document.getElementById('t-days').innerText = "00";
-        document.getElementById('t-hours').innerText = "00";
-        document.getElementById('t-mins').innerText = "00";
-        document.getElementById('t-secs').innerText = "00";
-        return;
-      }
-
-      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const m = Math.floor((diff / 1000 / 60) % 60);
-      const s = Math.floor((diff / 1000) % 60);
-
-      document.getElementById('t-days').innerText = d;
-      document.getElementById('t-hours').innerText = h < 10 ? '0' + h : h;
-      document.getElementById('t-mins').innerText = m < 10 ? '0' + m : m;
-      document.getElementById('t-secs').innerText = s < 10 ? '0' + s : s;
-    }
-    setInterval(updateCountdown, 1000);
-
-    function openRegistrationModal() {
-      const ev = getActiveEvent();
-      document.getElementById('reg-event-badge').innerText = ev.title;
-      document.getElementById('reg-modal').classList.remove('hidden');
-      document.getElementById('reg-modal').classList.add('flex');
-    }
-    function closeRegistrationModal() {
-      document.getElementById('reg-modal').classList.remove('flex');
-      document.getElementById('reg-modal').classList.add('hidden');
-    }
-    function chooseDistanceForRegistration(distName, isSoldOut) {
-      if (isSoldOut) return;
-      openRegistrationModal();
-      document.getElementById('modal-distance-select').value = distName;
-    }
-
-    // ========================================================
-    //             ФУНКЦИИ ВНУТРИ АДМИН-ПАНЕЛИ
-    // ========================================================
-    function renderAdminAll() {
-      renderAdminMarathons();
-      renderAdminDistances();
-      renderAdminRunners();
-      populateCMSTextInputs();
-      document.getElementById('set-new-login').value = adminAuth.login;
-      document.getElementById('set-new-pass').value = adminAuth.pass;
-    }
-
-    function switchAdminTab(tabId) {
-      ['tab-marathons', 'tab-distances', 'tab-map', 'tab-texts', 'tab-runners', 'tab-settings'].forEach(id => {
-        document.getElementById(id).classList.add('hidden');
-      });
-      document.getElementById(tabId).classList.remove('hidden');
-
-      ['btn-tab-marathons', 'btn-tab-distances', 'btn-tab-map', 'btn-tab-texts', 'btn-tab-runners', 'btn-tab-settings'].forEach(btnId => {
-        document.getElementById(btnId).className = "py-3.5 text-slate-400 hover:text-white whitespace-nowrap";
-      });
-      document.getElementById('btn-' + tabId).className = "py-3.5 text-brand-orange border-b-2 border-brand-orange whitespace-nowrap";
-
-      if (tabId === 'tab-distances') renderAdminDistances();
-      if (tabId === 'tab-runners') renderAdminRunners();
-      if (tabId === 'tab-marathons') renderAdminMarathons();
-      if (tabId === 'tab-map') updateAdminMapPreview();
-    }
-
-    function renderAdminMarathons() {
-      const tbody = document.getElementById('admin-marathons-table');
-      tbody.innerHTML = '';
-      events.forEach((e, idx) => {
-        const isActive = e.id === activeEventId;
-        const dStr = new Date(e.date).toLocaleDateString('ru-RU');
-        tbody.innerHTML += `
-          <tr class="hover:bg-brand-surface/60">
-            <td class="p-3">
-              <strong class="text-white block">${e.title}</strong>
-              <span class="text-slate-500 text-[10px]">${e.subtitle}</span>
-            </td>
-            <td class="p-3 font-mono">${dStr}</td>
-            <td class="p-3">${e.city}</td>
-            <td class="p-3">${e.distances.length} дист.</td>
-            <td class="p-3">
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${isActive ? 'bg-brand-orange text-brand-dark' : 'bg-slate-800 text-slate-400'}">
-                ${isActive ? 'АКТИВЕН НА САЙТЕ' : 'В списке'}
-              </span>
-            </td>
-            <td class="p-3 text-right space-x-2">
-              ${!isActive ? `<button onclick="setActiveFromAdmin('${e.id}')" class="text-brand-orange hover:underline font-bold">Выбрать</button>` : ''}
-              <button onclick="editMarathon(${idx})" class="text-brand-blue hover:underline font-bold">Изменить</button>
-              ${events.length > 1 ? `<button onclick="deleteMarathon(${idx})" class="text-red-400 hover:underline font-bold">Удалить</button>` : ''}
-            </td>
-          </tr>
-        `;
-      });
-    }
-
-    function setActiveFromAdmin(id) {
-      activeEventId = id;
-      saveState();
-      renderAll();
-      renderAdminMarathons();
-      renderAdminDistances();
-      renderAdminRunners();
-    }
-
-    function openMarathonForm(idx = -1) {
-      const form = document.getElementById('marathon-edit-form');
-      form.classList.remove('hidden');
-      if (idx >= 0) {
-        const e = events[idx];
-        document.getElementById('marathon-form-title').innerText = "Редактировать: " + e.title;
-        document.getElementById('edit-marathon-id').value = idx;
-        document.getElementById('edit-m-title').value = e.title;
-        document.getElementById('edit-m-subtitle').value = e.subtitle;
-        document.getElementById('edit-m-city').value = e.city;
-        document.getElementById('edit-m-venue').value = e.venue;
-        document.getElementById('edit-m-prizepool').value = e.prizepool;
-        const d = new Date(e.date);
-        d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
-        document.getElementById('edit-m-date').value = d.toISOString().slice(0, 16);
-      } else {
-        document.getElementById('marathon-form-title').innerText = "Добавить новое мероприятие";
-        document.getElementById('edit-marathon-id').value = "-1";
-        document.getElementById('edit-m-title').value = "";
-        document.getElementById('edit-m-subtitle').value = "Городской легкоатлетический забег";
-        document.getElementById('edit-m-city').value = "Актобе";
-        document.getElementById('edit-m-venue').value = "Триатлон Парк";
-        document.getElementById('edit-m-prizepool').value = "2 000 000 ₸";
-        document.getElementById('edit-m-date').value = new Date().toISOString().slice(0, 16);
-      }
-    }
-
-    function closeMarathonForm() {
-      document.getElementById('marathon-edit-form').classList.add('hidden');
-    }
-
-    function editMarathon(idx) {
-      openMarathonForm(idx);
-    }
-
-    function saveMarathon() {
-      const idx = parseInt(document.getElementById('edit-marathon-id').value);
-      const title = document.getElementById('edit-m-title').value.trim();
-      const subtitle = document.getElementById('edit-m-subtitle').value.trim();
-      const city = document.getElementById('edit-m-city').value.trim();
-      const venue = document.getElementById('edit-m-venue').value.trim();
-      const prizepool = document.getElementById('edit-m-prizepool').value.trim();
-      const dateVal = document.getElementById('edit-m-date').value;
-
-      if (!title) { alert("Укажите название марафона!"); return; }
-
-      if (idx >= 0) {
-        events[idx].title = title;
-        events[idx].subtitle = subtitle;
-        events[idx].city = city;
-        events[idx].venue = venue;
-        events[idx].prizepool = prizepool;
-        if (dateVal) events[idx].date = new Date(dateVal).toISOString();
-      } else {
-        const newEvt = {
-          id: 'evt_' + Date.now(),
-          title,
-          subtitle,
-          city,
-          venue,
-          prizepool,
-          date: dateVal ? new Date(dateVal).toISOString() : new Date().toISOString(),
-          status: "Регистрация открыта",
-          distances: [
-            {
-              id: 'dist_1',
-              name: '10 КМ',
-              kmValue: 10,
-              badge: 'Стандарт',
-              desc: 'Основная дистанция',
-              price: 7000,
-              totalSlots: 300,
-              bibStart: 1001,
-              timeLimit: '1 час 30 мин',
-              ageLimit: 'от 16 лет'
-            }
-          ],
-          runners: []
-        };
-        events.push(newEvt);
-        activeEventId = newEvt.id;
-      }
-
-      saveState();
-      renderAll();
-      renderAdminMarathons();
-      closeMarathonForm();
-      alert("Мероприятие успешно сохранено!");
-    }
-
-    function deleteMarathon(idx) {
-      if (events.length <= 1) {
-        alert("Нельзя удалить единственный марафон!");
-        return;
-      }
-      if (confirm(`Удалить марафон "${events[idx].title}" и всех его участников?`)) {
-        events.splice(idx, 1);
-        activeEventId = events[0].id;
-        saveState();
-        renderAll();
-        renderAdminMarathons();
-      }
-    }
-
-    function renderAdminDistances() {
-      const ev = getActiveEvent();
-      document.getElementById('admin-current-event-name').innerText = ev.title;
-      const tbody = document.getElementById('admin-distances-table');
-      tbody.innerHTML = '';
-
-      ev.distances.forEach((d, idx) => {
-        const assignedCount = ev.runners.filter(r => r.distance === d.name).length;
-        const bibEnd = parseInt(d.bibStart) + parseInt(d.totalSlots) - 1;
-
-        tbody.innerHTML += `
-          <tr class="hover:bg-brand-surface/60">
-            <td class="p-3">
-              <strong class="text-white block">${d.name}</strong>
-              <span class="text-slate-500 text-[10px]">${d.badge}</span>
-            </td>
-            <td class="p-3 font-bold text-brand-orange">${parseInt(d.price).toLocaleString('ru-RU')} ₸</td>
-            <td class="p-3 font-semibold">${d.totalSlots} мест</td>
-            <td class="p-3 font-mono text-brand-blue">#${d.bibStart} – #${bibEnd}</td>
-            <td class="p-3">${assignedCount} / ${d.totalSlots}</td>
-            <td class="p-3 text-right space-x-2">
-              <button onclick="editDistance(${idx})" class="text-brand-blue hover:underline font-bold">Изменить</button>
-              <button onclick="deleteDistance(${idx})" class="text-red-400 hover:underline font-bold">Удалить</button>
-            </td>
-          </tr>
-        `;
-      });
-    }
-
-    function editDistance(idx) {
-      openDistanceForm(idx);
-    }
-
-    function openDistanceForm(idx = -1) {
-      const ev = getActiveEvent();
-      const form = document.getElementById('distance-edit-form');
-      form.classList.remove('hidden');
-
-      if (idx >= 0) {
-        const d = ev.distances[idx];
-        document.getElementById('dist-form-title').innerText = "Редактировать забег: " + d.name;
-        document.getElementById('edit-dist-idx').value = idx;
-        document.getElementById('edit-dist-name').value = d.name;
-        document.getElementById('edit-dist-badge').value = d.badge;
-        document.getElementById('edit-dist-price').value = d.price;
-        document.getElementById('edit-dist-slots').value = d.totalSlots;
-        document.getElementById('edit-dist-bib-start').value = d.bibStart || 1001;
-        document.getElementById('edit-dist-timelimit').value = d.timeLimit;
-        document.getElementById('edit-dist-agelimit').value = d.ageLimit;
-        document.getElementById('edit-dist-desc').value = d.desc;
-        updateBibEndPreview();
-      } else {
-        document.getElementById('dist-form-title').innerText = "Добавить новую дистанцию";
-        document.getElementById('edit-dist-idx').value = "-1";
-        document.getElementById('edit-dist-name').value = "";
-        document.getElementById('edit-dist-badge').value = "Забег";
-        document.getElementById('edit-dist-price').value = "5000";
-        document.getElementById('edit-dist-slots').value = "300";
-        document.getElementById('edit-dist-bib-start').value = "4001";
-        document.getElementById('edit-dist-timelimit').value = "1 час";
-        document.getElementById('edit-dist-agelimit').value = "от 12 лет";
-        document.getElementById('edit-dist-desc').value = "Городской забег";
-        updateBibEndPreview();
-      }
-
-      form.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function updateBibEndPreview() {
-      const start = parseInt(document.getElementById('edit-dist-bib-start').value) || 1001;
-      const slots = parseInt(document.getElementById('edit-dist-slots').value) || 100;
-      document.getElementById('edit-dist-bib-end').value = `#${start + slots - 1}`;
-    }
-    document.getElementById('edit-dist-slots').addEventListener('input', updateBibEndPreview);
-    document.getElementById('edit-dist-bib-start').addEventListener('input', updateBibEndPreview);
-
-    function closeDistanceForm() {
-      document.getElementById('distance-edit-form').classList.add('hidden');
-    }
-
-    function saveDistance() {
-      const ev = getActiveEvent();
-      const idx = parseInt(document.getElementById('edit-dist-idx').value);
-      const name = document.getElementById('edit-dist-name').value.trim();
-      const badge = document.getElementById('edit-dist-badge').value.trim();
-      const price = parseInt(document.getElementById('edit-dist-price').value) || 0;
-      const slots = parseInt(document.getElementById('edit-dist-slots').value) || 100;
-      const bibStart = parseInt(document.getElementById('edit-dist-bib-start').value) || 1001;
-      const timeLimit = document.getElementById('edit-dist-timelimit').value.trim();
-      const ageLimit = document.getElementById('edit-dist-agelimit').value.trim();
-      const desc = document.getElementById('edit-dist-desc').value.trim();
-
-      if (!name) { alert("Укажите название дистанции!"); return; }
-
-      const kmVal = parseFloat(name.replace(',', '.')) || 10;
-      const distPayload = {
-        id: idx >= 0 ? ev.distances[idx].id : 'dist_' + Date.now(),
-        name,
-        kmValue: kmVal,
-        badge,
-        desc,
-        price,
-        totalSlots: slots,
-        bibStart: bibStart,
-        timeLimit,
-        ageLimit
-      };
-
-      if (idx >= 0) {
-        const oldName = ev.distances[idx].name;
-        if (oldName !== name) {
-          ev.runners.forEach(r => { if (r.distance === oldName) r.distance = name; });
-        }
-        ev.distances[idx] = distPayload;
-      } else {
-        ev.distances.push(distPayload);
-      }
-
-      saveState();
-      renderAll();
-      renderAdminDistances();
-      closeDistanceForm();
-      alert("Дистанция и параметры номеров успешно сохранены!");
-    }
-
-    function deleteDistance(idx) {
-      const ev = getActiveEvent();
-      const dist = ev.distances[idx];
-      if (confirm(`Удалить дистанцию "${dist.name}"?`)) {
-        ev.distances.splice(idx, 1);
-        saveState();
-        renderAll();
-        renderAdminDistances();
-      }
-    }
-
-    function renderAdminRunners() {
-      const ev = getActiveEvent();
-      document.getElementById('admin-runners-count').innerText = `Марафон: ${ev.title} (Всего бегунов: ${ev.runners.length})`;
-      const tbody = document.getElementById('admin-runners-table');
-      tbody.innerHTML = '';
-
-      ev.runners.forEach((r, idx) => {
-        tbody.innerHTML += `
-          <tr class="hover:bg-brand-surface/60">
-            <td class="p-3 font-mono font-bold text-brand-orange text-sm">#${r.bib}</td>
-            <td class="p-3 font-bold text-white">${r.name}</td>
-            <td class="p-3">${r.distance}</td>
-            <td class="p-3">${r.city}</td>
-            <td class="p-3 text-slate-400">${r.email || '—'}</td>
-            <td class="p-3 text-right">
-              <button onclick="deleteRunner(${idx})" class="text-red-400 hover:underline">Удалить (освободить слот)</button>
-            </td>
-          </tr>
-        `;
-      });
-    }
-
-    function deleteRunner(idx) {
-      const ev = getActiveEvent();
-      const r = ev.runners[idx];
-      if (confirm(`Удалить участника ${r.name} (BIB #${r.bib})? Его номер станет доступен для повторной регистрации.`)) {
-        ev.runners.splice(idx, 1);
-        saveState();
-        renderAll();
-        renderAdminRunners();
-      }
-    }
-
-    function exportCSV() {
-      const ev = getActiveEvent();
-      let csv = "\uFEFFBIB;ФИО;Дистанция;Город;Email;Статус\n";
-      ev.runners.forEach(r => {
-        csv += `"${r.bib}";"${r.name}";"${r.distance}";"${r.city}";"${r.email || ''}";"${r.status || 'Подтвержден'}"\n`;
-      });
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = `${ev.title.replace(/\s+/g, '_')}_Runners.csv`;
-      link.click();
-    }
-
-    function resetPlatformData() {
-      if (confirm("ВНИМАНИЕ: Сбросить все марафоны, тексты и схему к заводским настройкам?")) {
-        localStorage.removeItem('AM_MULTI_EVENTS');
-        localStorage.removeItem('AM_ACTIVE_EVENT_ID');
-        localStorage.removeItem('AM_ADMIN_CREDENTIALS');
-        localStorage.removeItem('AM_CMS_DATA');
-        events = INITIAL_EVENTS;
-        activeEventId = events[0].id;
-        adminAuth = DEFAULT_ADMIN;
-        siteCMS = DEFAULT_CMS;
-        saveState();
-        renderAll();
-        renderAdminAll();
-        alert("Данные успешно сброшены к начальным!");
-      }
-    }
+    // Первоначальный запуск
+    renderAll();
   </script>
 </body>
 </html>
