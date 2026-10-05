@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AQTOBE MARATHON | Главный беговой фестиваль Актобе</title>
+  <title>AQTOBE MARATHON | Главные марафоны и забеги</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,32 +41,38 @@
 <body class="bg-brand-dark text-slate-100 font-sans antialiased overflow-x-hidden">
 
   <!-- ================================================================= -->
-  <!-- 1. ПУБЛИЧНЫЙ САЙТ                                                 -->
+  <!-- 1. ПУБЛИЧНЫЙ САЙТ ДЛЯ УЧАСТНИКОВ                                  -->
   <!-- ================================================================= -->
   <div id="public-view">
     <!-- ШАПКА -->
     <header class="fixed top-0 left-0 w-full z-40 bg-brand-dark/90 backdrop-blur-xl border-b border-brand-border">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
         
-        <div class="flex items-center gap-3">
+        <!-- Логотип + Выбор забега -->
+        <div class="flex items-center gap-4">
           <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-orange to-brand-amber flex items-center justify-center font-black text-brand-dark text-xl tracking-tighter shadow-lg shadow-brand-orange/30">
             AM
           </div>
           <div>
             <span class="font-extrabold text-lg sm:text-xl tracking-wider uppercase bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-brand-orange">
-              AQTOBE MARATHON
+              AQTOBE RUN
             </span>
-            <span class="block text-[10px] uppercase tracking-widest text-slate-400 font-semibold">City Running Festival</span>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Забег:</span>
+              <select id="event-selector-header" onchange="changeActiveEvent(this.value)" class="bg-brand-card text-brand-orange text-xs font-bold rounded-lg border border-brand-border px-2 py-0.5 outline-none cursor-pointer">
+              </select>
+            </div>
           </div>
         </div>
 
+        <!-- Навигация -->
         <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold tracking-wide text-slate-300">
+          <a href="#events-list" class="hover:text-brand-orange transition">Все забеги</a>
           <a href="#distances" class="hover:text-brand-orange transition">Дистанции</a>
           <a href="#calculator" class="hover:text-brand-orange transition">Темп</a>
           <a href="#route" class="hover:text-brand-orange transition">Маршрут</a>
-          <a href="#pack" class="hover:text-brand-orange transition">Стартовый пакет</a>
+          <a href="#pack" class="hover:text-brand-orange transition">Пакет</a>
           <a href="#results" class="hover:text-brand-orange transition">Участники</a>
-          <a href="#schedule" class="hover:text-brand-orange transition">Тайминг</a>
         </nav>
 
         <div class="flex items-center gap-3">
@@ -77,9 +83,8 @@
       </div>
     </header>
 
-    <!-- ГЛАВНЫЙ ЭКРАН С ФОТОГРАФИЯМИ БЕГУНОВ -->
+    <!-- ГЛАВНЫЙ ЭКРАН С ФОТО БЕГУНОВ -->
     <section class="relative min-h-screen pt-28 pb-16 flex items-center overflow-hidden">
-      <!-- Фото бегунов на фоне -->
       <div class="absolute inset-0 z-0">
         <img src="https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?auto=format&fit=crop&w=2000&q=80" alt="Бегуны" class="w-full h-full object-cover object-center scale-105 opacity-25 filter contrast-125">
         <div class="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/95 to-brand-dark/70"></div>
@@ -90,18 +95,17 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-12">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          <!-- Левая колонка -->
           <div class="lg:col-span-7 text-left">
             <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-card/90 border border-brand-border text-brand-orange text-xs font-bold uppercase tracking-wider mb-6 backdrop-blur-md">
               <span class="w-2.5 h-2.5 rounded-full bg-brand-orange animate-ping"></span>
-              Сезон 2026 • Город Актобе
+              <span id="hero-badge">Сезон 2026 • Город Актобе</span>
             </div>
 
-            <h1 class="text-4xl sm:text-6xl font-black uppercase tracking-tight leading-none mb-6">
+            <h1 id="hero-title" class="text-4xl sm:text-6xl font-black uppercase tracking-tight leading-none mb-6">
               AQTOBE MARATHON 2026
             </h1>
 
-            <p class="max-w-xl text-slate-300 text-lg font-normal leading-relaxed mb-8">
+            <p id="hero-desc" class="max-w-xl text-slate-300 text-lg font-normal leading-relaxed mb-8">
               Главное спортивное событие города с сертифицированной трассой через проспект Абилкайыр хана и Триатлон парк.
             </p>
 
@@ -112,19 +116,19 @@
               </div>
               <div class="grid grid-cols-4 gap-3 text-center">
                 <div class="p-2.5 rounded-xl bg-brand-dark/90 border border-brand-border">
-                  <span id="t-days" class="block text-2xl sm:text-4xl font-black text-brand-orange">48</span>
+                  <span id="t-days" class="block text-2xl sm:text-4xl font-black text-brand-orange">00</span>
                   <span class="text-[10px] text-slate-400 font-semibold uppercase">Дней</span>
                 </div>
                 <div class="p-2.5 rounded-xl bg-brand-dark/90 border border-brand-border">
-                  <span id="t-hours" class="block text-2xl sm:text-4xl font-black text-white">14</span>
+                  <span id="t-hours" class="block text-2xl sm:text-4xl font-black text-white">00</span>
                   <span class="text-[10px] text-slate-400 font-semibold uppercase">Часов</span>
                 </div>
                 <div class="p-2.5 rounded-xl bg-brand-dark/90 border border-brand-border">
-                  <span id="t-mins" class="block text-2xl sm:text-4xl font-black text-white">32</span>
+                  <span id="t-mins" class="block text-2xl sm:text-4xl font-black text-white">00</span>
                   <span class="text-[10px] text-slate-400 font-semibold uppercase">Минут</span>
                 </div>
                 <div class="p-2.5 rounded-xl bg-brand-dark/90 border border-brand-border">
-                  <span id="t-secs" class="block text-2xl sm:text-4xl font-black text-brand-amber">18</span>
+                  <span id="t-secs" class="block text-2xl sm:text-4xl font-black text-brand-amber">00</span>
                   <span class="text-[10px] text-slate-400 font-semibold uppercase">Секунд</span>
                 </div>
               </div>
@@ -140,7 +144,7 @@
             </div>
           </div>
 
-          <!-- Правая колонка с фото бегуна -->
+          <!-- Фото бегуна справа -->
           <div class="lg:col-span-5 relative">
             <div class="relative mx-auto max-w-md lg:max-w-none">
               
@@ -184,148 +188,45 @@
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-10 border-t border-brand-border text-left">
           <div>
-            <div class="text-xl font-black text-white truncate">Триатлон Парк</div>
+            <div id="stat-venue" class="text-xl font-black text-white truncate">Триатлон Парк</div>
             <div class="text-xs text-slate-400">Локация старта</div>
           </div>
           <div>
-            <div class="text-xl font-black text-brand-orange">3 Дистанции</div>
-            <div class="text-xs text-slate-400">21.1K • 10K • 3K</div>
+            <div id="stat-distances-count" class="text-xl font-black text-brand-orange">3 Дистанции</div>
+            <div class="text-xs text-slate-400">Доступные забеги</div>
           </div>
           <div>
-            <div class="text-xl font-black text-brand-amber">ChronoTrack</div>
-            <div class="text-xs text-slate-400">Электронный тайминг</div>
+            <div id="stat-slots-total" class="text-xl font-black text-brand-amber">4 / 1600</div>
+            <div class="text-xs text-slate-400">Занято слотов</div>
           </div>
           <div>
-            <div class="text-xl font-black text-white">2 500 000 ₸</div>
+            <div id="stat-prizepool" class="text-xl font-black text-white">2 500 000 ₸</div>
             <div class="text-xs text-slate-400">Призовой фонд</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ДИСТАНЦИИ (ЖЕСТКО В HTML) -->
+    <!-- СЕКЦИЯ ВСЕХ МАРАФОНОВ СЕРИИ -->
+    <section id="events-list" class="py-20 bg-brand-surface border-t border-brand-border">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-12">
+          <span class="text-xs uppercase font-extrabold tracking-widest text-brand-orange">Календарь серии</span>
+          <h2 class="text-3xl sm:text-4xl font-black uppercase text-white mt-1">Все марафоны и забеги</h2>
+        </div>
+        <div id="events-cards-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+      </div>
+    </section>
+
+    <!-- ДИСТАНЦИИ -->
     <section id="distances" class="py-24 bg-brand-dark relative border-t border-brand-border">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto mb-16">
-          <h2 class="text-xs uppercase font-extrabold tracking-widest text-brand-orange mb-3">AQTOBE MARATHON</h2>
+          <h2 id="distances-event-tag" class="text-xs uppercase font-extrabold tracking-widest text-brand-orange mb-3">AQTOBE MARATHON</h2>
           <p class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white">Дистанции и стоимость слотов</p>
-          <p class="text-slate-400 mt-4">Каждый участник получает медаль финишера, номер с чипом и официальный стартовый пакет.</p>
+          <p class="text-slate-400 mt-4">Каждый участник получает литую медаль финишера, номер с чипом и подарки от спонсоров.</p>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          
-          <!-- 21.1 КМ -->
-          <div class="relative rounded-3xl bg-brand-card p-8 flex flex-col justify-between overflow-hidden shadow-2xl border-2 border-brand-orange">
-            <div>
-              <div class="flex justify-between items-center mb-6">
-                <span class="inline-block px-3 py-1 rounded-full text-xs font-extrabold uppercase bg-brand-orange/20 text-brand-orange">
-                  Титульный забег
-                </span>
-                <span class="text-xs text-slate-400 font-mono">BIB: #2001–#2500</span>
-              </div>
-              <h3 class="text-4xl font-black text-white mb-1">21.1 КМ</h3>
-              <p class="text-slate-400 text-sm mb-6">Классический полумарафон для опытных атлетов и проверки скоростной выносливости.</p>
-              
-              <div class="space-y-3 py-4 border-y border-brand-border text-sm">
-                <div class="flex justify-between"><span class="text-slate-400">Лимит времени:</span><span class="font-bold text-white">3 часа 00 мин</span></div>
-                <div class="flex justify-between"><span class="text-slate-400">Возраст:</span><span class="font-bold text-white">от 18 лет</span></div>
-                <div class="flex justify-between"><span class="text-slate-400">Пункты питания:</span><span class="font-bold text-white">Каждые 4 км</span></div>
-              </div>
-
-              <div class="mt-6 mb-8">
-                <div class="flex justify-between text-xs font-semibold mb-2">
-                  <span class="text-slate-400">Осталось мест:</span>
-                  <span class="text-brand-orange font-bold">142 из 500</span>
-                </div>
-                <div class="w-full bg-brand-dark h-2 rounded-full overflow-hidden">
-                  <div class="bg-gradient-to-r from-brand-orange to-brand-amber h-full rounded-full" style="width: 72%"></div>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <div class="text-2xl font-black text-white mb-4">9 000 ₸</div>
-              <button onclick="selectDistance('21.1 КМ')" class="w-full py-3.5 rounded-xl font-extrabold tracking-wide uppercase transition bg-gradient-to-r from-brand-orange to-brand-amber text-brand-dark hover:scale-105">
-                Выбрать 21.1 КМ
-              </button>
-            </div>
-          </div>
-
-          <!-- 10.0 КМ -->
-          <div class="rounded-3xl bg-brand-card p-8 flex flex-col justify-between overflow-hidden shadow-2xl border border-brand-border hover:border-slate-500 transition">
-            <div>
-              <div class="flex justify-between items-center mb-6">
-                <span class="inline-block px-3 py-1 rounded-full text-xs font-extrabold uppercase bg-slate-800 text-brand-blue">
-                  Популярный
-                </span>
-                <span class="text-xs text-slate-400 font-mono">BIB: #1001–#1700</span>
-              </div>
-              <h3 class="text-4xl font-black text-white mb-1">10.0 КМ</h3>
-              <p class="text-slate-400 text-sm mb-6">Скоростная десятка по центральным проспектам города для любителей бега.</p>
-              
-              <div class="space-y-3 py-4 border-y border-brand-border text-sm">
-                <div class="flex justify-between"><span class="text-slate-400">Лимит времени:</span><span class="font-bold text-white">1 час 45 мин</span></div>
-                <div class="flex justify-between"><span class="text-slate-400">Возраст:</span><span class="font-bold text-white">от 15 лет</span></div>
-                <div class="flex justify-between"><span class="text-slate-400">Пункты питания:</span><span class="font-bold text-white">На 5 км и 8 км</span></div>
-              </div>
-
-              <div class="mt-6 mb-8">
-                <div class="flex justify-between text-xs font-semibold mb-2">
-                  <span class="text-slate-400">Осталось мест:</span>
-                  <span class="text-brand-blue font-bold">88 из 700</span>
-                </div>
-                <div class="w-full bg-brand-dark h-2 rounded-full overflow-hidden">
-                  <div class="bg-brand-blue h-full rounded-full" style="width: 87%"></div>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <div class="text-2xl font-black text-white mb-4">7 500 ₸</div>
-              <button onclick="selectDistance('10.0 КМ')" class="w-full py-3.5 rounded-xl font-extrabold tracking-wide uppercase transition bg-slate-800 text-white hover:bg-brand-orange hover:text-brand-dark">
-                Выбрать 10.0 КМ
-              </button>
-            </div>
-          </div>
-
-          <!-- 3.0 КМ -->
-          <div class="rounded-3xl bg-brand-card p-8 flex flex-col justify-between overflow-hidden shadow-2xl border border-brand-border hover:border-slate-500 transition">
-            <div>
-              <div class="flex justify-between items-center mb-6">
-                <span class="inline-block px-3 py-1 rounded-full text-xs font-extrabold uppercase bg-slate-800 text-slate-300">
-                  Fun Run
-                </span>
-                <span class="text-xs text-slate-400 font-mono">BIB: #3001–#3400</span>
-              </div>
-              <h3 class="text-4xl font-black text-white mb-1">3.0 КМ</h3>
-              <p class="text-slate-400 text-sm mb-6">Массовый легкий забег и скандинавская ходьба для всей семьи и начинающих.</p>
-              
-              <div class="space-y-3 py-4 border-y border-brand-border text-sm">
-                <div class="flex justify-between"><span class="text-slate-400">Лимит времени:</span><span class="font-bold text-white">45 минут</span></div>
-                <div class="flex justify-between"><span class="text-slate-400">Возраст:</span><span class="font-bold text-white">от 10 лет</span></div>
-                <div class="flex justify-between"><span class="text-slate-400">Пункты питания:</span><span class="font-bold text-white">Финишный городок</span></div>
-              </div>
-
-              <div class="mt-6 mb-8">
-                <div class="flex justify-between text-xs font-semibold mb-2">
-                  <span class="text-slate-400">Осталось мест:</span>
-                  <span class="text-slate-300 font-bold">110 из 400</span>
-                </div>
-                <div class="w-full bg-brand-dark h-2 rounded-full overflow-hidden">
-                  <div class="bg-slate-400 h-full rounded-full" style="width: 72%"></div>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <div class="text-2xl font-black text-white mb-4">6 000 ₸</div>
-              <button onclick="selectDistance('3.0 КМ')" class="w-full py-3.5 rounded-xl font-extrabold tracking-wide uppercase transition bg-slate-800 text-white hover:bg-brand-orange hover:text-brand-dark">
-                Выбрать 3.0 КМ
-              </button>
-            </div>
-          </div>
-
-        </div>
+        <div id="distances-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
       </div>
     </section>
 
@@ -376,13 +277,13 @@
       </div>
     </section>
 
-    <!-- СХЕМА ТРАССЫ (SVG ВСТРОЕНА НАПРЯМУЮ В HTML) -->
+    <!-- СХЕМА ТРАССЫ -->
     <section id="route" class="py-24 bg-brand-dark border-t border-brand-border">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div class="lg:col-span-5">
             <span class="text-xs uppercase font-extrabold tracking-widest text-brand-orange">Безопасность и маршрут</span>
-            <h2 class="text-3xl sm:text-4xl font-black uppercase text-white mt-2 mb-6">Городской скоростной круг через парки</h2>
+            <h2 id="route-title" class="text-3xl sm:text-4xl font-black uppercase text-white mt-2 mb-6">Городской скоростной круг через парки</h2>
             <p class="text-slate-400 leading-relaxed mb-6">
               Трасса полностью освобождается от автотранспорта. Обеспечивается медицинское сопровождение, станции освежения и гидратации каждые 3-4 километра.
             </p>
@@ -411,7 +312,6 @@
                 <span class="text-xs px-2.5 py-1 rounded bg-brand-dark text-brand-orange font-bold">21.0975 KM</span>
               </div>
               
-              <!-- Надежная векторная схема маршрута -->
               <div class="w-full h-80 sm:h-96 bg-brand-dark rounded-2xl border border-brand-border relative flex items-center justify-center overflow-hidden">
                 <svg viewBox="0 0 700 350" class="w-full h-full p-4">
                   <line x1="50" y1="50" x2="650" y2="50" stroke="#1E2C4F" stroke-dasharray="4" />
@@ -500,68 +400,42 @@
                   <th class="py-4 px-6">Статус</th>
                 </tr>
               </thead>
-              <tbody id="runners-table-body" class="divide-y divide-brand-border text-slate-300">
-                <!-- Начальные участники -->
-                <tr class="hover:bg-brand-surface transition">
-                  <td class="py-4 px-6 font-mono font-bold text-brand-orange text-base">#2001</td>
-                  <td class="py-4 px-6 font-bold text-white">Бауыржан Касымов</td>
-                  <td class="py-4 px-6">21.1 КМ</td>
-                  <td class="py-4 px-6">Актобе</td>
-                  <td class="py-4 px-6"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400">Подтвержден</span></td>
-                </tr>
-                <tr class="hover:bg-brand-surface transition">
-                  <td class="py-4 px-6 font-mono font-bold text-brand-orange text-base">#2002</td>
-                  <td class="py-4 px-6 font-bold text-white">Дмитрий Иванов</td>
-                  <td class="py-4 px-6">21.1 КМ</td>
-                  <td class="py-4 px-6">Алматы</td>
-                  <td class="py-4 px-6"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400">Подтвержден</span></td>
-                </tr>
-                <tr class="hover:bg-brand-surface transition">
-                  <td class="py-4 px-6 font-mono font-bold text-brand-orange text-base">#1001</td>
-                  <td class="py-4 px-6 font-bold text-white">Алия Смагулова</td>
-                  <td class="py-4 px-6">10.0 КМ</td>
-                  <td class="py-4 px-6">Актобе</td>
-                  <td class="py-4 px-6"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400">Подтвержден</span></td>
-                </tr>
-                <tr class="hover:bg-brand-surface transition">
-                  <td class="py-4 px-6 font-mono font-bold text-brand-orange text-base">#3001</td>
-                  <td class="py-4 px-6 font-bold text-white">Нурбек Маратов</td>
-                  <td class="py-4 px-6">3.0 КМ</td>
-                  <td class="py-4 px-6">Актобе</td>
-                  <td class="py-4 px-6"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400">Подтвержден</span></td>
-                </tr>
-              </tbody>
+              <tbody id="runners-table-body" class="divide-y divide-brand-border text-slate-300"></tbody>
             </table>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ФУТЕР -->
+    <!-- ФУТЕР С КНОПКОЙ ВХОДА ДЛЯ ОРГАНИЗАТОРА -->
     <footer class="bg-brand-surface border-t border-brand-border py-12 text-slate-400 text-xs">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
         <div class="flex items-center gap-3">
           <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-orange to-brand-amber text-brand-dark flex items-center justify-center font-black">AM</div>
-          <span class="text-white font-extrabold text-sm uppercase">AQTOBE MARATHON</span>
+          <span class="text-white font-extrabold text-sm uppercase">AQTOBE RUN SERIES</span>
         </div>
         <div>
           © 2026 AQTOBE MARATHON. Официальный городской беговой фестиваль.
         </div>
-        <div class="flex gap-6 text-slate-400">
+        <div class="flex items-center gap-6 text-slate-400">
+          <a href="#events-list" class="hover:text-white transition">Забеги</a>
           <a href="#distances" class="hover:text-white transition">Дистанции</a>
-          <a href="#route" class="hover:text-white transition">Безопасность</a>
+          <!-- КНОПКА БЫСТРОГО ВХОДА В АДМИНКУ -->
+          <button onclick="openAdminDirectly()" class="text-slate-500 hover:text-brand-orange transition flex items-center gap-1.5" title="Вход в систему управления">
+            🔒 <span>Вход для организаторов</span>
+          </button>
         </div>
       </div>
     </footer>
   </div>
 
   <!-- МОДАЛЬНОЕ ОКНО РЕГИСТРАЦИИ ПОЛЬЗОВАТЕЛЯ -->
-  <div id="reg-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4">
+  <div id="reg-modal" style="display: none;" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md items-center justify-center p-4">
     <div class="bg-brand-card border border-brand-border rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl">
-      <button onclick="closeRegistrationModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-2xl font-bold">✕</button>
+      <button type="button" onclick="closeRegistrationModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-2xl font-bold">✕</button>
       
       <div class="mb-6">
-        <span class="text-xs font-bold text-brand-orange uppercase tracking-wider">AQTOBE MARATHON 2026</span>
+        <span id="reg-event-badge" class="text-xs font-bold text-brand-orange uppercase tracking-wider">AQTOBE MARATHON</span>
         <h3 class="text-2xl font-black text-white uppercase mt-1">Регистрация на забег</h3>
       </div>
 
@@ -569,9 +443,6 @@
         <div>
           <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Выберите дистанцию</label>
           <select id="modal-distance-select" class="w-full bg-brand-dark border border-brand-border text-white rounded-xl p-3 text-sm font-bold focus:border-brand-orange outline-none">
-            <option value="21.1 КМ">21.1 КМ — 9 000 ₸</option>
-            <option value="10.0 КМ">10.0 КМ — 7 500 ₸</option>
-            <option value="3.0 КМ">3.0 КМ — 6 000 ₸</option>
           </select>
         </div>
 
@@ -605,9 +476,12 @@
     </div>
   </div>
 
-  <!-- 2. ЗАКРЫТАЯ АДМИН-ПАНЕЛЬ (ВХОД ТОЛЬКО ПО ССЫЛКЕ /#admin) -->
-  <div id="admin-view" class="hidden min-h-screen bg-brand-dark text-slate-100 flex flex-col">
-    <!-- Экран логина -->
+  <!-- ================================================================= -->
+  <!-- 2. ЗАКРЫТАЯ АДМИН-ПАНЕЛЬ (ВХОД ЧЕРЕЗ #admin ИЛИ КНОПКУ В ФУТЕРЕ)   -->
+  <!-- ================================================================= -->
+  <div id="admin-view" style="display: none;" class="min-h-screen bg-brand-dark text-slate-100 flex-col">
+    
+    <!-- ЭКРАН ВВОДА ЛОГИНА И ПАРОЛЯ -->
     <div id="admin-login-screen" class="min-h-screen flex items-center justify-center p-4 bg-grid">
       <div class="bg-brand-card border border-brand-border rounded-3xl max-w-md w-full p-8 shadow-2xl relative">
         <div class="text-center mb-8">
@@ -615,11 +489,11 @@
             🔒
           </div>
           <h2 class="text-2xl font-black text-white uppercase tracking-wider">Панель организатора</h2>
-          <p class="text-xs text-slate-400 mt-1">Вход только для администраторов</p>
+          <p class="text-xs text-slate-400 mt-1">Доступ только для администраторов</p>
         </div>
 
         <form onsubmit="handleAdminLogin(event)" class="space-y-4">
-          <div id="login-error-msg" class="hidden p-3 rounded-xl bg-red-500/20 border border-red-500/30 text-red-400 text-xs text-center font-bold">
+          <div id="login-error-msg" style="display: none;" class="p-3 rounded-xl bg-red-500/20 border border-red-500/30 text-red-400 text-xs text-center font-bold">
             Неверный логин или пароль!
           </div>
 
@@ -648,20 +522,20 @@
       </div>
     </div>
 
-    <!-- Кабинет админа -->
-    <div id="admin-dashboard-screen" class="hidden flex-1 flex flex-col">
+    <!-- КАБИНЕТ УПРАВЛЕНИЯ -->
+    <div id="admin-dashboard-screen" style="display: none;" class="flex-1 flex-col">
       <header class="bg-brand-surface border-b border-brand-border px-6 py-4 flex flex-wrap items-center justify-between gap-4">
         <div class="flex items-center gap-3">
           <span class="text-2xl">⚙️</span>
           <div>
-            <h1 class="text-lg font-black text-white uppercase tracking-wider">Панель управления забегами</h1>
-            <span class="text-xs text-brand-orange font-semibold">AQTOBE MARATHON • Кабинет организатора</span>
+            <h1 class="text-lg font-black text-white uppercase tracking-wider">Панель управления серией забегов</h1>
+            <span class="text-xs text-brand-orange font-semibold">Управление событиями, дистанциями и участниками</span>
           </div>
         </div>
 
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-3">
           <button onclick="exportCSV()" class="px-3.5 py-2 rounded-xl bg-slate-800 text-xs font-bold text-white hover:bg-slate-700 transition flex items-center gap-1.5">
-            📥 Скачать Excel (.CSV)
+            📥 Экспорт в CSV (Excel)
           </button>
           <button onclick="exitAdminToPublic()" class="px-3.5 py-2 rounded-xl bg-slate-800 text-xs font-bold text-slate-300 hover:text-white transition">
             На сайт
@@ -672,57 +546,593 @@
         </div>
       </header>
 
+      <!-- Вкладки управления -->
+      <div class="flex border-b border-brand-border bg-brand-dark px-6 gap-6 text-sm font-bold overflow-x-auto">
+        <button onclick="switchAdminTab('tab-marathons')" id="btn-tab-marathons" class="py-3.5 text-brand-orange border-b-2 border-brand-orange whitespace-nowrap">1. Все марафоны / забеги</button>
+        <button onclick="switchAdminTab('tab-distances')" id="btn-tab-distances" class="py-3.5 text-slate-400 hover:text-white whitespace-nowrap">2. Дистанции, цены и нумерация (BIB)</button>
+        <button onclick="switchAdminTab('tab-runners')" id="btn-tab-runners" class="py-3.5 text-slate-400 hover:text-white whitespace-nowrap">3. База участников</button>
+      </div>
+
       <main class="flex-1 p-6 max-w-7xl w-full mx-auto space-y-6">
-        <div class="flex justify-between items-center">
-          <div>
-            <h3 class="text-base font-bold text-white uppercase">Список зарегистрированных атлетов</h3>
-            <span id="admin-runners-count" class="text-xs text-brand-orange font-semibold">Всего участников: 4</span>
+        
+        <!-- ВКЛАДКА 1: МАРАФОНЫ -->
+        <div id="tab-marathons" class="space-y-6">
+          <div class="flex justify-between items-center">
+            <div>
+              <h3 class="text-base font-bold text-white uppercase">Список марафонов и соревнований</h3>
+              <p class="text-xs text-slate-400">Добавляйте новые забеги, меняйте дату или выбирайте главный марафон сайта.</p>
+            </div>
+            <button onclick="openMarathonForm()" class="px-4 py-2.5 rounded-xl bg-brand-orange text-brand-dark text-xs font-black uppercase hover:bg-white transition">
+              + Добавить новый марафон
+            </button>
+          </div>
+
+          <div class="rounded-xl border border-brand-border overflow-hidden bg-brand-card">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-brand-dark text-slate-400 uppercase font-bold border-b border-brand-border">
+                <tr>
+                  <th class="p-3">Название забега</th>
+                  <th class="p-3">Дата старта</th>
+                  <th class="p-3">Город / Локация</th>
+                  <th class="p-3">Дистанций</th>
+                  <th class="p-3">Статус на сайте</th>
+                  <th class="p-3 text-right">Действия</th>
+                </tr>
+              </thead>
+              <tbody id="admin-marathons-table" class="divide-y divide-brand-border text-slate-300"></tbody>
+            </table>
+          </div>
+
+          <!-- Форма создания/изменения марафона -->
+          <div id="marathon-edit-form" style="display: none;" class="p-6 rounded-2xl bg-brand-card border border-brand-orange/40 space-y-4">
+            <h4 id="marathon-form-title" class="font-bold text-sm text-white uppercase">Новое мероприятие</h4>
+            <input type="hidden" id="edit-marathon-id">
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Название марафона</label>
+                <input id="edit-m-title" type="text" placeholder="AQTOBE AUTUMN RUN 2026" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-orange">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Подзаголовок</label>
+                <input id="edit-m-subtitle" type="text" placeholder="Осенний полумарафон" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-orange">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Дата и время старта</label>
+                <input id="edit-m-date" type="datetime-local" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-orange">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Город</label>
+                <input id="edit-m-city" type="text" value="Актобе" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-orange">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Призовой фонд</label>
+                <input id="edit-m-prizepool" type="text" placeholder="2 000 000 ₸" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-orange">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Локация / Маршрут</label>
+              <input id="edit-m-venue" type="text" placeholder="Триатлон Парк — пр. Абилкайыр хана" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-orange">
+            </div>
+
+            <div class="flex gap-3 pt-2">
+              <button type="button" onclick="saveMarathon()" class="px-5 py-2.5 rounded-lg bg-brand-orange text-brand-dark font-black text-xs uppercase hover:bg-white transition">
+                Сохранить марафон
+              </button>
+              <button type="button" onclick="closeMarathonForm()" class="px-5 py-2.5 rounded-lg bg-slate-800 text-slate-300 font-bold text-xs uppercase hover:bg-slate-700 transition">
+                Отмена
+              </button>
+            </div>
           </div>
         </div>
 
-        <div class="rounded-xl border border-brand-border overflow-hidden bg-brand-card">
-          <table class="w-full text-left text-xs">
-            <thead class="bg-brand-dark text-slate-400 uppercase font-bold border-b border-brand-border">
-              <tr>
-                <th class="p-3">Номер (BIB)</th>
-                <th class="p-3">Атлет</th>
-                <th class="p-3">Дистанция</th>
-                <th class="p-3">Город</th>
-                <th class="p-3">Email</th>
-                <th class="p-3 text-right">Действие</th>
-              </tr>
-            </thead>
-            <tbody id="admin-runners-table" class="divide-y divide-brand-border text-slate-300">
-              <!-- JS -->
-            </tbody>
-          </table>
+        <!-- ВКЛАДКА 2: ДИСТАНЦИИ И ЦЕНЫ -->
+        <div id="tab-distances" style="display: none;" class="space-y-6">
+          <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3 bg-brand-card p-4 rounded-xl border border-brand-border">
+            <div>
+              <span class="text-xs text-slate-400">Настройка дистанций для активного забега:</span>
+              <div id="admin-current-event-name" class="font-black text-white text-base">AQTOBE MARATHON</div>
+            </div>
+            <button onclick="openDistanceForm()" class="px-4 py-2 rounded-xl bg-brand-orange text-brand-dark text-xs font-black uppercase hover:bg-white transition self-start sm:self-auto">
+              + Добавить дистанцию
+            </button>
+          </div>
+
+          <div class="rounded-xl border border-brand-border overflow-hidden bg-brand-card">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-brand-dark text-slate-400 uppercase font-bold border-b border-brand-border">
+                <tr>
+                  <th class="p-3">Дистанция</th>
+                  <th class="p-3">Цена (₸)</th>
+                  <th class="p-3">Лимит слотов</th>
+                  <th class="p-3">Диапазон номеров (BIB)</th>
+                  <th class="p-3">Занято</th>
+                  <th class="p-3 text-right">Действия</th>
+                </tr>
+              </thead>
+              <tbody id="admin-distances-table" class="divide-y divide-brand-border text-slate-300"></tbody>
+            </table>
+          </div>
+
+          <!-- Форма дистанции -->
+          <div id="distance-edit-form" style="display: none;" class="p-6 rounded-2xl bg-brand-card border-2 border-brand-orange/50 space-y-4">
+            <h4 id="dist-form-title" class="font-bold text-sm text-white uppercase">Настройка дистанции</h4>
+            <input type="hidden" id="edit-dist-idx">
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Название дистанции</label>
+                <input id="edit-dist-name" type="text" placeholder="21.1 КМ" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-orange">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Бейдж / Статус</label>
+                <input id="edit-dist-badge" type="text" placeholder="Титульный забег" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-orange">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-brand-orange uppercase mb-1">Цена регистрации (₸)</label>
+                <input id="edit-dist-price" type="number" placeholder="9000" class="w-full bg-brand-dark border border-brand-orange text-white font-bold rounded-lg p-2.5 text-xs outline-none">
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-brand-surface border border-brand-border space-y-3">
+              <span class="text-xs font-bold text-brand-orange uppercase">Управление слотами и нумерацией BIB</span>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Количество слотов</label>
+                  <input id="edit-dist-slots" type="number" placeholder="500" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2 text-xs outline-none focus:border-brand-orange">
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Стартовый номер BIB</label>
+                  <input id="edit-dist-bib-start" type="number" placeholder="2001" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2 text-xs outline-none focus:border-brand-orange">
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Конечный номер диапазона</label>
+                  <input id="edit-dist-bib-end" type="text" disabled readonly class="w-full bg-brand-dark/50 border border-brand-border text-slate-400 rounded-lg p-2 text-xs outline-none">
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Лимит времени</label>
+                <input id="edit-dist-timelimit" type="text" placeholder="3 часа 00 мин" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-orange">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Возрастной допуск</label>
+                <input id="edit-dist-agelimit" type="text" placeholder="от 18 лет" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-orange">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Описание дистанции</label>
+              <input id="edit-dist-desc" type="text" placeholder="Описание для страницы" class="w-full bg-brand-dark border border-brand-border text-white rounded-lg p-2.5 text-xs outline-none focus:border-brand-orange">
+            </div>
+
+            <div class="flex gap-3 pt-2">
+              <button type="button" onclick="saveDistance()" class="px-5 py-2.5 rounded-lg bg-brand-orange text-brand-dark font-black text-xs uppercase hover:bg-white transition">
+                Сохранить параметры
+              </button>
+              <button type="button" onclick="closeDistanceForm()" class="px-5 py-2.5 rounded-lg bg-slate-800 text-slate-300 font-bold text-xs uppercase hover:bg-slate-700 transition">
+                Отмена
+              </button>
+            </div>
+          </div>
         </div>
+
+        <!-- ВКЛАДКА 3: БАЗА УЧАСТНИКОВ -->
+        <div id="tab-runners" style="display: none;" class="space-y-4">
+          <div class="flex justify-between items-center">
+            <div>
+              <h3 class="text-base font-bold text-white uppercase">Список зарегистрированных атлетов</h3>
+              <span id="admin-runners-count" class="text-xs text-brand-orange font-semibold">Всего участников: 0</span>
+            </div>
+            <button onclick="exportCSV()" class="px-3.5 py-1.5 rounded-lg bg-slate-800 text-xs font-bold text-slate-300 hover:text-white transition">
+              📥 Скачать CSV
+            </button>
+          </div>
+
+          <div class="rounded-xl border border-brand-border overflow-hidden bg-brand-card">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-brand-dark text-slate-400 uppercase font-bold border-b border-brand-border">
+                <tr>
+                  <th class="p-3">Номер (BIB)</th>
+                  <th class="p-3">Атлет</th>
+                  <th class="p-3">Дистанция</th>
+                  <th class="p-3">Город</th>
+                  <th class="p-3">Email</th>
+                  <th class="p-3 text-right">Действие</th>
+                </tr>
+              </thead>
+              <tbody id="admin-runners-table" class="divide-y divide-brand-border text-slate-300"></tbody>
+            </table>
+          </div>
+        </div>
+
       </main>
     </div>
   </div>
 
-  <!-- СКРИПТЫ САЙТА (ПРОТЕСТИРОВАННЫЕ И НАДЕЖНЫЕ) -->
+  <!-- ======================================================== -->
+  <!--             НАДЕЖНЫЙ JAVASCRIPT ДВИЖОК                   -->
+  <!-- ======================================================== -->
   <script>
-    // 1. БАЗА УЧАСТНИКОВ
-    let runners = [
-      { bib: "2001", name: "Бауыржан Касымов", distance: "21.1 КМ", city: "Актобе", email: "kasymov@test.kz", status: "Подтвержден" },
-      { bib: "2002", name: "Дмитрий Иванов", distance: "21.1 КМ", city: "Алматы", email: "ivanov@test.kz", status: "Подтвержден" },
-      { bib: "1001", name: "Алия Смагулова", distance: "10.0 КМ", city: "Актобе", email: "smagulova@test.kz", status: "Подтвержден" },
-      { bib: "3001", name: "Нурбек Маратов", distance: "3.0 КМ", city: "Актобе", email: "maratov@test.kz", status: "Подтвержден" }
+    // Начальные события (марафоны)
+    const INITIAL_EVENTS = [
+      {
+        id: "evt_spring_2026",
+        title: "AQTOBE MARATHON 2026",
+        subtitle: "Главный весенний полумарафон степи",
+        city: "Актобе",
+        venue: "Триатлон Парк — пр. Абилкайыр хана",
+        date: "2026-05-17T07:00",
+        prizepool: "2 500 000 ₸",
+        status: "Открыта регистрация",
+        distances: [
+          {
+            id: "dist_21",
+            name: "21.1 КМ",
+            kmValue: 21.0975,
+            badge: "Титульный забег",
+            desc: "Классический полумарафон для проверки скоростной выносливости.",
+            price: 9000,
+            totalSlots: 500,
+            bibStart: 2001,
+            timeLimit: "3 часа 00 мин",
+            ageLimit: "от 18 лет"
+          },
+          {
+            id: "dist_10",
+            name: "10.0 КМ",
+            kmValue: 10,
+            badge: "Популярный",
+            desc: "Скоростная десятка по центральным проспектам города.",
+            price: 7500,
+            totalSlots: 700,
+            bibStart: 1001,
+            timeLimit: "1 час 45 мин",
+            ageLimit: "от 15 лет"
+          },
+          {
+            id: "dist_3",
+            name: "3.0 КМ",
+            kmValue: 3,
+            badge: "Fun Run",
+            desc: "Массовый забег для любителей, семей и новичков.",
+            price: 6000,
+            totalSlots: 400,
+            bibStart: 3001,
+            timeLimit: "45 минут",
+            ageLimit: "от 10 лет"
+          }
+        ],
+        runners: [
+          { bib: "2001", name: "Бауыржан Касымов", distance: "21.1 КМ", city: "Актобе", email: "kasymov@test.kz", status: "Подтвержден" },
+          { bib: "2002", name: "Дмитрий Иванов", distance: "21.1 КМ", city: "Алматы", email: "ivanov@test.kz", status: "Подтвержден" },
+          { bib: "1001", name: "Алия Смагулова", distance: "10.0 КМ", city: "Актобе", email: "smagulova@test.kz", status: "Подтвержден" },
+          { bib: "3001", name: "Нурбек Маратов", distance: "3.0 КМ", city: "Актобе", email: "maratov@test.kz", status: "Подтвержден" }
+        ]
+      },
+      {
+        id: "evt_autumn_2026",
+        title: "AQTOBE AUTUMN RUN 2026",
+        subtitle: "Осенний полумарафон и кросс",
+        city: "Актобе",
+        venue: "Парк Первого Президента",
+        date: "2026-10-18T08:00",
+        prizepool: "1 500 000 ₸",
+        status: "Скоро открытие",
+        distances: [
+          {
+            id: "dist_trail_10",
+            name: "10 КМ Кросс",
+            kmValue: 10,
+            badge: "Осенний кросс",
+            desc: "Парковый забег по золотой осени.",
+            price: 6500,
+            totalSlots: 400,
+            bibStart: 4001,
+            timeLimit: "1 час 30 мин",
+            ageLimit: "от 15 лет"
+          }
+        ],
+        runners: [
+          { bib: "4001", name: "Аслан Сергазин", distance: "10 КМ Кросс", city: "Актобе", email: "aslan@test.kz", status: "Подтвержден" }
+        ]
+      }
     ];
 
-    // Диапазоны номеров
-    const bibRanges = {
-      '21.1 КМ': { start: 2001, end: 2500 },
-      '10.0 КМ': { start: 1001, end: 1700 },
-      '3.0 КМ':  { start: 3001, end: 3400 }
-    };
+    let events = JSON.parse(localStorage.getItem('AM_EVENTS_DATA')) || INITIAL_EVENTS;
+    let activeEventId = localStorage.getItem('AM_ACTIVE_EVENT_ID') || events[0].id;
 
-    // 2. КАЛЬКУЛЯТОР ТЕМПА
+    function saveState() {
+      localStorage.setItem('AM_EVENTS_DATA', JSON.stringify(events));
+      localStorage.setItem('AM_ACTIVE_EVENT_ID', activeEventId);
+    }
+
+    function getActiveEvent() {
+      let ev = events.find(e => e.id === activeEventId);
+      if (!ev) {
+        activeEventId = events[0].id;
+        ev = events[0];
+      }
+      return ev;
+    }
+
+    function changeActiveEvent(id) {
+      activeEventId = id;
+      saveState();
+      renderAll();
+    }
+
+    // Отрисовка всех элементов
+    function renderAll() {
+      renderHeaderAndHero();
+      renderEventsCards();
+      renderDistances();
+      renderRunners();
+      updateCountdown();
+    }
+
+    function renderHeaderAndHero() {
+      const ev = getActiveEvent();
+      const sel = document.getElementById('event-selector-header');
+      if (sel) {
+        sel.innerHTML = '';
+        events.forEach(e => {
+          sel.innerHTML += `<option value="${e.id}" ${e.id === ev.id ? 'selected' : ''}>${e.title}</option>`;
+        });
+      }
+
+      document.getElementById('hero-title').innerText = ev.title;
+      document.getElementById('hero-desc').innerText = ev.subtitle + '. ' + ev.venue + '.';
+      document.getElementById('hero-badge').innerText = `${ev.city} • ${new Date(ev.date).toLocaleDateString('ru-RU')} • ${ev.status}`;
+      document.getElementById('distances-event-tag').innerText = ev.title;
+
+      document.getElementById('stat-venue').innerText = (ev.venue || '').split('—')[0].trim();
+      document.getElementById('stat-distances-count').innerText = `${ev.distances.length} Дистанции`;
+      
+      const totalSlots = (ev.distances || []).reduce((sum, d) => sum + (parseInt(d.totalSlots) || 0), 0);
+      const takenSlots = (ev.runners || []).length;
+      document.getElementById('stat-slots-total').innerText = `${takenSlots} / ${totalSlots}`;
+      document.getElementById('stat-prizepool').innerText = ev.prizepool || '2 500 000 ₸';
+      document.getElementById('route-title').innerText = `${ev.title} — ${ev.venue}`;
+    }
+
+    function renderEventsCards() {
+      const container = document.getElementById('events-cards-grid');
+      if (!container) return;
+      container.innerHTML = '';
+
+      events.forEach(e => {
+        const isActive = e.id === activeEventId;
+        const total = (e.distances || []).reduce((sum, d) => sum + (parseInt(d.totalSlots) || 0), 0);
+        const taken = (e.runners || []).length;
+        const dStr = new Date(e.date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+
+        container.innerHTML += `
+          <div class="rounded-3xl bg-brand-card border ${isActive ? 'border-2 border-brand-orange' : 'border-brand-border'} p-6 flex flex-col justify-between hover:border-slate-500 transition">
+            <div>
+              <div class="flex justify-between items-center mb-4">
+                <span class="text-xs px-2.5 py-1 rounded-full font-bold ${isActive ? 'bg-brand-orange/20 text-brand-orange' : 'bg-slate-800 text-slate-400'}">
+                  ${isActive ? '● Выбрано на сайте' : e.status}
+                </span>
+                <span class="text-xs text-slate-400 font-mono">${dStr}</span>
+              </div>
+              <h3 class="text-xl font-black text-white mb-2">${e.title}</h3>
+              <p class="text-xs text-slate-400 mb-4">${e.subtitle}</p>
+              <div class="text-xs text-slate-300 space-y-1 mb-6">
+                <div>📍 <strong>Локация:</strong> ${e.venue}</div>
+                <div>🏃 <strong>Дистанции:</strong> ${(e.distances || []).map(d => d.name).join(', ')}</div>
+                <div>👥 <strong>Слоты:</strong> ${taken} из ${total} занято</div>
+              </div>
+            </div>
+            <button onclick="changeActiveEvent('${e.id}')" class="w-full py-3 rounded-xl font-extrabold text-xs uppercase tracking-wider transition ${isActive ? 'bg-brand-orange text-brand-dark' : 'bg-slate-800 text-white hover:bg-brand-orange hover:text-brand-dark'}">
+              ${isActive ? 'Просматривается' : 'Выбрать этот марафон'}
+            </button>
+          </div>
+        `;
+      });
+    }
+
+    function renderDistances() {
+      const ev = getActiveEvent();
+      const container = document.getElementById('distances-grid');
+      const selectModal = document.getElementById('modal-distance-select');
+      const selectCalc = document.getElementById('calc-dist');
+
+      if (container) container.innerHTML = '';
+      if (selectModal) selectModal.innerHTML = '';
+      if (selectCalc) selectCalc.innerHTML = '';
+
+      (ev.distances || []).forEach((d, idx) => {
+        const distRunners = (ev.runners || []).filter(r => r.distance === d.name).length;
+        const leftSlots = Math.max(0, d.totalSlots - distRunners);
+        const percent = Math.min(100, Math.round((distRunners / d.totalSlots) * 100));
+        const isSoldOut = leftSlots <= 0;
+        const isFeatured = idx === 0;
+        const bibEnd = parseInt(d.bibStart) + parseInt(d.totalSlots) - 1;
+
+        if (container) {
+          container.innerHTML += `
+            <div class="relative rounded-3xl bg-brand-card p-8 flex flex-col justify-between overflow-hidden shadow-2xl transition hover:scale-[1.01] ${isSoldOut ? 'opacity-80 border border-slate-700' : isFeatured ? 'border-2 border-brand-orange' : 'border border-brand-border'}">
+              <div>
+                <div class="flex justify-between items-center mb-6">
+                  <span class="inline-block px-3 py-1 rounded-full text-xs font-extrabold uppercase ${isSoldOut ? 'bg-red-500/20 text-red-400' : isFeatured ? 'bg-brand-orange/20 text-brand-orange' : 'bg-slate-800 text-brand-blue'}">
+                    ${isSoldOut ? 'Слоты исчерпаны' : d.badge}
+                  </span>
+                  <span class="text-xs text-slate-400 font-mono">BIB: #${d.bibStart}–${bibEnd}</span>
+                </div>
+
+                <h3 class="text-4xl font-black text-white mb-1">${d.name}</h3>
+                <p class="text-slate-400 text-sm mb-6">${d.desc}</p>
+                
+                <div class="space-y-3 py-4 border-y border-brand-border text-sm">
+                  <div class="flex justify-between"><span class="text-slate-400">Лимит времени:</span><span class="font-bold text-white">${d.timeLimit}</span></div>
+                  <div class="flex justify-between"><span class="text-slate-400">Возраст:</span><span class="font-bold text-white">${d.ageLimit}</span></div>
+                  <div class="flex justify-between"><span class="text-slate-400">Осталось мест:</span><span class="font-bold ${leftSlots < 20 ? 'text-amber-400' : 'text-white'}">${leftSlots} из ${d.totalSlots}</span></div>
+                </div>
+
+                <div class="mt-6 mb-8">
+                  <div class="w-full bg-brand-dark h-2 rounded-full overflow-hidden">
+                    <div class="${isSoldOut ? 'bg-red-500' : 'bg-gradient-to-r from-brand-orange to-brand-amber'} h-full rounded-full" style="width: ${percent}%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="text-2xl font-black text-white mb-4">${parseInt(d.price).toLocaleString('ru-RU')} ₸</div>
+                <button onclick="openRegistrationModal('${d.name}')" ${isSoldOut ? 'disabled' : ''} class="w-full py-3.5 rounded-xl font-extrabold tracking-wide uppercase transition ${isSoldOut ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : isFeatured ? 'bg-gradient-to-r from-brand-orange to-brand-amber text-brand-dark hover:scale-105' : 'bg-slate-800 text-white hover:bg-brand-orange hover:text-brand-dark'}">
+                  ${isSoldOut ? 'Мест нет (Sold Out)' : 'Выбрать ' + d.name}
+                </button>
+              </div>
+            </div>
+          `;
+        }
+
+        if (selectModal) {
+          if (!isSoldOut) {
+            selectModal.innerHTML += `<option value="${d.name}">${d.name} — ${parseInt(d.price).toLocaleString('ru-RU')} ₸ (Осталось: ${leftSlots})</option>`;
+          } else {
+            selectModal.innerHTML += `<option value="${d.name}" disabled>${d.name} — МЕСТ НЕТ</option>`;
+          }
+        }
+
+        if (selectCalc) {
+          const km = d.kmValue || parseFloat(d.name) || 10;
+          selectCalc.innerHTML += `<option value="${km}">${d.name}</option>`;
+        }
+      });
+
+      calculatePace();
+    }
+
+    function renderRunners(list = null) {
+      const ev = getActiveEvent();
+      const runnersList = list || ev.runners || [];
+      const tbody = document.getElementById('runners-table-body');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      if (runnersList.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-500">Пока нет зарегистрированных участников</td></tr>`;
+        return;
+      }
+
+      runnersList.forEach(r => {
+        tbody.innerHTML += `
+          <tr class="hover:bg-brand-surface transition">
+            <td class="py-4 px-6 font-mono font-bold text-brand-orange text-base">#${r.bib}</td>
+            <td class="py-4 px-6 font-bold text-white">${r.name}</td>
+            <td class="py-4 px-6">${r.distance}</td>
+            <td class="py-4 px-6">${r.city || 'Актобе'}</td>
+            <td class="py-4 px-6">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400">
+                ${r.status || 'Подтвержден'}
+              </span>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function filterRunners() {
+      const ev = getActiveEvent();
+      const q = document.getElementById('runner-search')?.value.toLowerCase() || '';
+      const filtered = (ev.runners || []).filter(r => (r.name || '').toLowerCase().includes(q) || String(r.bib).includes(q));
+      renderRunners(filtered);
+    }
+
+    // ========================================================
+    //             РЕГИСТРАЦИЯ УЧАСТНИКА (РАБОТАЕТ 100%)
+    // ========================================================
+    function openRegistrationModal(targetDistance) {
+      const modal = document.getElementById('reg-modal');
+      const ev = getActiveEvent();
+      document.getElementById('reg-event-badge').innerText = ev.title;
+
+      if (targetDistance) {
+        const sel = document.getElementById('modal-distance-select');
+        for (let i = 0; i < sel.options.length; i++) {
+          if (sel.options[i].value === targetDistance) {
+            sel.selectedIndex = i;
+            break;
+          }
+        }
+      }
+
+      modal.style.display = 'flex';
+    }
+
+    function closeRegistrationModal() {
+      document.getElementById('reg-modal').style.display = 'none';
+    }
+
+    function handleUserRegistration(e) {
+      e.preventDefault();
+      const ev = getActiveEvent();
+      const distName = document.getElementById('modal-distance-select').value;
+      const name = document.getElementById('reg-name').value.trim();
+      const surname = document.getElementById('reg-surname').value.trim();
+      const city = document.getElementById('reg-city').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+
+      const dist = (ev.distances || []).find(d => d.name === distName);
+      if (!dist) { alert("Выберите дистанцию!"); return; }
+
+      const existingRunners = (ev.runners || []).filter(r => r.distance === dist.name);
+      if (existingRunners.length >= parseInt(dist.totalSlots)) {
+        alert("Все слоты на эту дистанцию уже заняты!");
+        return;
+      }
+
+      const startBib = parseInt(dist.bibStart) || 1001;
+      const totalSlots = parseInt(dist.totalSlots) || 100;
+      const assignedBibs = new Set(existingRunners.map(r => parseInt(r.bib)));
+
+      let allocatedBib = null;
+      for (let num = startBib; num < startBib + totalSlots; num++) {
+        if (!assignedBibs.has(num)) {
+          allocatedBib = num;
+          break;
+        }
+      }
+
+      if (!allocatedBib) {
+        alert("Ошибка выделения номера!");
+        return;
+      }
+
+      const newRunner = {
+        bib: allocatedBib.toString(),
+        name: `${surname} ${name}`,
+        distance: dist.name,
+        city: city || 'Актобе',
+        email: email,
+        status: "Подтвержден",
+        regDate: new Date().toISOString()
+      };
+
+      if (!ev.runners) ev.runners = [];
+      ev.runners.unshift(newRunner);
+      saveState();
+      renderAll();
+
+      alert(`Поздравляем, ${name}!\nВы успешно зарегистрированы на «${ev.title}»!\nДистанция: ${dist.name}\nВаш официальный стартовый номер BIB: #${allocatedBib}`);
+      closeRegistrationModal();
+      e.target.reset();
+    }
+
+    // Калькулятор темпа
     function calculatePace() {
-      const dist = parseFloat(document.getElementById('calc-dist').value) || 10;
-      const h = parseInt(document.getElementById('calc-hours').value) || 0;
-      const m = parseInt(document.getElementById('calc-mins').value) || 0;
+      const distEl = document.getElementById('calc-dist');
+      if (!distEl) return;
+      const dist = parseFloat(distEl.value) || 10;
+      const h = parseInt(document.getElementById('calc-hours')?.value) || 0;
+      const m = parseInt(document.getElementById('calc-mins')?.value) || 0;
       const totalMinutes = (h * 60) + m;
 
       if (totalMinutes <= 0 || dist <= 0) return;
@@ -741,199 +1151,304 @@
       document.getElementById('res-split5').innerText = `${s5Min}:${s5Sec < 10 ? '0' : ''}${s5Sec}`;
     }
 
-    // 3. ТАЙМЕР ОБРАТНОГО ОТСЧЕТА
-    const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 48);
-    targetDate.setHours(7, 0, 0, 0);
-
+    // Таймер
     function updateCountdown() {
-      const now = new Date();
-      const diff = targetDate - now;
-      if (diff <= 0) return;
+      const ev = getActiveEvent();
+      if (!ev || !ev.date) return;
+      const target = new Date(ev.date).getTime();
+      const now = new Date().getTime();
+      const diff = target - now;
+
+      const setT = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = val;
+      };
+
+      if (diff <= 0) {
+        setT('t-days', "00");
+        setT('t-hours', "00");
+        setT('t-mins', "00");
+        setT('t-secs', "00");
+        return;
+      }
 
       const d = Math.floor(diff / (1000 * 60 * 60 * 24));
       const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const m = Math.floor((diff / 1000 / 60) % 60);
       const s = Math.floor((diff / 1000) % 60);
 
-      document.getElementById('t-days').innerText = d;
-      document.getElementById('t-hours').innerText = h < 10 ? '0' + h : h;
-      document.getElementById('t-mins').innerText = m < 10 ? '0' + m : m;
-      document.getElementById('t-secs').innerText = s < 10 ? '0' + s : s;
+      setT('t-days', d < 10 ? '0' + d : d);
+      setT('t-hours', h < 10 ? '0' + h : h);
+      setT('t-mins', m < 10 ? '0' + m : m);
+      setT('t-secs', s < 10 ? '0' + s : s);
     }
     setInterval(updateCountdown, 1000);
-    updateCountdown();
 
-    // 4. ТАБЛИЦА УЧАСТНИКОВ
-    function renderRunnersTable(list = runners) {
-      const tbody = document.getElementById('runners-table-body');
-      tbody.innerHTML = '';
-      if (list.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-500">Участники не найдены</td></tr>`;
-        return;
-      }
-      list.forEach(r => {
-        tbody.innerHTML += `
-          <tr class="hover:bg-brand-surface transition">
-            <td class="py-4 px-6 font-mono font-bold text-brand-orange text-base">#${r.bib}</td>
-            <td class="py-4 px-6 font-bold text-white">${r.name}</td>
-            <td class="py-4 px-6">${r.distance}</td>
-            <td class="py-4 px-6">${r.city}</td>
-            <td class="py-4 px-6">
-              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400">
-                ${r.status}
-              </span>
-            </td>
-          </tr>
-        `;
-      });
-    }
-
-    function filterRunners() {
-      const q = document.getElementById('runner-search').value.toLowerCase();
-      const filtered = runners.filter(r => r.name.toLowerCase().includes(q) || String(r.bib).includes(q));
-      renderRunnersTable(filtered);
-    }
-
-    // 5. РЕГИСТРАЦИЯ
-    function openRegistrationModal() {
-      document.getElementById('reg-modal').classList.remove('hidden');
-      document.getElementById('reg-modal').classList.add('flex');
-    }
-
-    function closeRegistrationModal() {
-      document.getElementById('reg-modal').classList.remove('flex');
-      document.getElementById('reg-modal').classList.add('hidden');
-    }
-
-    function selectDistance(distName) {
-      openRegistrationModal();
-      document.getElementById('modal-distance-select').value = distName;
-    }
-
-    function handleUserRegistration(e) {
-      e.preventDefault();
-      const dist = document.getElementById('modal-distance-select').value;
-      const name = document.getElementById('reg-name').value.trim();
-      const surname = document.getElementById('reg-surname').value.trim();
-      const city = document.getElementById('reg-city').value.trim();
-      const email = document.getElementById('reg-email').value.trim();
-
-      const range = bibRanges[dist] || { start: 5001, end: 6000 };
-      const usedBibs = new Set(runners.filter(r => r.distance === dist).map(r => parseInt(r.bib)));
-      
-      let newBib = null;
-      for (let n = range.start; n <= range.end; n++) {
-        if (!usedBibs.has(n)) {
-          newBib = n;
-          break;
-        }
-      }
-
-      const runner = {
-        bib: newBib.toString(),
-        name: `${surname} ${name}`,
-        distance: dist,
-        city: city || 'Актобе',
-        email: email,
-        status: "Подтвержден"
-      };
-
-      runners.unshift(runner);
-      renderRunnersTable();
-      renderAdminTable();
-
-      alert(`Поздравляем, ${name}!\nВы успешно зарегистрированы на AQTOBE MARATHON!\nДистанция: ${dist}\nВаш официальный стартовый номер BIB: #${newBib}`);
-      closeRegistrationModal();
-      e.target.reset();
-    }
-
-    // 6. РОУТИНГ И АДМИНКА (#admin)
-    function handleRouting() {
+    // ========================================================
+    //    АДМИН-ПАНЕЛЬ: ВХОД ЧЕРЕЗ #admin И КНОПКУ В ФУТЕРЕ
+    // ========================================================
+    function checkRoute() {
       const isAdmin = window.location.hash === '#admin';
       const publicView = document.getElementById('public-view');
       const adminView = document.getElementById('admin-view');
 
       if (isAdmin) {
-        publicView.classList.add('hidden');
-        adminView.classList.remove('hidden');
+        publicView.style.display = 'none';
+        adminView.style.display = 'flex';
+        
         if (sessionStorage.getItem('AM_ADMIN_LOGGED') === 'true') {
-          document.getElementById('admin-login-screen').classList.add('hidden');
-          document.getElementById('admin-dashboard-screen').classList.remove('hidden');
-          renderAdminTable();
+          document.getElementById('admin-login-screen').style.display = 'none';
+          document.getElementById('admin-dashboard-screen').style.display = 'flex';
+          renderAdminAll();
         } else {
-          document.getElementById('admin-dashboard-screen').classList.add('hidden');
-          document.getElementById('admin-login-screen').classList.remove('hidden');
+          document.getElementById('admin-dashboard-screen').style.display = 'none';
+          document.getElementById('admin-login-screen').style.display = 'flex';
         }
       } else {
-        adminView.classList.add('hidden');
-        publicView.classList.remove('hidden');
+        adminView.style.display = 'none';
+        publicView.style.display = 'block';
+        renderAll();
       }
     }
 
-    window.addEventListener('hashchange', handleRouting);
-    window.addEventListener('DOMContentLoaded', handleRouting);
-
-    function handleAdminLogin(e) {
-      e.preventDefault();
-      const l = document.getElementById('admin-input-login').value.trim();
-      const p = document.getElementById('admin-input-pass').value.trim();
-      if (l === 'admin' && p === 'aqtobe2026') {
-        sessionStorage.setItem('AM_ADMIN_LOGGED', 'true');
-        handleRouting();
-      } else {
-        document.getElementById('login-error-msg').classList.remove('hidden');
-      }
-    }
-
-    function handleAdminLogout() {
-      sessionStorage.removeItem('AM_ADMIN_LOGGED');
-      window.location.hash = '';
+    function openAdminDirectly() {
+      window.location.hash = '#admin';
     }
 
     function exitAdminToPublic() {
       window.location.hash = '';
     }
 
-    function renderAdminTable() {
-      const tbody = document.getElementById('admin-runners-table');
-      document.getElementById('admin-runners-count').innerText = `Всего участников: ${runners.length}`;
+    function handleAdminLogin(e) {
+      e.preventDefault();
+      const login = document.getElementById('admin-input-login').value.trim();
+      const pass = document.getElementById('admin-input-pass').value.trim();
+
+      if (login === 'admin' && pass === 'aqtobe2026') {
+        sessionStorage.setItem('AM_ADMIN_LOGGED', 'true');
+        document.getElementById('login-error-msg').style.display = 'none';
+        checkRoute();
+      } else {
+        document.getElementById('login-error-msg').style.display = 'block';
+      }
+    }
+
+    function handleAdminLogout() {
+      sessionStorage.removeItem('AM_ADMIN_LOGGED');
+      exitAdminToPublic();
+    }
+
+    // Вкладки админки
+    function switchAdminTab(tabId) {
+      ['tab-marathons', 'tab-distances', 'tab-runners'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+      const activeTab = document.getElementById(tabId);
+      if (activeTab) activeTab.style.display = 'block';
+
+      ['btn-tab-marathons', 'btn-tab-distances', 'btn-tab-runners'].forEach(btnId => {
+        const b = document.getElementById(btnId);
+        if (b) b.className = "py-3.5 text-slate-400 hover:text-white whitespace-nowrap";
+      });
+      const activeBtn = document.getElementById('btn-' + tabId);
+      if (activeBtn) activeBtn.className = "py-3.5 text-brand-orange border-b-2 border-brand-orange whitespace-nowrap";
+
+      if (tabId === 'tab-distances') renderAdminDistances();
+      if (tabId === 'tab-runners') renderAdminRunners();
+      if (tabId === 'tab-marathons') renderAdminMarathons();
+    }
+
+    function renderAdminAll() {
+      renderAdminMarathons();
+      renderAdminDistances();
+      renderAdminRunners();
+    }
+
+    // 1. Управление марафонами в админке
+    function renderAdminMarathons() {
+      const tbody = document.getElementById('admin-marathons-table');
+      if (!tbody) return;
       tbody.innerHTML = '';
-      runners.forEach((r, idx) => {
+
+      events.forEach((e, idx) => {
+        const isActive = e.id === activeEventId;
+        const dStr = new Date(e.date).toLocaleDateString('ru-RU');
         tbody.innerHTML += `
           <tr class="hover:bg-brand-surface/60">
-            <td class="p-3 font-mono font-bold text-brand-orange text-sm">#${r.bib}</td>
-            <td class="p-3 font-bold text-white">${r.name}</td>
-            <td class="p-3">${r.distance}</td>
-            <td class="p-3">${r.city}</td>
-            <td class="p-3 text-slate-400">${r.email || '—'}</td>
-            <td class="p-3 text-right">
-              <button onclick="deleteRunner(${idx})" class="text-red-400 hover:underline">Удалить</button>
+            <td class="p-3">
+              <strong class="text-white block">${e.title}</strong>
+              <span class="text-slate-500 text-[10px]">${e.subtitle}</span>
+            </td>
+            <td class="p-3 font-mono">${dStr}</td>
+            <td class="p-3">${e.city}</td>
+            <td class="p-3">${(e.distances || []).length} дист.</td>
+            <td class="p-3">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${isActive ? 'bg-brand-orange text-brand-dark' : 'bg-slate-800 text-slate-400'}">
+                ${isActive ? 'АКТИВЕН НА САЙТЕ' : 'В списке'}
+              </span>
+            </td>
+            <td class="p-3 text-right space-x-2">
+              ${!isActive ? `<button type="button" onclick="setActiveFromAdmin('${e.id}')" class="text-brand-orange hover:underline font-bold">Выбрать</button>` : ''}
+              <button type="button" onclick="editMarathon(${idx})" class="text-brand-blue hover:underline font-bold">Изменить</button>
+              ${events.length > 1 ? `<button type="button" onclick="deleteMarathon(${idx})" class="text-red-400 hover:underline font-bold">Удалить</button>` : ''}
             </td>
           </tr>
         `;
       });
     }
 
-    function deleteRunner(idx) {
-      if (confirm(`Удалить участника ${runners[idx].name}? Номер #${runners[idx].bib} освободится.`)) {
-        runners.splice(idx, 1);
-        renderAdminTable();
-        renderRunnersTable();
+    function setActiveFromAdmin(id) {
+      activeEventId = id;
+      saveState();
+      renderAdminMarathons();
+      renderAdminDistances();
+      renderAdminRunners();
+    }
+
+    function openMarathonForm(idx = -1) {
+      const form = document.getElementById('marathon-edit-form');
+      form.style.display = 'block';
+
+      if (idx >= 0) {
+        const e = events[idx];
+        document.getElementById('marathon-form-title').innerText = "Редактировать: " + e.title;
+        document.getElementById('edit-marathon-id').value = idx;
+        document.getElementById('edit-m-title').value = e.title;
+        document.getElementById('edit-m-subtitle').value = e.subtitle;
+        document.getElementById('edit-m-city').value = e.city;
+        document.getElementById('edit-m-venue').value = e.venue;
+        document.getElementById('edit-m-prizepool').value = e.prizepool;
+        const d = new Date(e.date);
+        d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+        document.getElementById('edit-m-date').value = d.toISOString().slice(0, 16);
+      } else {
+        document.getElementById('marathon-form-title').innerText = "Добавить новый марафон";
+        document.getElementById('edit-marathon-id').value = "-1";
+        document.getElementById('edit-m-title').value = "";
+        document.getElementById('edit-m-subtitle').value = "Городской легкоатлетический забег";
+        document.getElementById('edit-m-city').value = "Актобе";
+        document.getElementById('edit-m-venue').value = "Триатлон Парк";
+        document.getElementById('edit-m-prizepool').value = "2 000 000 ₸";
+        document.getElementById('edit-m-date').value = new Date().toISOString().slice(0, 16);
       }
     }
 
-    function exportCSV() {
-      let csv = "\uFEFFBIB;ФИО;Дистанция;Город;Email;Статус\n";
-      runners.forEach(r => {
-        csv += `"${r.bib}";"${r.name}";"${r.distance}";"${r.city}";"${r.email || ''}";"${r.status}"\n`;
-      });
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = `Aqtobe_Marathon_Runners.csv`;
-      link.click();
+    function closeMarathonForm() {
+      document.getElementById('marathon-edit-form').style.display = 'none';
     }
-  </script>
-</body>
-</html>
+
+    function editMarathon(idx) {
+      openMarathonForm(idx);
+    }
+
+    function saveMarathon() {
+      const idx = parseInt(document.getElementById('edit-marathon-id').value);
+      const title = document.getElementById('edit-m-title').value.trim();
+      const subtitle = document.getElementById('edit-m-subtitle').value.trim();
+      const city = document.getElementById('edit-m-city').value.trim();
+      const venue = document.getElementById('edit-m-venue').value.trim();
+      const prizepool = document.getElementById('edit-m-prizepool').value.trim();
+      const dateVal = document.getElementById('edit-m-date').value;
+
+      if (!title) { alert("Укажите название марафона!"); return; }
+
+      if (idx >= 0) {
+        events[idx].title = title;
+        events[idx].subtitle = subtitle;
+        events[idx].city = city;
+        events[idx].venue = venue;
+        events[idx].prizepool = prizepool;
+        if (dateVal) events[idx].date = new Date(dateVal).toISOString();
+      } else {
+        const newEvt = {
+          id: 'evt_' + Date.now(),
+          title,
+          subtitle,
+          city,
+          venue,
+          prizepool,
+          date: dateVal ? new Date(dateVal).toISOString() : new Date().toISOString(),
+          status: "Регистрация открыта",
+          distances: [
+            {
+              id: 'dist_1',
+              name: '10 КМ',
+              kmValue: 10,
+              badge: 'Стандарт',
+              desc: 'Основная дистанция',
+              price: 7000,
+              totalSlots: 300,
+              bibStart: 1001,
+              timeLimit: '1 час 30 мин',
+              ageLimit: 'от 16 лет'
+            }
+          ],
+          runners: []
+        };
+        events.push(newEvt);
+        activeEventId = newEvt.id;
+      }
+
+      saveState();
+      renderAdminMarathons();
+      closeMarathonForm();
+      alert("Марафон успешно сохранен!");
+    }
+
+    function deleteMarathon(idx) {
+      if (events.length <= 1) {
+        alert("Нельзя удалить единственный марафон!");
+        return;
+      }
+      if (confirm(`Удалить марафон "${events[idx].title}"?`)) {
+        events.splice(idx, 1);
+        activeEventId = events[0].id;
+        saveState();
+        renderAdminMarathons();
+      }
+    }
+
+    // 2. Управление дистанциями в админке
+    function renderAdminDistances() {
+      const ev = getActiveEvent();
+      document.getElementById('admin-current-event-name').innerText = ev.title;
+      const tbody = document.getElementById('admin-distances-table');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      (ev.distances || []).forEach((d, idx) => {
+        const assigned = (ev.runners || []).filter(r => r.distance === d.name).length;
+        const bibEnd = parseInt(d.bibStart) + parseInt(d.totalSlots) - 1;
+
+        tbody.innerHTML += `
+          <tr class="hover:bg-brand-surface/60">
+            <td class="p-3">
+              <strong class="text-white block">${d.name}</strong>
+              <span class="text-slate-500 text-[10px]">${d.badge}</span>
+            </td>
+            <td class="p-3 font-bold text-brand-orange">${parseInt(d.price).toLocaleString('ru-RU')} ₸</td>
+            <td class="p-3 font-semibold">${d.totalSlots} мест</td>
+            <td class="p-3 font-mono text-brand-blue">#${d.bibStart} – #${bibEnd}</td>
+            <td class="p-3">${assigned} / ${d.totalSlots}</td>
+            <td class="p-3 text-right space-x-2">
+              <button type="button" onclick="editDistance(${idx})" class="text-brand-blue hover:underline font-bold">Изменить</button>
+              <button type="button" onclick="deleteDistance(${idx})" class="text-red-400 hover:underline font-bold">Удалить</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function editDistance(idx) {
+      openDistanceForm(idx);
+    }
+
+    function openDistanceForm(idx = -1) {
+      const ev = getActiveEvent();
+      const form = document.getElementById('distance-edit-form');
+      form.style.display = 'block';
+
+      if (idx >= 0) {
+        const d = ev.distances[idx];
+        document.getElementById('dist-form-title').innerText = "Редактировать забег: " + d.n
