@@ -405,7 +405,7 @@
       </div>
     </section>
 
-    <!-- ФУТЕР С КНОПКОЙ ВХОДА ДЛЯ ОРГАНИЗАТОРА -->
+    <!-- ФУТЕР (ССЫЛКА НА АДМИНКУ ПОЛНОСТЬЮ УДАЛЕНА) -->
     <footer class="bg-brand-surface border-t border-brand-border py-12 text-slate-400 text-xs">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
         <div class="flex items-center gap-3">
@@ -418,9 +418,7 @@
         <div class="flex items-center gap-6 text-slate-400">
           <a href="#events-list" class="hover:text-white transition">Забеги</a>
           <a href="#distances" class="hover:text-white transition">Дистанции</a>
-          <button type="button" onclick="openAdminDirectly()" class="text-slate-500 hover:text-brand-orange transition flex items-center gap-1.5" title="Вход в систему управления">
-            🔒 <span>Вход для организаторов</span>
-          </button>
+          <a href="#route" class="hover:text-white transition">Безопасность</a>
         </div>
       </div>
     </footer>
@@ -496,7 +494,7 @@
   </div>
 
   <!-- ================================================================= -->
-  <!-- 2. ЗАКРЫТАЯ АДМИН-ПАНЕЛЬ (ВХОД ЧЕРЕЗ #admin ИЛИ КНОПКУ В ФУТЕРЕ)   -->
+  <!-- 2. ЗАКРЫТАЯ АДМИН-ПАНЕЛЬ (ВХОД ТОЛЬКО ПО ССЫЛКЕ /#admin)          -->
   <!-- ================================================================= -->
   <div id="admin-view" style="display: none;" class="min-h-screen bg-brand-dark text-slate-100 flex-col">
     
@@ -1263,7 +1261,7 @@
     setInterval(updateCountdown, 1000);
 
     // ========================================================
-    //    АДМИН-ПАНЕЛЬ: ВХОД ЧЕРЕЗ #admin И КНОПКУ В ФУТЕРЕ
+    //    АДМИН-ПАНЕЛЬ: ВХОД ТОЛЬКО ЧЕРЕЗ #admin
     // ========================================================
     function checkRoute() {
       const isAdmin = window.location.hash === '#admin';
@@ -1289,11 +1287,6 @@
         publicView.style.display = 'block';
         renderAll();
       }
-    }
-
-    function openAdminDirectly() {
-      window.location.hash = '#admin';
-      checkRoute();
     }
 
     function exitAdminToPublic() {
@@ -1624,7 +1617,6 @@
       }
     }
 
-    // 3. База участников в админке с отображением ИИН, даты рождения и телефона
     function renderAdminRunners() {
       const ev = getActiveEvent();
       document.getElementById('admin-runners-count').innerText = "Марафон: " + ev.title + " (Всего бегунов: " + (ev.runners || []).length + ")";
